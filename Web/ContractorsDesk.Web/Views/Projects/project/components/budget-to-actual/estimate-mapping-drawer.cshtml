@@ -1,0 +1,70 @@
+﻿<div class="bg-body"
+	 id="estimate-mapping-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'850px', 'lg': '850px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#estimate-mapping-drawer-close">
+
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="estimate-mapping-drawer-header">
+				<h3 class="card-title fw-bolder text-dark">Map Missing QuickBooks Transactions</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="estimate-mapping-drawer-close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative pt-2" id="estimate-mapping-drawer-body">
+				<div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#estimate-mapping-drawer-body"
+					 data-kt-scroll-dependencies="#estimate-mapping-drawer-header, #estimate-mapping-drawer-footer"
+					 data-kt-scroll-offset="5px">
+					<table class="table table-cell-bordered">
+						<thead class="">
+							<tr class="fw-bolder fs-6 text-gray-800 bg-light">
+								<th class="ps-2 w-200px">Unmapped QB Account</th>
+								<th class="text-center w-125px">Amount</th>
+								<th class="text-center">Map To</th>
+							</tr>
+						</thead>
+						<tbody id="body-missing-transactions">
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="estimate-mapping-drawer-footer">
+				<button type="button" class="btn btn-sm btn-primary always-enabled w-200px" evt-click="onSaveMapping">
+					<span class="indicator-label">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-floppy" viewBox="0 0 16 16">
+							<path d="M11 2H9v3h2z" />
+							<path d="M1.5 0h11.586a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13A1.5 1.5 0 0 1 1.5 0M1 1.5v13a.5.5 0 0 0 .5.5H2v-4.5A1.5 1.5 0 0 1 3.5 9h9a1.5 1.5 0 0 1 1.5 1.5V15h.5a.5.5 0 0 0 .5-.5V2.914a.5.5 0 0 0-.146-.353l-1.415-1.415A.5.5 0 0 0 13.086 1H13v4.5A1.5 1.5 0 0 1 11.5 7h-7A1.5 1.5 0 0 1 3 5.5V1H1.5a.5.5 0 0 0-.5.5m3 4a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V1H4zM3 15h10v-4.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5z" />
+						</svg>
+						&nbsp;&nbsp;Save Mappings
+					</span>
+					<span class="indicator-progress">
+						Saving...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

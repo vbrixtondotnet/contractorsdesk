@@ -1,0 +1,132 @@
+﻿@model dynamic;
+@{
+	string width;
+
+	var modelType = Model?.GetType();
+	var hasWidth = modelType?.GetProperty("Width") != null;
+
+	width = hasWidth ? (string)Model.Width : "800px";
+}
+
+<div class="bg-body"
+	 id="send-email-component-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'@width', 'lg': '@width'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#send-email-component-close">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0 h-100">
+			<!--begin::Header-->
+			<div class="card-header" id="send-email-component-header">
+				<h3 class="card-title fw-bolder text-dark">Compose Message</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="send-email-component-close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative" id="send-email-component-body">
+				<div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#send-email-component-body"
+					 data-kt-scroll-dependencies="#send-email-component-header, #send-email-component-footer"
+					 data-kt-scroll-offset="5px">
+				<form id="kt_inbox_compose_form">
+					<!--begin::Body-->
+					<div class="d-block">
+						<!--begin::To-->
+							<div class="fv-row">
+								<div class="d-flex align-items-center border-bottom px-0 min-h-50px">
+									<!--begin::Label-->
+									<span class="text-dark fw-bolder w-75px">To:</span>
+									<input type="text" class="form-control border-0" id="send-email-component-to" name="send-email-component-to" value="">
+									<div class="ms-auto w-75px text-end">
+										<span class="text-muted fs-bold cursor-pointer text-hover-primary me-2" id="send-email-component-btn-cc">Cc</span>
+										<span class="text-muted fs-bold cursor-pointer text-hover-primary" id="send-email-component-btn-bcc">Bcc</span>
+									</div>
+								</div>
+							</div>
+							<div class="fv-row send-email-component-cc d-none">
+								<div class="d-flex align-items-center border-bottom px-0 min-h-50px">
+									<!--begin::Label-->
+									<span class="text-dark fw-bolder w-75px">CC:</span>
+									<input type="text" class="form-control border-0" id="send-email-component-cc" name="send-email-component-cc" value="">
+								</div>
+							</div>
+							<div class="fv-row send-email-component-bcc d-none">
+								<div class="d-flex align-items-center border-bottom px-0 min-h-50px">
+									<!--begin::Label-->
+									<span class="text-dark fw-bolder w-75px">BCC:</span>
+									<input type="text" class="form-control border-0" id="send-email-component-bcc" name="send-email-component-bcc" value="">
+								</div>
+							</div>
+							<div class="fv-row d-none">
+								<div class="d-flex align-items-center border-bottom px-0 min-h-50px">
+									<!--begin::Label-->
+									<span class="text-dark fw-bolder w-75px">Project:</span>
+									<select class="form-select" data-dropdown-model="projects" name="send-email-component-project" id="send-email-component-project"></select>
+								</div>
+							</div>
+							<div class="fv-row">
+								<div class="d-flex align-items-center border-bottom px-0 min-h-50px">
+									<!--begin::Label-->
+									<span class="text-dark fw-bolder w-75px">Subject:</span>
+									<input type="text" class="form-control border-0" id="send-email-component-subject" name="send-email-component-subject" value="">
+								</div>
+							</div>
+						<div id="send-email-component-editor-toolbar" style="background:white;"></div>
+						<div id="send-email-component-editor-document" style="background:white;height:350px;">
+						</div>
+					</div>
+					<!--end::Body-->
+				</form>
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-1 text-center" id="send-email-component-footer">
+				<input type="file" id="send-email-component-file-input" class="d-none" multiple />
+				<div class="d-none" id="send-email-component-attachments">
+					<div class="dropzone dropzone-queue py-4" data-kt-inbox-form="dropzone">
+						<div class="dropzone-items" id="send-email-component-files">
+						</div>
+					</div>
+				</div>
+				<div class="d-flex align-items-center border-bottom px-0 min-h-50px">
+					<button type="button" class="btn btn-sm btn-light" id="send-email-component-attach-file-button">
+						<span class="svg-icon svg-icon-2 m-0">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<path opacity="0.3" d="M4.425 20.525C2.525 18.625 2.525 15.525 4.425 13.525L14.825 3.125C16.325 1.625 18.825 1.625 20.425 3.125C20.825 3.525 20.825 4.12502 20.425 4.52502C20.025 4.92502 19.425 4.92502 19.025 4.52502C18.225 3.72502 17.025 3.72502 16.225 4.52502L5.82499 14.925C4.62499 16.125 4.62499 17.925 5.82499 19.125C7.02499 20.325 8.82501 20.325 10.025 19.125L18.425 10.725C18.825 10.325 19.425 10.325 19.825 10.725C20.225 11.125 20.225 11.725 19.825 12.125L11.425 20.525C9.525 22.425 6.425 22.425 4.425 20.525Z" fill="black"></path>
+								<path d="M9.32499 15.625C8.12499 14.425 8.12499 12.625 9.32499 11.425L14.225 6.52498C14.625 6.12498 15.225 6.12498 15.625 6.52498C16.025 6.92498 16.025 7.525 15.625 7.925L10.725 12.8249C10.325 13.2249 10.325 13.8249 10.725 14.2249C11.125 14.6249 11.725 14.6249 12.125 14.2249L19.125 7.22493C19.525 6.82493 19.725 6.425 19.725 5.925C19.725 5.325 19.525 4.825 19.125 4.425C18.725 4.025 18.725 3.42498 19.125 3.02498C19.525 2.62498 20.125 2.62498 20.525 3.02498C21.325 3.82498 21.725 4.825 21.725 5.925C21.725 6.925 21.325 7.82498 20.525 8.52498L13.525 15.525C12.325 16.725 10.525 16.725 9.32499 15.625Z" fill="black"></path>
+							</svg>
+						</span>
+						Attach File(s)
+					</button>
+				</div>
+				<button type="button" class="btn btn-sm btn-primary always-enabled mt-1" id="send-email-component-button">
+					<span class="indicator-label">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+							<path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+						</svg>&nbsp;&nbsp;Send Email
+					</span>
+					<span class="indicator-progress">
+						Sending Email...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

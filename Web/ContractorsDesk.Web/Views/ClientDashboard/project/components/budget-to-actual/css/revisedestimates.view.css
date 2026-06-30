@@ -1,0 +1,29 @@
+﻿.table.estimate-to-actual tbody tr:last-child td {
+    border-bottom: 3px solid #eff2f5 !important;
+}
+
+.table.estimate-to-actual thead tr th {
+    border: 3px solid #eff2f5 !important;
+}
+
+td.revised-amount span{
+    width: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+td.revised-amount input {
+    display: none !important;
+}
+
+td.revised-amount.editing span {
+    display: none !important;
+}
+
+td.revised-amount.editing input {
+    display: block !important;
+}
+
+td.revised-amount.updated {
+    background: #FFF9C4 !important;
+}

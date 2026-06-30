@@ -1,0 +1,347 @@
+﻿@using ContractorsDesk.WebPortal.Helpers;
+@using ContractorsDesk.Core.Dto;
+
+@model InvoiceDto
+@{
+	Layout = null;
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+	<title></title>
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="website" property="og:type" />
+	<meta content="" property="og:description" />
+	<meta content="" property="og:url" />
+	<meta content="" property="og:title" />
+	<meta content="" name="description" />
+	<meta charset="utf-8" />
+	<meta content="width=device-width" name="viewport" />
+	<style>
+		.bee-row,
+		.bee-row-content {
+			position: relative
+		}
+
+		.bee-row-5,
+		body {
+			background-color: #ffffff
+		}
+
+		body {
+			color: #000000;
+			font-family: Arial, Helvetica, sans-serif
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1 a,
+		.bee-row-3 .bee-col-2 .bee-block-1 a,
+		a {
+			color: #7747FF
+		}
+
+		* {
+			box-sizing: border-box
+		}
+
+		body,
+		h3,
+		p {
+			margin: 0
+		}
+
+		.bee-row-content {
+			max-width: 1280px;
+			margin: 0 auto;
+			display: flex
+		}
+
+		.bee-row-content .bee-col-w7 {
+			flex-basis: 70%
+		}
+
+			.bee-row-content .bee-col-w5 {
+				flex-basis: 25%
+			}
+
+		.bee-row-content .bee-col-w6 {
+			flex-basis: 50%
+		}
+
+		.bee-row-content .bee-col-w12 {
+			flex-basis: 100%
+		}
+
+		.bee-icon .bee-icon-label-right a {
+			text-decoration: none
+		}
+
+		.bee-image {
+			overflow: auto
+		}
+
+		.bee-image .bee-center {
+			margin: 0 auto
+		}
+
+		.bee-row-1 .bee-col-1 .bee-block-1 {
+			width: 100%
+		}
+
+		.bee-icon {
+			display: inline-block;
+			vertical-align: middle
+		}
+
+		.bee-icon .bee-content {
+			display: flex;
+			align-items: center
+		}
+
+		.bee-image img {
+			display: block;
+			width: 100%
+		}
+
+		.bee-paragraph {
+			overflow-wrap: anywhere
+		}
+
+		.bee-table table {
+			border-collapse: collapse;
+			width: 100%
+		}
+
+		.bee-table table tbody,
+		.bee-table table thead {
+			vertical-align: top
+		}
+
+		.bee-table table td,
+		.bee-table table th {
+			padding: 10px;
+			word-break: break-word
+		}
+
+		.bee-row-1,
+		.bee-row-2,
+		.bee-row-3,
+		.bee-row-4 {
+			background-repeat: no-repeat
+		}
+
+		.bee-row-1 .bee-row-content,
+		.bee-row-5 .bee-row-content {
+			background-repeat: no-repeat;
+			color: #000000
+		}
+
+		.bee-row-1 .bee-col-1,
+		.bee-row-2 .bee-col-1,
+		.bee-row-3 .bee-col-1,
+		.bee-row-3 .bee-col-2,
+		.bee-row-4 .bee-col-1,
+		.bee-row-5 .bee-col-1 {
+			padding-bottom: 5px;
+			padding-top: 5px
+		}
+
+		.bee-row-2 .bee-row-content,
+		.bee-row-3 .bee-row-content,
+		.bee-row-4 .bee-row-content {
+			background-repeat: no-repeat;
+			border-radius: 0;
+			color: #000000
+		}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 {
+			padding: 10px;
+			text-align: center;
+			width: 100%
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1,
+		.bee-row-3 .bee-col-2 .bee-block-1,
+		.bee-row-4 .bee-col-1 .bee-block-1 {
+			padding: 10px
+		}
+
+		.bee-row-5 {
+			background-repeat: no-repeat
+		}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 {
+			color: #1e0e4b;
+			font-family: Inter, sans-serif;
+			font-size: 15px;
+			padding-bottom: 5px;
+			padding-top: 5px;
+			text-align: center
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1,
+		.bee-row-3 .bee-col-2 .bee-block-1 {
+			direction: ltr;
+			font-size: 16px;
+			font-weight: 400;
+			letter-spacing: 0;
+			line-height: 120%;
+			text-align: left
+		}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3 {
+			color: #514d5a;
+			direction: ltr;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 28px;
+			font-weight: 700;
+			letter-spacing: normal;
+			line-height: 120%;
+			text-align: left;
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1 {
+			color: #101112
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1 p:not(:last-child),
+		.bee-row-3 .bee-col-2 .bee-block-1 p:not(:last-child) {
+			margin-bottom: 16px
+		}
+
+		.bee-row-3 .bee-col-2 .bee-block-1 {
+			color: #191b1c
+		}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 .bee-icon-image {
+			padding: 5px 6px 5px 5px
+		}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 .bee-icon:not(.bee-icon-first) .bee-content {
+			margin-left: 0
+		}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 .bee-icon::not(.bee-icon-last) .bee-content {
+			margin-right: 0
+		}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 .bee-icon-label a {
+			color: #1e0e4b
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bee-page-container">
+		<div class="bee-row bee-row-1">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-image">
+						<img alt="" class="bee-center bee-autowidth" src="@CompanySettings.CompanyLogoUrl" style="max-width:333px;" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-2">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-heading">
+						<h3><span class="tinyMce-placeholder">Invoice</span> </h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-3">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w7">
+					<div class="bee-block bee-block-1 bee-paragraph">
+						<p>
+							<span style="color: #514d5a;"><strong>@CompanySettings.CompanyName</strong></span><br />
+                            @if (!string.IsNullOrWhiteSpace(CompanySettings.Address1))
+                            {
+                                @CompanySettings.Address1<br />
+                            }
+                            @if (!string.IsNullOrWhiteSpace(CompanySettings.Address2))
+                            {
+                                @CompanySettings.Address2<br />
+                            }
+                            @if (!string.IsNullOrWhiteSpace(CompanySettings.City) || !string.IsNullOrWhiteSpace(CompanySettings.State) || !string.IsNullOrWhiteSpace(CompanySettings.Zip))
+                            {
+                                var cityStateZip = $"{CompanySettings.City}, {CompanySettings.State} {CompanySettings.Zip}".Trim(' ', ',');
+                                @cityStateZip<br />
+                            }
+                            @if (!string.IsNullOrWhiteSpace(CompanySettings.PhoneNumber))
+                            {
+                                <text>Phone: @CompanySettings.PhoneNumber</text><br />
+                            }
+                            @if (!string.IsNullOrWhiteSpace(CompanySettings.CompanyEmail))
+                            {
+                                <text>Email: @CompanySettings.CompanyEmail</text>
+                            }
+						</p>
+					</div>
+				</div>
+				<div class="bee-col bee-col-2 bee-col-w5">
+					<div class="bee-block bee-block-1 bee-paragraph">
+						<p>
+							<span style="color: #514d5a;width: 150px;display:inline-block;"><strong>Invoice #:</strong></span><span style="color: #7a8085;">@Model.InvoiceNumber</span><br />
+							<span style="color: #514d5a;width: 150px;display:inline-block;"><strong>Date:</strong></span><span style="color: #7a8085;">@Model.InvoiceDate.ToString("MM/dd/yyyy")</span><br />
+							<span style="color: #514d5a;width: 150px;display:inline-block;"><strong>Due Date:</strong></span><span style="color: #7a8085;">@Model.DueDate.ToString("MM/dd/yyyy")<br />
+							<strong><span style="color: #514d5a;width: 150px;display:inline-block;">Terms:</span></strong>Due on receipt<br /><br />
+							</span>
+						</p>
+						<p>
+							<span style="color: #7a8085;">
+								<span style="color: #514d5a;width: 150px;display:inline-block;"><strong>Bill To:</strong></span>
+								<span style="color: #7a8085;">@Model.BillTo</span>
+							</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-4">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-table">
+						<table style="table-layout:fixed;direction:ltr;background-color:transparent;font-family:Arial, Helvetica, sans-serif;font-weight:400;color:#101112;text-align:left;letter-spacing:0px;">
+							<thead style="background-color:#f2f2f2;color:#101112;font-size:14px;line-height:120%;text-align:center;">
+								<tr>
+									<th width="75" style="text-align:left;font-weight:700;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;"><span class="tinyMce-placeholder" style="color: #514d5a;">DATE</span></th>
+									<th width="300"  style="text-align:left;font-weight:700;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;"><span class="tinyMce-placeholder" style="color: #514d5a;">ACTIVITY</span></th>
+									<th width="50" style="font-weight:700;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;"><span class="tinyMce-placeholder" style="color: #514d5a;">QTY</span></th>
+									<th width="75" style="font-weight:700;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;"><span class="tinyMce-placeholder" style="color: #514d5a;">RATE</span></th>
+									<th width="75" style="font-weight:700;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;"><span class="tinyMce-placeholder" style="color: #514d5a;">AMOUNT</span></th>
+								</tr>
+							</thead>
+							<tbody style="font-size:16px;line-height:120%;">
+								@foreach(var item in Model.InvoiceItems)
+								{
+									<tr>
+										<td style="border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;">@item.DateCreated.ToString("MM/dd/yyyy")</td>
+										<td style="border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;">@Html.Raw(item.Description)</td>
+										<td style="text-align:center;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;">@item.Quantity</td>
+										<td style="text-align:center;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;">@Html.FormatAsMoney(@item.Rate)</td>
+										<td style="text-align:center;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;">@Html.FormatAsMoney(@item.Amount)</td>
+									</tr>
+								}
+								<tr>
+									<td colspan="4" style="text-align:center;padding-top: 30px;text-align: right;font-weight: bold;font-size: 18px;">
+										BALANCE DUE:
+									</td>
+									<td style="text-align:center;padding-top: 30px;font-size: 18px;">
+										@Html.FormatAsMoney(Model.TotalAmount)
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</body>
+
+</html>

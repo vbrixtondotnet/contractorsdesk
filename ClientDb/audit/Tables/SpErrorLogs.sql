@@ -1,0 +1,8 @@
+﻿CREATE TABLE [audit].[SpErrorLogs]
+(
+	[Id] INT NOT NULL IDENTITY(1, 1),
+	[SP_Name] NVARCHAR(MAX) NOT NULL, 
+    [ErrorMessage] NVARCHAR(MAX) NOT NULL, 
+    [DateCreated] DATETIME NOT NULL, 
+    CONSTRAINT [PK_SpErrorLogs] PRIMARY KEY CLUSTERED ([Id] ASC)
+)

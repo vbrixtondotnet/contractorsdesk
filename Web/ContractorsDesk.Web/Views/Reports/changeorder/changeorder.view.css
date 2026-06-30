@@ -1,0 +1,5 @@
+﻿#slc-cost-revision-project select,
+#slc-cost-revision-project {
+    width: auto !important; /* prevent full-width stretching */
+    min-width: 200px; /* optional: ensure it’s not too small */
+}

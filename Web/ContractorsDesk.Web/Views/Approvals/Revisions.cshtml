@@ -1,0 +1,47 @@
+﻿
+@{
+	Layout = "_CenteredContentLayout";
+}
+
+@if (Model != null && Model.Expired)
+{
+	<div class="notice d-flex bg--light-danger rounded border-danger border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+		<span class="svg-icon svg-icon-5x svg-icon-danger me-4">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+				<rect opacity="0.3" x="2" y="2" width="20" height="20" rx="10" fill="black" />
+				<rect x="11" y="14" width="7" height="2" rx="1" transform="rotate(-90 11 14)" fill="black" />
+				<rect x="11" y="17" width="2" height="2" rx="1" transform="rotate(-90 11 17)" fill="black" />
+			</svg>
+		</span>
+		<div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+			<!--begin::Content-->
+			<div class="mb-3 mb-md-0 fw-bold">
+				<h4 class="text-gray-900 fw-bolder">The approval link is invalid!</h4>
+				<div class="fs-6 text-gray-700 pe-7">This revision has already been Acnknowledged previously.</div>
+			</div>
+		</div>
+	</div>
+}
+else
+{
+	<div class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+		<!--begin::Icon-->
+		<!--begin::Svg Icon | path: icons/duotune/coding/cod004.svg-->
+		<span class="svg-icon svg-icon-5x svg-icon-primary me-4">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+				<path d="M9.89557 13.4982L7.79487 11.2651C7.26967 10.7068 6.38251 10.7068 5.85731 11.2651C5.37559 11.7772 5.37559 12.5757 5.85731 13.0878L9.74989 17.2257C10.1448 17.6455 10.8118 17.6455 11.2066 17.2257L18.1427 9.85252C18.6244 9.34044 18.6244 8.54191 18.1427 8.02984C17.6175 7.47154 16.7303 7.47154 16.2051 8.02984L11.061 13.4982C10.7451 13.834 10.2115 13.834 9.89557 13.4982Z" fill="black" />
+			</svg>
+		</span>
+		<!--end::Svg Icon-->
+		<!--end::Icon-->
+		<!--begin::Wrapper-->
+		<div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+			<!--begin::Content-->
+			<div class="mb-3 mb-md-0 fw-bold">
+				<h4 class="text-gray-900 fw-bolder">Thank you for your acknowledgement!</h4>
+				<div class="fs-6 text-gray-700 pe-7">Please check your email for an attached updated report. It may be in your spam folder if you have not whitelisted the ContractorsDesk email. Thank you.</div>
+			</div>
+		</div>
+		<!--end::Wrapper-->
+	</div>
+}

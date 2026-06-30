@@ -1,0 +1,6 @@
+CREATE TABLE ProposalTemplateUserDefault (
+    Id UNIQUEIDENTIFIER PRIMARY KEY DEFAULT NEWID(),
+    UserId INT NOT NULL, 
+    TemplateId UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT FK_TemplateId FOREIGN KEY (TemplateId) REFERENCES ProposalTemplates (Id)
+);

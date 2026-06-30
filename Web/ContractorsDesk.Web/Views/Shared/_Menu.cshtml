@@ -1,0 +1,575 @@
+﻿@using System.Text.Json
+@using ContractorsDesk.Core.Dto
+@using ContractorsDesk.Core.Enums;
+@using ContractorsDesk.WebPortal.Models;
+@using ContractorsDesk.WebPortal.Helpers;
+@{
+    var appUserClaim = User.FindFirst("ApplicationUser")?.Value;
+    var Permissions = (PermissionViewModel)ViewBag.Permissions;
+    var CurrentRole = (Roles?)ViewBag.Role;
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+	var ApplicationUser = (ApplicationUserModel)ViewBag.CurrentUser;
+	var linkHref = Permissions.CanAccessCompanySettings
+			? "/company-settings"
+			: "/";
+}
+
+<div id="kt_aside" class="aside" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
+	<!--begin::Aside Toolbarl-->
+	<div class="aside-toolbar flex-column-auto" id="kt_aside_toolbar" style="border-bottom: 1px solid #2d2d43;">
+		<!--begin::Aside user-->
+		<!--begin::User-->
+		<div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
+			<!--begin::Symbol-->
+			<div class="symbol symbol-50px">
+				<div class="symbol-label fs-2 fw-bold text-success">
+					<img src="@CompanySettings.CompanyLogoUrl" style="width:50px;" />
+				</div>
+			</div>
+			<!--end::Symbol-->
+			<!--begin::Wrapper-->
+			<div class="aside-user-info flex-row-fluid flex-wrap ms-5">
+				<!--begin::Section-->
+				<div class="d-flex">
+					<!--begin::Info-->
+					<div class="flex-grow-1 me-2">
+						<!--begin::Username-->
+						<a href="@linkHref" class="text-white text-hover-primary fs-6 fw-bold">@CompanySettings.CompanyName</a>
+						<!--end::Label-->
+					</div>
+				</div>
+				<!--end::Section-->
+			</div>
+			<!--end::Wrapper-->
+		</div>
+		<div class="aside-search py-5">
+			<!--begin::Search-->
+			<div id="" class="d-flex align-items-center" >
+				<!--begin::Form-->
+					<span class="svg-icon svg-icon-2 search-icon position-absolute translate-middle-y ms-4" style="top:120px;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black"></rect>
+							<path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black"></path>
+						</svg>
+					</span>
+					<input type="text" class="form-control ps-13 fs-7 h-40px" name="search" value="" placeholder="Quick Search">
+					<!--end::Input-->
+					<!--begin::Spinner-->
+					<span class="position-absolute top-50 end-0 translate-middle-y lh-0 d-none me-5">
+						<span class="spinner-border h-15px w-15px align-middle text-gray-400"></span>
+					</span>
+				
+			</div>
+			<!--end::Search-->
+		</div>
+		
+	</div>
+	<!--end::Aside Toolbarl-->
+	<!--begin::Aside menu-->
+	<div class="aside-menu flex-column-fluid">
+		<!--begin::Aside Menu-->
+		<div class="hover-scroll-overlay-y px-2 my-5 my-lg-5" id="kt_aside_menu_wrapper" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="{default: '#kt_aside_toolbar, #kt_aside_footer', lg: '#kt_header, #kt_aside_toolbar, #kt_aside_footer'}" data-kt-scroll-wrappers="#kt_aside_menu" data-kt-scroll-offset="5px">
+			<!--begin::Menu-->
+			<div class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500" id="#kt_aside_menu" data-kt-menu="true">
+				@if (CurrentRole != Roles.SuperAdmin)
+				{
+					<div class="menu-item">
+						<div class="menu-content pb-2">
+							<span class="menu-section text-muted text-uppercase fs-8 ls-1">Main</span>
+						</div>
+					</div>
+					@if(CurrentRole != Roles.Client)
+					{
+						<div class="menu-item">
+							<a class="menu-link @PageHelper.IsActive(ViewBag.Path, "/")" href="/">
+								<span class="menu-icon">
+									<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+									<span class="svg-icon svg-icon-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+											<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+											<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+											<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+										</svg>
+									</span>
+									<!--end::Svg Icon-->
+								</span>
+								<span class="menu-title">Dashboard</span>
+							</a>
+						</div>
+
+						<div data-kt-menu-trigger="click" class="menu-item menu-accordion" data-menu-id="emails">
+							<span class="menu-link">
+								<span class="menu-title">Emails</span>
+								<span class="menu-arrow"></span>
+							</span>
+							<div class="menu-sub menu-sub-accordion">
+								<div class="menu-item">
+									<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Inbox")" href="/emails">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<span class="svg-icon svg-icon-2">
+													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+														<path opacity="0.3" d="M21 19H3C2.4 19 2 18.6 2 18V6C2 5.4 2.4 5 3 5H21C21.6 5 22 5.4 22 6V18C22 18.6 21.6 19 21 19Z" fill="black" />
+														<path d="M21 5H2.99999C2.69999 5 2.49999 5.10005 2.29999 5.30005L11.2 13.3C11.7 13.7 12.4 13.7 12.8 13.3L21.7 5.30005C21.5 5.10005 21.3 5 21 5Z" fill="black" />
+													</svg>
+												</span>
+											</span>
+
+										</span>
+										<span class="menu-title">Inbox</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Sent Items")" href="/sent-items">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path d="M15.43 8.56949L10.744 15.1395C10.6422 15.282 10.5804 15.4492 10.5651 15.6236C10.5498 15.7981 10.5815 15.9734 10.657 16.1315L13.194 21.4425C13.2737 21.6097 13.3991 21.751 13.5557 21.8499C13.7123 21.9488 13.8938 22.0014 14.079 22.0015H14.117C14.3087 21.9941 14.4941 21.9307 14.6502 21.8191C14.8062 21.7075 14.9261 21.5526 14.995 21.3735L21.933 3.33649C22.0011 3.15918 22.0164 2.96594 21.977 2.78013C21.9376 2.59432 21.8452 2.4239 21.711 2.28949L15.43 8.56949Z" fill="black"></path>
+													<path opacity="0.3" d="M20.664 2.06648L2.62602 9.00148C2.44768 9.07085 2.29348 9.19082 2.1824 9.34663C2.07131 9.50244 2.00818 9.68731 2.00074 9.87853C1.99331 10.0697 2.04189 10.259 2.14054 10.4229C2.23919 10.5869 2.38359 10.7185 2.55601 10.8015L7.86601 13.3365C8.02383 13.4126 8.19925 13.4448 8.37382 13.4297C8.54839 13.4145 8.71565 13.3526 8.85801 13.2505L15.43 8.56548L21.711 2.28448C21.5762 2.15096 21.4055 2.05932 21.2198 2.02064C21.034 1.98196 20.8409 1.99788 20.664 2.06648Z" fill="black"></path>
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Sent Items</span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+					}
+					else
+					{
+						<div class="menu-item">
+							<a class="menu-link @PageHelper.IsActive(ViewBag.Path, "/client-dashboard")" href="/client-dashboard">
+								<span class="menu-icon">
+									<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+									<span class="svg-icon svg-icon-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+											<rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+											<rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+											<rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+										</svg>
+									</span>
+									<!--end::Svg Icon-->
+								</span>
+								<span class="menu-title">My Projects</span>
+							</a>
+						</div>
+					}
+				
+				}
+				@if (Permissions.CanManageAllJobs)
+				{
+					<div data-kt-menu-trigger="click" class="menu-item menu-accordion" data-menu-id="listmanagement">
+						<span class="menu-link">
+							<span class="menu-title">List Management</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<div class="menu-sub menu-sub-accordion">
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Sub-Contractors")" href="/subcontractors">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path d="M16.0173 9H15.3945C14.2833 9 13.263 9.61425 12.7431 10.5963L12.154 11.7091C12.0645 11.8781 12.1072 12.0868 12.2559 12.2071L12.6402 12.5183C13.2631 13.0225 13.7556 13.6691 14.0764 14.4035L14.2321 14.7601C14.2957 14.9058 14.4396 15 14.5987 15H18.6747C19.7297 15 20.4057 13.8774 19.912 12.945L18.6686 10.5963C18.1487 9.61425 17.1285 9 16.0173 9Z" fill="black" />
+												<rect opacity="0.3" x="14" y="4" width="4" height="4" rx="2" fill="black" />
+												<path d="M4.65486 14.8559C5.40389 13.1224 7.11161 12 9 12C10.8884 12 12.5961 13.1224 13.3451 14.8559L14.793 18.2067C15.3636 19.5271 14.3955 21 12.9571 21H5.04292C3.60453 21 2.63644 19.5271 3.20698 18.2067L4.65486 14.8559Z" fill="black" />
+												<rect opacity="0.3" x="6" y="5" width="6" height="6" rx="3" fill="black" />
+											</svg>
+										</span>
+										
+									</span>
+									<span class="menu-title">Sub-Contractors</span>
+								</a>
+							</div>
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.Path, "/settings/estimate-categories")" href="/settings/estimate-categories">
+									<span class="menu-icon">
+										<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="black" />
+												<path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Estimate Categories</span>
+								</a>
+							</div>
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.Path, "/settings/construction-tasks")" href="/settings/construction-tasks">
+									<span class="menu-icon">
+										<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path opacity="0.3" d="M22.0318 8.59998C22.0318 10.4 21.4318 12.2 20.0318 13.5C18.4318 15.1 16.3318 15.7 14.2318 15.4C13.3318 15.3 12.3318 15.6 11.7318 16.3L6.93177 21.1C5.73177 22.3 3.83179 22.2 2.73179 21C1.63179 19.8 1.83177 18 2.93177 16.9L7.53178 12.3C8.23178 11.6 8.53177 10.7 8.43177 9.80005C8.13177 7.80005 8.73176 5.6 10.3318 4C11.7318 2.6 13.5318 2 15.2318 2C16.1318 2 16.6318 3.20005 15.9318 3.80005L13.0318 6.70007C12.5318 7.20007 12.4318 7.9 12.7318 8.5C13.3318 9.7 14.2318 10.6001 15.4318 11.2001C16.0318 11.5001 16.7318 11.3 17.2318 10.9L20.1318 8C20.8318 7.2 22.0318 7.59998 22.0318 8.59998Z" fill="black" />
+												<path d="M4.23179 19.7C3.83179 19.3 3.83179 18.7 4.23179 18.3L9.73179 12.8C10.1318 12.4 10.7318 12.4 11.1318 12.8C11.5318 13.2 11.5318 13.8 11.1318 14.2L5.63179 19.7C5.23179 20.1 4.53179 20.1 4.23179 19.7Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Construction Tasks</span>
+								</a>
+							</div>
+
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Vendors")" href="/vendors">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path d="M16.0173 9H15.3945C14.2833 9 13.263 9.61425 12.7431 10.5963L12.154 11.7091C12.0645 11.8781 12.1072 12.0868 12.2559 12.2071L12.6402 12.5183C13.2631 13.0225 13.7556 13.6691 14.0764 14.4035L14.2321 14.7601C14.2957 14.9058 14.4396 15 14.5987 15H18.6747C19.7297 15 20.4057 13.8774 19.912 12.945L18.6686 10.5963C18.1487 9.61425 17.1285 9 16.0173 9Z" fill="black" />
+												<rect opacity="0.3" x="14" y="4" width="4" height="4" rx="2" fill="black" />
+												<path d="M4.65486 14.8559C5.40389 13.1224 7.11161 12 9 12C10.8884 12 12.5961 13.1224 13.3451 14.8559L14.793 18.2067C15.3636 19.5271 14.3955 21 12.9571 21H5.04292C3.60453 21 2.63644 19.5271 3.20698 18.2067L4.65486 14.8559Z" fill="black" />
+												<rect opacity="0.3" x="6" y="5" width="6" height="6" rx="3" fill="black" />
+											</svg>
+										</span>
+
+									</span>
+									<span class="menu-title">Vendors</span>
+								</a>
+							</div>
+
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Proposal Templates")" href="/proposal-templates">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="black" />
+												<path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="black" />
+											</svg>
+										</span>
+									</span>
+									<span class="menu-title">Proposal Templates</span>
+								</a>
+							</div>
+
+							@if (CurrentRole is Roles.CompanyOwner or Roles.ProjectManager)
+							{
+								<div class="menu-item">
+									<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Email Templates")" href="/email-templates">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="black" />
+													<path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="black" />
+												</svg>
+											</span>
+										</span>
+										<span class="menu-title">Email Templates</span>
+									</a>
+								</div>
+							}
+
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Contracts")" href="/contracts">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="black" />
+												<path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="black" />
+											</svg>
+										</span>
+									</span>
+									<span class="menu-title">Contracts</span>
+								</a>
+							</div>
+
+						</div>
+					</div>
+
+					<div data-kt-menu-trigger="click" class="menu-item menu-accordion" data-menu-id="reports">
+						<span class="menu-link">
+							<span class="menu-title">Reports</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<div class="menu-sub menu-sub-accordion">
+							@if(CurrentRole == Roles.CompanyIT || CurrentRole == Roles.OfficeManager)
+							{
+								<div class="menu-item">
+									<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Active Construction Jobs")" href="/reports/active-construction-jobs">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15 17C15 16.4 14.6 16 14 16H8C7.4 16 7 16.4 7 17C7 17.6 7.4 18 8 18H14C14.6 18 15 17.6 15 17ZM17 12C17 11.4 16.6 11 16 11H8C7.4 11 7 11.4 7 12C7 12.6 7.4 13 8 13H16C16.6 13 17 12.6 17 12ZM17 7C17 6.4 16.6 6 16 6H8C7.4 6 7 6.4 7 7C7 7.6 7.4 8 8 8H16C16.6 8 17 7.6 17 7Z" fill="black" />
+													<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Active Construction Jobs</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Class Transactions Report")" href="/reports/class-transactions">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15 17C15 16.4 14.6 16 14 16H8C7.4 16 7 16.4 7 17C7 17.6 7.4 18 8 18H14C14.6 18 15 17.6 15 17ZM17 12C17 11.4 16.6 11 16 11H8C7.4 11 7 11.4 7 12C7 12.6 7.4 13 8 13H16C16.6 13 17 12.6 17 12ZM17 7C17 6.4 16.6 6 16 6H8C7.4 6 7 6.4 7 7C7 7.6 7.4 8 8 8H16C16.6 8 17 7.6 17 7Z" fill="black" />
+													<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Class Transactions Report</span>
+									</a>
+								</div>
+								<div class="menu-item">
+									<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Transactions Report")" href="/reports/transactions">
+										<span class="menu-icon">
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15 17C15 16.4 14.6 16 14 16H8C7.4 16 7 16.4 7 17C7 17.6 7.4 18 8 18H14C14.6 18 15 17.6 15 17ZM17 12C17 11.4 16.6 11 16 11H8C7.4 11 7 11.4 7 12C7 12.6 7.4 13 8 13H16C16.6 13 17 12.6 17 12ZM17 7C17 6.4 16.6 6 16 6H8C7.4 6 7 6.4 7 7C7 7.6 7.4 8 8 8H16C16.6 8 17 7.6 17 7Z" fill="black" />
+													<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
+												</svg>
+											</span>
+											<!--end::Svg Icon-->
+										</span>
+										<span class="menu-title">Transactions Report</span>
+									</a>
+								</div>
+							}
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Jobs Summary Report")" href="/reports/jobs-summary">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15 17C15 16.4 14.6 16 14 16H8C7.4 16 7 16.4 7 17C7 17.6 7.4 18 8 18H14C14.6 18 15 17.6 15 17ZM17 12C17 11.4 16.6 11 16 11H8C7.4 11 7 11.4 7 12C7 12.6 7.4 13 8 13H16C16.6 13 17 12.6 17 12ZM17 7C17 6.4 16.6 6 16 6H8C7.4 6 7 6.4 7 7C7 7.6 7.4 8 8 8H16C16.6 8 17 7.6 17 7Z" fill="black" />
+												<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Job Summary Report</span>
+								</a>
+							</div>
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Profit and Loss Report")" href="/reports/profit-and-loss">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15 17C15 16.4 14.6 16 14 16H8C7.4 16 7 16.4 7 17C7 17.6 7.4 18 8 18H14C14.6 18 15 17.6 15 17ZM17 12C17 11.4 16.6 11 16 11H8C7.4 11 7 11.4 7 12C7 12.6 7.4 13 8 13H16C16.6 13 17 12.6 17 12ZM17 7C17 6.4 16.6 6 16 6H8C7.4 6 7 6.4 7 7C7 7.6 7.4 8 8 8H16C16.6 8 17 7.6 17 7Z" fill="black" />
+												<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Profit and Loss Report</span>
+								</a>
+							</div>
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Budget To Actual Cost Report")" href="/reports/budget-to-actual-cost">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15 17C15 16.4 14.6 16 14 16H8C7.4 16 7 16.4 7 17C7 17.6 7.4 18 8 18H14C14.6 18 15 17.6 15 17ZM17 12C17 11.4 16.6 11 16 11H8C7.4 11 7 11.4 7 12C7 12.6 7.4 13 8 13H16C16.6 13 17 12.6 17 12ZM17 7C17 6.4 16.6 6 16 6H8C7.4 6 7 6.4 7 7C7 7.6 7.4 8 8 8H16C16.6 8 17 7.6 17 7Z" fill="black" />
+												<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Budget To Actual Cost Report</span>
+								</a>
+							</div>
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Proposal Report")" href="/reports/proposal">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15 17C15 16.4 14.6 16 14 16H8C7.4 16 7 16.4 7 17C7 17.6 7.4 18 8 18H14C14.6 18 15 17.6 15 17ZM17 12C17 11.4 16.6 11 16 11H8C7.4 11 7 11.4 7 12C7 12.6 7.4 13 8 13H16C16.6 13 17 12.6 17 12ZM17 7C17 6.4 16.6 6 16 6H8C7.4 6 7 6.4 7 7C7 7.6 7.4 8 8 8H16C16.6 8 17 7.6 17 7Z" fill="black" />
+												<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Proposal Report</span>
+								</a>
+							</div>
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Schedule Report")" href="/reports/schedule">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15 17C15 16.4 14.6 16 14 16H8C7.4 16 7 16.4 7 17C7 17.6 7.4 18 8 18H14C14.6 18 15 17.6 15 17ZM17 12C17 11.4 16.6 11 16 11H8C7.4 11 7 11.4 7 12C7 12.6 7.4 13 8 13H16C16.6 13 17 12.6 17 12ZM17 7C17 6.4 16.6 6 16 6H8C7.4 6 7 6.4 7 7C7 7.6 7.4 8 8 8H16C16.6 8 17 7.6 17 7Z" fill="black" />
+												<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Schedule Report</span>
+								</a>
+							</div>
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Updated Budget Report")" href="/reports/updated-budget">
+									<span class="menu-icon">
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path opacity="0.3" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM15 17C15 16.4 14.6 16 14 16H8C7.4 16 7 16.4 7 17C7 17.6 7.4 18 8 18H14C14.6 18 15 17.6 15 17ZM17 12C17 11.4 16.6 11 16 11H8C7.4 11 7 11.4 7 12C7 12.6 7.4 13 8 13H16C16.6 13 17 12.6 17 12ZM17 7C17 6.4 16.6 6 16 6H8C7.4 6 7 6.4 7 7C7 7.6 7.4 8 8 8H16C16.6 8 17 7.6 17 7Z" fill="black" />
+												<path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Updated Budget Report</span>
+								</a>
+							</div>
+						</div>
+					</div>
+				}
+				@if (Permissions.CanManageDataMapping)
+				{
+					<div data-kt-menu-trigger="click" class="menu-item menu-accordion" data-menu-id="data-mappings">
+						<span class="menu-link">
+							<span class="menu-title">Data Mappings</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<div class="menu-sub menu-sub-accordion">
+
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.Path, "/settings/estimate-data-mapping")" href="/settings/estimate-data-mapping">
+									<span class="menu-icon">
+										<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="19" viewBox="0 0 16 19" fill="none">
+												<path d="M12 0.400024H1C0.4 0.400024 0 0.800024 0 1.40002V2.40002C0 3.00002 0.4 3.40002 1 3.40002H12C12.6 3.40002 13 3.00002 13 2.40002V1.40002C13 0.800024 12.6 0.400024 12 0.400024Z" fill="black" />
+												<path opacity="0.3" d="M15 8.40002H1C0.4 8.40002 0 8.00002 0 7.40002C0 6.80002 0.4 6.40002 1 6.40002H15C15.6 6.40002 16 6.80002 16 7.40002C16 8.00002 15.6 8.40002 15 8.40002ZM16 12.4C16 11.8 15.6 11.4 15 11.4H1C0.4 11.4 0 11.8 0 12.4C0 13 0.4 13.4 1 13.4H15C15.6 13.4 16 13 16 12.4ZM12 17.4C12 16.8 11.6 16.4 11 16.4H1C0.4 16.4 0 16.8 0 17.4C0 18 0.4 18.4 1 18.4H11C11.6 18.4 12 18 12 17.4Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Estimate Data Mapping</span>
+								</a>
+							</div>
+
+							<div class="menu-item">
+								<a class="menu-link @PageHelper.IsActive(ViewBag.Path, "/settings/schedule-data-mapping")" href="/settings/schedule-data-mapping">
+									<span class="menu-icon">
+										<!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+										<span class="svg-icon svg-icon-2">
+											<svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+												<path opacity="0.3" d="M19 3.40002C18.4 3.40002 18 3.80002 18 4.40002V8.40002H14V4.40002C14 3.80002 13.6 3.40002 13 3.40002C12.4 3.40002 12 3.80002 12 4.40002V8.40002H8V4.40002C8 3.80002 7.6 3.40002 7 3.40002C6.4 3.40002 6 3.80002 6 4.40002V8.40002H2V4.40002C2 3.80002 1.6 3.40002 1 3.40002C0.4 3.40002 0 3.80002 0 4.40002V19.4C0 20 0.4 20.4 1 20.4H19C19.6 20.4 20 20 20 19.4V4.40002C20 3.80002 19.6 3.40002 19 3.40002ZM18 10.4V13.4H14V10.4H18ZM12 10.4V13.4H8V10.4H12ZM12 15.4V18.4H8V15.4H12ZM6 10.4V13.4H2V10.4H6ZM2 15.4H6V18.4H2V15.4ZM14 18.4V15.4H18V18.4H14Z" fill="black" />
+												<path d="M19 0.400024H1C0.4 0.400024 0 0.800024 0 1.40002V4.40002C0 5.00002 0.4 5.40002 1 5.40002H19C19.6 5.40002 20 5.00002 20 4.40002V1.40002C20 0.800024 19.6 0.400024 19 0.400024Z" fill="black" />
+											</svg>
+										</span>
+										<!--end::Svg Icon-->
+									</span>
+									<span class="menu-title">Schedule Tasks Mapping</span>
+								</a>
+							</div>
+
+
+						</div>
+					</div>
+				}
+				<div data-kt-menu-trigger="click" class="menu-item menu-accordion" data-menu-id="archives">
+					<span class="menu-link">
+						<span class="menu-title">Archives</span>
+						<span class="menu-arrow"></span>
+					</span>
+					<div class="menu-sub menu-sub-accordion">
+						<div class="menu-item">
+							<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Archived Action Items")" href="/archives/action-items">
+								<span class="menu-icon">
+									<span class="svg-icon svg-icon-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path opacity="0.3" d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z" fill="black"/>
+											<path d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z" fill="black"/>
+										</svg>
+									</span>
+									<!--end::Svg Icon-->
+								</span>
+								<span class="menu-title">Action Items</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Archived Proposals")" href="/archives/proposals">
+								<span class="menu-icon">
+									<span class="svg-icon svg-icon-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path opacity="0.3" d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z" fill="black" />
+											<path d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z" fill="black" />
+										</svg>
+									</span>
+									<!--end::Svg Icon-->
+								</span>
+								<span class="menu-title">Proposals</span>
+							</a>
+						</div>
+						<div class="menu-item">
+							<a class="menu-link @PageHelper.IsActive(ViewBag.PageName, "Archived Projects")" href="/archives/projects">
+								<span class="menu-icon">
+									<span class="svg-icon svg-icon-2">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+											<path opacity="0.3" d="M20 15H4C2.9 15 2 14.1 2 13V7C2 6.4 2.4 6 3 6H21C21.6 6 22 6.4 22 7V13C22 14.1 21.1 15 20 15ZM13 12H11C10.5 12 10 12.4 10 13V16C10 16.5 10.4 17 11 17H13C13.6 17 14 16.6 14 16V13C14 12.4 13.6 12 13 12Z" fill="black" />
+											<path d="M14 6V5H10V6H8V5C8 3.9 8.9 3 10 3H14C15.1 3 16 3.9 16 5V6H14ZM20 15H14V16C14 16.6 13.5 17 13 17H11C10.5 17 10 16.6 10 16V15H4C3.6 15 3.3 14.9 3 14.7V18C3 19.1 3.9 20 5 20H19C20.1 20 21 19.1 21 18V14.7C20.7 14.9 20.4 15 20 15Z" fill="black" />
+										</svg>
+									</span>
+									<!--end::Svg Icon-->
+								</span>
+								<span class="menu-title">Projects</span>
+							</a>
+						</div>
+
+					</div>
+				</div>
+				@if (Permissions.CanManageSystemUsers || Permissions.CanManageCompanyUsers || Permissions.CanManageSystemRoles || Permissions.CanManageCompanyRoles)
+				{
+					<div data-kt-menu-trigger="click" class="menu-item menu-accordion" data-menu-id="users-and-roles-management">
+						<span class="menu-link">
+							<span class="menu-title">Users and Roles Management</span>
+							<span class="menu-arrow"></span>
+						</span>
+						<div class="menu-sub menu-sub-accordion">
+							@if (Permissions.CanManageSystemUsers || Permissions.CanManageCompanyUsers)
+							{
+								<div class="menu-item">
+									<a class="menu-link @PageHelper.IsActive(ViewBag.Path, "/users")" href="/users" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: assets/media/icons/duotune/communication/com014.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path d="M16.0173 9H15.3945C14.2833 9 13.263 9.61425 12.7431 10.5963L12.154 11.7091C12.0645 11.8781 12.1072 12.0868 12.2559 12.2071L12.6402 12.5183C13.2631 13.0225 13.7556 13.6691 14.0764 14.4035L14.2321 14.7601C14.2957 14.9058 14.4396 15 14.5987 15H18.6747C19.7297 15 20.4057 13.8774 19.912 12.945L18.6686 10.5963C18.1487 9.61425 17.1285 9 16.0173 9Z" fill="black" />
+													<rect opacity="0.3" x="14" y="4" width="4" height="4" rx="2" fill="black" />
+													<path d="M4.65486 14.8559C5.40389 13.1224 7.11161 12 9 12C10.8884 12 12.5961 13.1224 13.3451 14.8559L14.793 18.2067C15.3636 19.5271 14.3955 21 12.9571 21H5.04292C3.60453 21 2.63644 19.5271 3.20698 18.2067L4.65486 14.8559Z" fill="black" />
+													<rect opacity="0.3" x="6" y="5" width="6" height="6" rx="3" fill="black" />
+												</svg>
+											</span>
+
+										</span>
+										<span class="menu-title">Users</span>
+									</a>
+								</div>
+							}
+							@if (Permissions.CanManageSystemRoles || Permissions.CanManageCompanyRoles)
+							{
+								<div class="menu-item">
+									<a class="menu-link @PageHelper.IsActive(ViewBag.Path, "/roles")" href="/roles" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-dismiss="click" data-bs-placement="right">
+										<span class="menu-icon">
+											<!--begin::Svg Icon | path: assets/media/icons/duotune/general/gen049.svg-->
+											<span class="svg-icon svg-icon-2">
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+													<path opacity="0.3" d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z" fill="black" />
+													<path d="M12.0006 11.1542C13.1434 11.1542 14.0777 10.22 14.0777 9.0771C14.0777 7.93424 13.1434 7 12.0006 7C10.8577 7 9.92348 7.93424 9.92348 9.0771C9.92348 10.22 10.8577 11.1542 12.0006 11.1542Z" fill="black" />
+													<path d="M15.5652 13.814C15.5108 13.6779 15.4382 13.551 15.3566 13.4331C14.9393 12.8163 14.2954 12.4081 13.5697 12.3083C13.479 12.2993 13.3793 12.3174 13.3067 12.3718C12.9257 12.653 12.4722 12.7981 12.0006 12.7981C11.5289 12.7981 11.0754 12.653 10.6944 12.3718C10.6219 12.3174 10.5221 12.2902 10.4314 12.3083C9.70578 12.4081 9.05272 12.8163 8.64456 13.4331C8.56293 13.551 8.49036 13.687 8.43595 13.814C8.40875 13.8684 8.41781 13.9319 8.44502 13.9864C8.51759 14.1133 8.60828 14.2403 8.68991 14.3492C8.81689 14.5215 8.95295 14.6757 9.10715 14.8208C9.23413 14.9478 9.37925 15.0657 9.52439 15.1836C10.2409 15.7188 11.1026 15.9999 11.9915 15.9999C12.8804 15.9999 13.7421 15.7188 14.4586 15.1836C14.6038 15.0748 14.7489 14.9478 14.8759 14.8208C15.021 14.6757 15.1661 14.5215 15.2931 14.3492C15.3838 14.2312 15.4655 14.1133 15.538 13.9864C15.5833 13.9319 15.5924 13.8684 15.5652 13.814Z" fill="black" />
+												</svg>
+											</span>
+
+										</span>
+										<span class="menu-title">Roles</span>
+									</a>
+								</div>
+							}
+						</div>
+					</div>
+				}
+				
+			</div>
+			<!--end::Menu-->
+		</div>
+		<!--end::Aside Menu-->
+	</div>
+	<!--end::Aside menu-->
+</div>

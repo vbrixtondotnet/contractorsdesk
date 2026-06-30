@@ -1,0 +1,170 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions",
+	"autocomplete"
+})
+
+<div class="card card-xl-stretch pb-5 mb-5 loading" id="proposal-template-header">
+    @await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 4, Header = false, CardBody = false })
+    <!--begin::Header-->
+    <div class="card-header border-0 pt-5 d-flex justify-content-between align-items-center">
+        <!-- Title -->
+        <h3 class="card-title flex-column">
+			<span id="templateAction" class="card-label fw-bolder fs-3 mb-1" data-bookmark-title="true">Create / Edit Proposal Template</span>
+        </h3>
+        <!-- Buttons -->
+        <div class="d-flex align-items-center">
+			<button type="button" class="btn btn-sm bg-primary me-2 text-inverse-primary" evt-click="onsaveproposalTemplate">
+                <span class="indicator-label">Save</span>
+                <span class="indicator-progress">
+                    Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+			<button type="button" class="btn btn-sm bg-primary me-2 text-inverse-primary" evt-click="onSaveAs">
+                <span class="indicator-label">Save As</span>
+                <span class="indicator-progress">
+                    Please wait...
+                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+            </button>
+			<button type="button" class="btn btn-sm bg-secondary me-2 text-inverse-secondary" evt-click="showCategoryDrawer">
+                <i class="bi bi-plus"></i>Add Category
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div id="dv-categories" class="loading">
+	@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+</div>
+
+<div class="modal fade" id="modalSaveProposalTemplate" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" tabindex="-1" role="dialog">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered modal-sm">
+		<!--begin::Modal content-->
+		<div class="modal-content">
+			<!--begin::Form-->
+			<form class="form" action="#" id="modalProposalTemplateForm">
+				<!--begin::Modal header-->
+				<div class="modal-header">
+					<!--begin::Modal title-->
+					<h2 class="fw-bolder" data-kt-calendar="title">Save As</h2>
+					<!--end::Modal title-->
+					<!--begin::Close-->
+					<div class="btn btn-icon btn-sm btn-active-icon-primary dismiss-modal-template">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</div>
+					<!--end::Close-->
+				</div>
+				<!--end::Modal header-->
+				<!--begin::Modal body-->
+				<div class="modal-body pb-0">
+
+					<div class="fv-row mb-5">
+						<!--begin::Label-->
+						<label class="fs-6 fw-bold mb-2 required">Name</label>
+						<!--end::Label-->
+						<!--begin::Input-->
+						<input type="text" name="categoryName" class="form-control form-control-solid" placeholder="Enter Template Name" id="modalTxtTemplateName" />
+						<!--end::Input-->
+					</div>
+					
+				</div>
+				<!--end::Modal body-->
+				<!--begin::Modal footer-->
+				<div class="modal-footer flex-center">
+					<!--begin::Button-->
+					<button type="reset" id="btnModalTemplateCancel" class="btn btn-light me-3">Cancel</button>
+					<!--end::Button-->
+					<!--begin::Button-->
+					<button type="button" id="btnModalSaveTemplate" class="btn btn-primary">
+						<span class="indicator-label">Save</span>
+						<span class="indicator-progress">
+							Saving..
+							<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+						</span>
+					</button>
+					<!--end::Button-->
+				</div>
+				<!--end::Modal footer-->
+			</form>
+			<!--end::Form-->
+		</div>
+	</div>
+</div>
+
+<div class="d-none">
+	<button id="btnAddCategoryFormToggle"></button>
+</div>
+
+<div class="bg-body"
+	 data-kt-drawer="true"
+	 data-kt-drawer-name="add-edit-category"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'300px', 'lg': '450px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-toggle="#btnAddCategoryFormToggle"
+	 data-kt-drawer-close="#kt_categoryForm_close">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="drawer-category">
+				<h3 class="card-title fw-bolder text-dark drawer-title">Add Category</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="kt_categoryForm_close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative">
+				<form id="frmCategory">
+					<div class="fv-row mb-2">
+						<label class="fs-6 fw-bold required mb-2">Name</label>
+						<input type="text" name="categoryName" class="form-control form-control-solid" placeholder="Enter Name" id="modalTxtCategoryName" autocomplete="off" />
+					</div>
+					<div class="fv-row mb-5">
+						<label class="fs-6 fw-bold mb-2">Insert After</label>
+						<select class="form-select" data-placeholder="Category List" id="modalSlcInsertAfter">
+						</select>
+					</div>
+				</form>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="kt_actionitem_footer">
+				<button type="button" class="btn btn-sm btn-light-primary" id="btnSaveCategory" evt-click="addCategory">
+					<span class="indicator-label">
+						<i class="bi bi-save"></i>Save Category
+					</span>
+				</button>
+			</div>
+			<div class="validators px-10 pt-2">
+				<span class="text-danger d-none category-exist">
+					<i class="bi bi-exclamation-circle text-danger"></i>
+					Category already exists!
+				</span>
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

@@ -1,0 +1,64 @@
+﻿<div class="bg-body"
+	 id="print-option-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'450px', 'lg': '450px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#print-option-drawer-close">
+
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="print-option-drawer-header">
+				<h3 class="card-title fw-bolder text-dark">Print Option</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="print-option-drawer-close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative pt-2" id="print-option-drawer-body">
+				<div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#save-template-drawer-body"
+					 data-kt-scroll-dependencies="#save-template-drawer-header, #print-option-drawer-footer"
+					 data-kt-scroll-offset="5px">
+						<form class="form-binder" id="form-print">
+							<div class="input-group mb-5 justify-content-start mt-5">
+								<label class="form-check form-switch form-check-custom form-check-solid">
+								<input class="form-check-input" type="checkbox" value="1" data-model="includeZeroAmounts" id="showZeroAmountLines" />
+									<span class="form-check-label fw-bold text-muted">
+										Include Proposal Lines with Zero Amount
+									</span>
+								</label>
+							</div>
+						</form>	
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="save-template-drawer-footer">
+				<button type="button" class="btn btn-sm btn-primary always-enabled w-150px" evt-click="print">
+					<span class="indicator-label">
+						Print
+					</span>
+					<span class="indicator-progress">
+						Printing...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

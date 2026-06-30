@@ -1,0 +1,78 @@
+﻿<div class="bg-body"
+     id="drawer-delete-item"
+     data-kt-drawer="true"
+     data-kt-drawer-activate="true"
+     data-kt-drawer-overlay="true"
+     data-kt-drawer-width="{default:'300px', 'lg': '450px'}"
+     data-kt-drawer-direction="end"
+     data-kt-drawer-close="#kt_delete_item_close">
+    <div class="col-md-12">
+        <div class="card shadow-none rounded-0">
+            <div class="card-header" id="kt_delete_item_header">
+                <h3 class="card-title fw-bolder text-dark">Delete Items</h3>
+                <div class="card-toolbar">
+                    <button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="kt_delete_item_close">
+                        <span class="svg-icon svg-icon-1">
+                            <!-- SVG for close -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body position-relative" id="kt_delete_items_body">
+                <div id="kt_delete_items_scroll" class="position-relative scroll-y me-n5"
+                     data-kt-scroll="true" data-kt-scroll-height="auto"
+                     data-kt-scroll-wrappers="#kt_add_delay_body"
+                     data-kt-scroll-dependencies="#kt_delete_item_header, #kt_delete_item_footer"
+                     data-kt-scroll-offset="5px">
+                    <form id="frmDeleteItems">
+                        <table class="table table-row-dashed table-row-gray-300 align-middle gs-0">
+                            <!--begin::Table head-->
+                            <thead>
+                                <tr class="fw-bolder text-muted bg-light">
+                                    <th class="w-25px ps-4">
+                                        <input class="form-check-input" type="checkbox" class="chk-delete-item-all" evt-change="onDeleteSelectAllItems" value="1" >
+                                    </th>
+                                    <th class="min-w-125px">Construction Tasks</th>
+                                </tr>
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody id="delete-items-list">
+                               
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                       @*  <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                            <thead>
+                                <tr>
+                                    <th style="width:32px;">
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input class="form-check-input" type="checkbox" class="chk-delete-item-all" evt-change="onDeleteSelectAllItems" value="1" data-kt-check="true" data-kt-check-target=".widget-9-check">
+                                        </div>
+                                        
+                                    </th>
+                                    <th>Name</th>
+                                </tr>
+                            </thead>
+                            <tbody id="delete-items-list">
+                                <!-- Rows will be rendered by JS -->
+                            </tbody>
+                        </table> *@
+                    </form>
+                </div>
+            </div>
+            <div class="card-footer py-3 text-center" id="kt_delete_item_footer">
+                <button type="button" class="btn btn-outline
+						btn-outline-dashed
+						btn-outline-danger
+						btn-active-light-danger" id="btnDeleteSelected" evt-click="onDeleteScheduleItems">
+                    Delete Selected
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

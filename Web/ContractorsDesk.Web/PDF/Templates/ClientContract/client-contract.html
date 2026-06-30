@@ -1,0 +1,681 @@
+﻿<html>
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        {{stylesheet}}
+    </style>
+</head>
+<body class="c28 doc-content">
+    <p class="c5">
+        <img alt="" src="data:image/png;base64,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" style="width: 532.61px; height: 169.66px; margin-left: 0.00px; margin-top: 0.00px; margin:0 auto;" title="">
+    </p>
+    <h3 class="c13" id="h.phk0ioel9x8v">
+        <span class="c14 c22">Construction Management Contract - Cost Plus</span>
+    </h3>
+
+    <hr />
+
+    <p class="c11">
+        <span class="c8"></span>
+    </p>
+
+    <h4 class="c10" id="h.e1tylr2mtzup">
+        <span class="c0">Between the Owner:</span>
+    </h4>
+
+    <p class="c32 c46">
+        <div class="textbox-field border-none"></div>
+    </p>
+
+    <p class="c11">
+        <span class="c8"></span>
+    </p>
+
+    <h4 class="c10" id="h.nau6mcg1sjdw">
+        <span class="c0">And the Contractor:</span>
+    </h4>
+
+    <p class="c20">
+        <span class="c14">C.H. Anderson Construction<br /></span>
+        <span class="c8">
+            2122 S. El Camino Real, Ste E<br />
+            San Clemente, CA 92672<br />
+            Lic #B631202
+        </span>
+    </p>
+
+    <h4 class="c10" id="h.1l1mh7bgj3rd">
+        <span class="c14 c39">For the Project:</span>
+        <span class="c14 c35">{{PROJECT_ADDRESS}}</span>
+    </h4>
+
+    <hr />
+
+    <p class="c11">
+        <span class="c8"></span>
+    </p>
+
+    <h3 class="c13" id="h.262lj6wakggm">
+        <span class="c12">Article 1: Contract Documents</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            1.1. The contract documents consist of this agreement, general conditions, construction documents, specifications, allowances, finish schedules, construction draw schedule, information disclosure statement, all addenda issued prior to execution of this agreement, and all change orders or modifications issued and agreed to by both parties. All documents noted herein shall be provided to the Contractor by the Owner. These contract documents represent the entire agreement of both parties and supersede any prior oral or written agreement.
+        </span>
+    </p>
+
+    <hr />
+
+    <p class="c11">
+        <span class="c8"></span>
+    </p>
+
+    <h3 class="c13" id="h.4l7speg9d07z">
+        <span class="c12">Article 2: Scope of Work</span>
+    </h3>
+
+    <p class="c2">
+        <span>
+            2.1. The Contractor agrees to function as an agent of the Owner to provide management and supervision services to construct the above-mentioned structure and fixtures attached thereto in
+        </span>
+        <span class="c14">&lt;City, State&gt;</span>
+        <span class="c8">
+            , according to the construction documents, allowances, finish schedules, all addenda, change orders, modifications, and specifications set forth in the specification booklet.
+        </span>
+    </p>
+
+    <hr />
+
+    <p class="c11">
+        <span class="c8"></span>
+    </p>
+
+    <h3 class="c13" id="h.7z94u1d100du">
+        <span class="c12">Article 3: Time of Completion</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            3.1. The approximate commencement date of the project shall be <strong>{{EST_STARTDATE}}</strong>.
+            The approximate completion date of the project shall be <strong>{{EST_COMPLETIONDATE}}</strong>.
+            However, any change orders and/or sustained inclement weather might delay or otherwise affect the completion date. The contract execution date shall be the date on the signature line.
+        </span>
+    </p>
+
+    <hr />
+
+    <p class="c11">
+        <span class="c8"></span>
+    </p>
+
+    <h3 class="c13 c16" id="h.5ufyhm4u4h5b">
+        <span class="c12"></span>
+    </h3>
+
+    <h3 class="c13 c16" id="h.ez82bbp47mh0">
+        <span class="c12"></span>
+    </h3>
+
+    <h3 class="c13 c16" id="h.h9oad21o9bzf">
+        <span class="c12"></span>
+    </h3>
+
+    <h3 class="c13" id="h.lixgrv7dz02f">
+        <span class="c12">Article 4: Construction Management Fees</span>
+    </h3>
+
+    <p class="c2">
+        <span>
+            4.1. The fees for this construction management contract shall be calculated on a cost-plus coordination basis, with all labor, materials, permits, and insurance figured as costs.
+            The general contractor's fee shall be charged at
+        </span>
+        <span class="c14">costs plus {{GENCONTRACTORSFEEPERCENTAGE}}% of project cost (${{GENCONTRACTORSFEEAMOUNT}})</span>
+        <span class="c8">.</span>
+    </p>
+
+    <p class="c2">
+        <span>
+            4.2. Pre-construction estimates for construction costs and coordination are approximately
+        </span>
+        <span class="c14">{{PROJECTCOSTTEXT}} (${{PROJECTCOST}})</span>
+        <span class="c8">
+            . Prices are subject to change based on the timing of hiring and material purchases.
+        </span>
+    </p>
+
+    <p class="c2">
+        <span class="c8">4.3. A deposit of $1,000 shall be paid upon signing this contract.</span>
+    </p>
+
+    <p class="c2">
+        <span>
+            4.4. The Owner and Contractor acknowledge that the Owner will pay
+        </span>
+        <span class="c14">{{INITIALDEPOSITPERCENTAGE}}%</span>
+        <span class="c8">
+            of the project cost (see cost estimate attached) upon starting on-site work and before construction management and supervision begins as a deposit and part of the total fees of this contract.
+        </span>
+    </p>
+
+    <hr />
+    <h3 class="c13" id="h.numo5tfb1rf9">
+        <span class="c12">Article 5: Progress Payments</span>
+    </h3>
+
+    <p class="c2">
+        <span>5.1. </span>
+        <span class="c14">Progress Payments.</span>
+        <span class="c8">
+            Owner shall make or cause to be made progress payments within ten (10) days to Contractor for all amounts submitted in approved Construction Draw Requests. These requests shall be based upon work performed. Any delays caused by the lack of response from the Owner or their agents shall result in a comparable period being added to the completion date of construction.
+        </span>
+    </p>
+
+    <p class="c2">
+        <span>5.2. </span>
+        <span class="c14">Time for Making Progress Payments.</span>
+        <span class="c8">
+            Progress payments shall be paid by the Owner or Lending Institution within ten (10) days of the Contractor's submission of each Construction Draw Request, except that payment may be withheld if:
+        </span>
+    </p>
+
+    <ul class="c30 lst-kix_uwdukespy95u-0 start">
+        <li class="c2 c23 li-bullet-0">
+            <span class="c8">(a) Contractor's work is defective and has not been remedied.</span>
+        </li>
+        <li class="c2 c23 li-bullet-0">
+            <span class="c8">(b) Contractor has not made prompt and proper payment to subcontractors.</span>
+        </li>
+        <li class="c2 c23 li-bullet-0">
+            <span class="c8">(c) Claims or liens have been filed against the project.</span>
+        </li>
+    </ul>
+
+    <p class="c2">
+        <span>5.3. </span>
+        <span class="c14">Increased Costs Due to Change Orders.</span>
+        <span class="c8">
+            Additional costs arising from change orders or material/labor price increases shall be borne by the Owner. The Contractor will make best efforts to adhere to the budget.
+        </span>
+    </p>
+
+    <p class="c2">
+        <span>5.4. </span>
+        <span class="c14">Final Payment.</span>
+        <span class="c8">
+            Final payment shall be made to the Contractor within thirty (30) days after completion of the work, provided that:
+        </span>
+    </p>
+
+    <ul class="c30 lst-kix_pnrk3hbqh0yw-0 start">
+        <li class="c2 c23 li-bullet-0">
+            <span class="c8">(a) A complete release of all liens is delivered, or a bond indemnifying the Owner is provided.</span>
+        </li>
+        <li class="c2 c23 li-bullet-0">
+            <span class="c8">(b) The work is approved by the Owner.</span>
+        </li>
+    </ul>
+
+    <p class="c2">
+        <span class="c8">
+            If any disputes arise regarding disapproved work, arbitration will be pursued to resolve the matter.
+        </span>
+    </p>
+
+    <p class="c2">
+        <span>5.5. </span>
+        <span class="c14">Waiver of Claims.</span>
+        <span class="c8">
+            The Owner waives all claims upon making the final payment, except for latent defects and those documented in writing before final payment.
+        </span>
+    </p>
+
+    <p class="c2">
+        <span>5.6. </span>
+        <span class="c14">Caveat.</span>
+        <span class="c8">
+            Payments withheld due to disputes shall be limited to the value of defective work, claims, or unpaid subcontractor costs. If the Contractor provides a sufficient bond, withheld payments shall be released promptly.
+        </span>
+    </p>
+
+    <p class="c2">
+        <span>5.7. </span>
+        <span class="c14">Occupancy.</span>
+        <span class="c8">
+            The Owner shall not occupy the residence until final inspections and payments are completed.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" style="margin-top:300px;">
+        <span class="c12">Article 6: Duties</span>
+    </h3>
+
+    <h4 class="c25">
+        <span class="c0">6.1. Duties of the Contractor</span>
+    </h4>
+
+    <p class="c2">
+        <span class="c8">
+            6.1.1. Ensure all construction complies with plans and specifications.<br />
+            6.1.2. Perform all construction in a workmanlike manner compliant with applicable codes and laws.<br />
+            6.1.3. Utilize licensed individuals for all applicable work.<br />
+            6.1.4. Obtain necessary permits for the work.<br />
+            6.1.5. Provide finish materials as per contract, utilizing contractor's discounts. Owner-provided items require contractor approval.
+        </span>
+    </p>
+
+    <h4 class="c25" id="h.9ozqphkpy26d">
+        <span class="c0">6.2. Duties of the Owner</span>
+    </h4>
+
+    <p class="c2">
+        <span class="c8">
+            6.2.1. Provide a full specification book by dates specified in the attached materials form.<br />
+            6.2.2. Supply interior elevations and styles for bathrooms, kitchens, and cabinetry. Delays in providing these documents may result in additional costs.<br />
+            6.2.3. Assume responsibility for owner-purchased items installed by the contractor.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" id="h.2o6s5z98tsto">
+        <span class="c12">Article 7: Change Orders and Finish Schedules</span>
+    </h3>
+
+    <p class="c2">
+        <span>
+            7.1. A change order must be agreed upon in writing (email or text), including cost, time considerations, and work details.<br />
+            7.2. Delays or changes in finish selection schedules may extend the completion date.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" id="h.lk2tr2hslrxt">
+        <span class="c12">Article 8: Insurance</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            8.1. The Owner shall maintain a property insurance policy until construction is completed.<br />
+            8.2. Property insurance must cover the full insurable value against fire, vandalism, and other risks.<br />
+            8.3. The Contractor will maintain required Workman's Compensation and Liability insurance.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" id="h.5m0ijrowifoy">
+        <span class="c12">Article 9: General Provisions</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            9.1. Unforeseen site conditions causing cost or schedule adjustments will be addressed through mutual agreement, with costs borne by the Owner.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" id="h.3x4wnn2bk76e">
+        <span class="c12">Article 10: Hazardous Materials</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            10.1. Discovery of hazardous materials will require specialized contractors. Associated costs and time adjustments will be treated as a change order.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" id="h.2raoy38id0wn">
+        <span class="c12">Article 11: Arbitration of Disputes</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            11.1. Any disputes will be settled through arbitration under the American Arbitration Association's Construction Industry Arbitration Rules.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" id="h.wdxukzudd1bb">
+        <span class="c12">Article 12: Warranty</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            12.1. The warranty for workmanship or materials is managed directly between the Owner and subcontractors/suppliers. Legal actions must be initiated within one year of project completion.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" style="margin-top:300px;">
+        <span class="c12">Article 13: Termination of Contract</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            13.1. In case of default by either party, damages, specific performance, or liquidated damages may be pursued as stipulated.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" id="h.68vemgv7ow7w">
+        <span class="c12">Article 14: Attorney Fees</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            14.1. The prevailing party in any dispute shall be entitled to reasonable attorney fees and costs.
+        </span>
+    </p>
+
+    <hr />
+
+    <h3 class="c3" id="h.wm1joy2prf1u">
+        <span class="c12">Article 15: Acceptance and Occupancy</span>
+    </h3>
+
+    <p class="c2">
+        <span class="c8">
+            15.1. Upon completion, inspections shall occur, and necessary repairs shall be made.<br />
+            15.2. The Owner may not occupy the property until final payment and a Certificate of Occupancy are secured.<br />
+            15.3. Occupancy in violation of the agreement waives any claims for defects or uncompleted work.
+        </span>
+    </p>
+
+    <hr />
+
+    <p class="c20">
+        <span class="c8">Executed on this day of , .</span>
+    </p>
+
+    <h4 class="c10" id="h.unvje9krt9kh">
+        <span class="c0">Owner:</span>
+    </h4>
+
+    <div class="textbox-field border-bottom-2 border-top-none border-right-none border-left-none margin-bottom-80" id="primary_owner_signatory_name"></div>
+    <div class="textbox-field border-bottom-2 border-top-none border-right-none border-left-none margin-bottom-80" id="secondary_owner_signatory_name"></div>
+
+    <h4 class="c10" id="h.1w9le9ylogaz">
+        <span class="c0">Contractor:</span>
+    </h4>
+
+    <p class="c20">
+        <span class="c14 d-block margin-bottom-10">
+            ____________________________________<br />
+        </span>
+        <span class="c8">{{CONTRACTOR}}</span>
+    </p>
+
+    <p class="c32" style="margin-top:700px;">
+        <span class="c0">Material Form</span>
+    </p>
+
+    <p class="c15">
+        <span class="c8"></span>
+    </p>
+    <p class="c15"><span class="c8"></span></p>
+    <table class="c41" style="width:100%;">
+        <tbody>
+            <tr class="c42">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Order Date</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Item</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Examples</span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Lead time</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Manufacturer and Style</span></p>
+                </td>
+            </tr>
+            <tr class="c43">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">Beginning of Framing</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Windows and Doors</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">Interior/exterior doors, windows</span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">2-6 Months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">Andersen</span></p>
+                    <p class="c6"><span class="c8">Milgard</span></p>
+                    <p class="c6"><span class="c8">Jeldwen</span></p>
+                    <p class="c6"><span class="c8">Sierra Pacific</span></p>
+                    <p class="c6"><span class="c8">Fleetwood</span></p>
+                </td>
+            </tr>
+            <tr class="c34">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">Beginning of Framing</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Appliances</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">2-6 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c19">Stacey at Universal Appliance</span></p>
+                    <p class="c6"><span class="c19">-Sub zero</span></p>
+                    <p class="c6"><span class="c19">-Wolf</span></p>
+                    <p class="c6"><span class="c19">-Thermador</span></p>
+                    <p class="c6"><span class="c19">-Viking</span></p>
+                    <p class="c6"><span class="c21">-Fisher Peykal</span></p>
+                </td>
+            </tr>
+            <tr class="c26">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">Beginning of Framing</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Front door</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">2-4 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+            </tr>
+            <tr class="c29">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">Beginning of Framing</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Plumbing Fixtures</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">Faucets, shower head, tub, drains, sinks</span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">1-3 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">Drew at Hajoca</span></p>
+                </td>
+            </tr>
+            <tr class="c36">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">After Framing</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Interior doors</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">1-2 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c19">El &amp; El</span></p>
+                    <p class="c6"><span class="c21">TM Cobb</span></p>
+                </td>
+            </tr>
+            <tr class="c31">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">During Framing</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Fireplace</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">1-3 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c19">Heat n Glow</span></p>
+                    <p class="c6"><span class="c21">Flare</span></p>
+                </td>
+            </tr>
+            <tr class="c38">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">After Framing</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Cabinets</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">1-3 Months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">Custom or Prefab</span></p>
+                </td>
+            </tr>
+            <tr class="c44">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">After Framing</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Light Fixtures</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">1-3 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+            </tr>
+            <tr class="c33">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">After drywall</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Garage Doors</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">2-4 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+            </tr>
+            <tr class="c36">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">After Drywall</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Flooring</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">1-3 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">Designer magic flooring for Samples</span></p>
+                </td>
+            </tr>
+            <tr class="c26">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">After Drywall</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Countertop and Tile</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">1-3 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">Arizone tile and slab yard</span></p>
+                </td>
+            </tr>
+            <tr class="c31">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">After Drywall</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Bath Accessories</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">Toilet paper holder, towel rack</span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">1-3 months</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+            </tr>
+            <tr class="c40">
+                <td class="c7" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">During cabinet install</span></p>
+                </td>
+                <td class="c1" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c14">Door and Cabinet Hardware</span></p>
+                </td>
+                <td class="c18" colspan="1" rowspan="1">
+                    <p class="c4"><span class="c8"></span></p>
+                </td>
+                <td class="c17" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c8">Weeks</span></p>
+                </td>
+                <td class="c9" colspan="1" rowspan="1">
+                    <p class="c6"><span class="c21">Emtek</span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

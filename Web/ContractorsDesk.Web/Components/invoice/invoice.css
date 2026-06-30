@@ -1,0 +1,19 @@
+﻿textarea.textarea-dynamic {
+    width: 100%; /* Adjust width as needed */
+    height: 37px; /* Initial height */
+    overflow: hidden; /* Prevent scrollbar until dynamically resized */
+    resize: none; /* Prevent manual resizing */
+    padding: 8px; /* Add padding for user comfort */
+    font-size: 12px; /* Adjust font size as needed */
+    box-sizing: border-box; /* Ensures padding is included in height/width */
+    border: 1px solid #ccc; /* Optional: Add border for visibility */
+    border-radius: 4px; /* Optional: Rounded corners */
+}
+
+tbody.invoice-items-body tr.add-button-container td {
+    border: none !important;
+}
+
+table.invoice-table.table-cell-bordered tr td{
+    border:none !important;
+}

@@ -1,0 +1,5 @@
+﻿class ProfitAndLossReportModel {
+    constructor() {
+    }
+}
+

@@ -1,0 +1,51 @@
+﻿<!--begin::List Widget 9-->
+<div class="card card-xl-stretch mb-5 mb-xl-8">
+	<!--begin::Header-->
+	<div class="card-header align-items-center border-0 mt-1 pe-4 ps-4">
+		<h3 class="card-title align-items-start flex-column">
+			<span class="fw-bolder text-dark fs-3">Proposals</span>
+			<span class="text-gray-400 mt-2 fw-bold fs-7" id="listview-widget-proposals-counter">0 of 0</span>
+		</h3>
+		<div class="card-toolbar">
+			<div class="ms-auto">
+				<a href="#" class="btn btn-light text-primary btn-sm filter-text" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+					<span class="selected-filter">All</span> <i class="fas fa-chevron-down"></i>
+				</a>
+				<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-200px py-4" data-kt-menu="true" style="">
+					<div class="menu-item px-3">
+						<a href="javascript:" class="menu-link px-3 text-primary" data-class-active="primary" data-value="All" evt-click="onFilterProposals">
+							All
+						</a>
+					</div>
+					<div class="menu-item px-3">
+						<a href="javascript:" class="menu-link px-3 text-muted" data-class-active="muted" data-value="Draft" evt-click="onFilterProposals">
+							Draft
+						</a>
+					</div>
+					<div class="menu-item px-3">
+						<a href="javascript:" class="menu-link px-3 text-success" data-class-active="success" data-value="Accepted" evt-click="onFilterProposals">
+							Accepted
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<form class="w-100 position-relative" autocomplete="off">
+			<span class="svg-icon svg-icon-2 svg-icon-lg-1 svg-icon-gray-500 position-absolute top-50 ms-5 translate-middle-y">
+				<i class="bi bi-search"></i>
+			</span>
+			<input type="text" class="form-control form-control-solid px-15 search-control" placeholder="Search" evt-keyup="onSearchProposal">
+		</form>
+	</div>
+	<!--end::Header-->
+	<!--begin::Body-->
+	<div class="card-body pt-5 pe-2 ps-2 loading" id="listview-widget-proposals">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+		<div class="listview-widget-content scroll-y h-200px h-lg-auto scroller-content" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="600px" data-kt-scroll-offset="5px">
+			
+		</div>
+		
+	</div>
+	<!--end::Body-->
+</div>
+<!--end::List Widget 9-->

@@ -1,0 +1,27 @@
+﻿/* Large desktops */
+@media (min-width: 1200px) {
+    .fw-75 {
+        flex: 0 0 75% !important;
+    }
+}
+
+/* Very large desktops */
+@media (min-width: 1400px) {
+    .fw-75 {
+        flex: 0 0 80% !important;
+    }
+}
+
+/* Large desktops */
+@media (min-width: 1200px) {
+    .fw-70 {
+        flex: 0 0 65% !important;
+    }
+}
+
+/* Very large desktops */
+@media (min-width: 1400px) {
+    .fw-70 {
+        flex: 0 0 70% !important;
+    }
+}

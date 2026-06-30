@@ -1,0 +1,108 @@
+﻿.has-shadow {
+    box-shadow: -10px 9px 8px 0px rgba(208,208,208,0.75);
+    -webkit-box-shadow: -10px 9px 8px 0px rgba(208,208,208,0.75);
+    -moz-box-shadow: -10px 9px 8px 0px rgba(208,208,208,0.75);
+}
+#form-client-details .input-group-text {
+    min-width: 125px !important;
+}
+#form-project-settings .input-group-text {
+    min-width: 160px !important;
+}
+
+.fixed-header {
+    position: sticky;
+    top: 0;
+    padding-bottom: 20px;
+    background: white;
+}
+
+.select2-container .select2-results__option {
+    color: #181c32 !important;
+}
+/* Target the selected option */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #181c32 !important;
+    opacity: 1;
+}
+
+#select2-slcCustomerState-container {
+    color: #181c32 !important;
+    opacity: 1;
+}
+
+.nav-line-tabs .nav-item .nav-link {
+    color: #585c74;
+}
+
+.active {
+    color: #009ef7 !important;
+}
+
+.disabled {
+    color: #c3c8de !important;
+}
+
+.scrollable-tbody {
+    max-height: 200px;
+    overflow-y: auto;
+}
+.secondary-email-tag {
+    background: #e0e7ff;
+    color: #3730a3;
+    border-radius: 12px;
+    padding: 2px 8px;
+    margin: 2px 4px 2px 0;
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+    .secondary-email-tag .remove-tag {
+        margin-left: 6px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+#secondaryEmailInput {
+    outline: none;
+}
+
+.photo-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+    .photo-wrapper img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    .photo-wrapper .overlay-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%; /* 👈 Full width */
+        height: 100%; /* 👈 Full height to center vertically */
+        display: flex; /* 👈 Flexbox for centering */
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        background-color: rgba(0, 0, 0, 0); /* Transparent by default */
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        text-align: center;
+    }
+
+    .photo-wrapper:hover img {
+        filter: brightness(40%) blur(2px);
+        opacity: 0.8;
+    }
+
+    .photo-wrapper:hover .overlay-text {
+        opacity: 1;
+    }

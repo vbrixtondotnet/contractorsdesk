@@ -1,0 +1,54 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@using ContractorsDesk.Core.Dto
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions", 
+	"tagify-select",
+	"autocomplete",
+	"tabcontrol",
+	"virtual-select"
+})
+
+@{
+	var Permissions = (PermissionViewModel)ViewBag.Permissions;
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+
+<div class="card mb-2 mb-xl-2 proposal-form" id="proposal-header">
+	<div class="card-body pt-5 pb-0 loading proposal-details">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 7, Header = false, CardBody = false })
+		<!--begin::Details-->
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+			<div class="flex-grow-1">
+				@await Html.PartialAsync("components/proposal-header.cshtml")
+			</div>
+			<!--end::Wrapper-->
+		</div>
+	</div>
+</div>
+
+@await Html.PartialAsync("components/project-customer-detail.cshtml")
+
+<div class="col-md-12 d-flex">
+    <div class="card flex-grow-1">
+        <div class="card-header ps-7">
+            <h5 class="card-title mb-0">Estimate Line Items</h5>
+			<div id="addCategoryDiv" class="justify-self-right">
+				<button type="button" class="btn btn-sm btn-light-primary mt-4" evt-click="onAddCategoryClick" id="btnAddNewCategory">
+					<span class="indicator-label">+ Add Category</span>
+				</button>
+			</div>
+        </div>
+    </div>
+</div>
+<div class="row g-6 g-xl-9 proposal-form">
+	@await Html.PartialAsync("components/tab-proposal-lines.cshtml")
+</div>
+
+@await Html.PartialAsync("components/send-contract-drawer.cshtml")
+@await Html.PartialAsync("components/save-template-drawer.cshtml")
+@await Html.PartialAsync("components/add-category-drawer.cshtml")
+@await Html.PartialAsync("components/print-option-drawer.cshtml")
+@await Html.PartialAsync("components/action-menu-bar.cshtml")
+@await Html.PartialAsync("components/modal-merge-proposal.cshtml")
+@await Html.PartialAsync("components/modal-merge-draft-proposals.cshtml")

@@ -1,0 +1,49 @@
+﻿.list-item {
+    display: grid !important;
+    grid-template-columns: 1fr auto auto; /* First column takes up available space, others auto-size */
+    align-items: center; /* Aligns content vertically */
+    gap: 1rem; /* Adds space between columns */
+}
+
+.fw-bold {
+    /* No need to change this, the grid layout handles width distribution */
+}
+
+.price {
+    text-align: right; /* Aligns the price to the right */
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem; /* Adds space between action buttons */
+}
+
+.fixed-header {
+    position: sticky;
+    top: 0;
+    padding-bottom:20px;
+    background: white;
+}
+
+.btn-toggle-stats {
+    margin-top: -45px;
+}
+
+.btn-toggle-stats.shown{
+    margin-top:-8px;
+}
+
+
+.btn-toggle-stats i.bi.bi-chevron-double-down {
+    display: inline-block;
+}
+.btn-toggle-stats i.bi.bi-chevron-double-up {
+    display: none;
+}
+
+.btn-toggle-stats.shown i.bi.bi-chevron-double-down {
+    display:none;
+}
+.btn-toggle-stats.shown i.bi.bi-chevron-double-up {
+    display: inline-block;
+}

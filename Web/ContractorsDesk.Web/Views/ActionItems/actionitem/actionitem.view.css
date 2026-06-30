@@ -1,0 +1,18 @@
+﻿.actionitem-status {
+    position: absolute;
+    margin-left: 10px;
+}
+
+.label-fixed-width {
+    min-width: 200px;
+    text-align: left; 
+}
+
+.customized-description {
+    text-align: justify;
+    margin: 20px 0 0 0;
+}
+
+.button-fixed-width {
+    min-width: 150px;
+}

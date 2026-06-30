@@ -1,0 +1,76 @@
+﻿<div class="bg-body"
+	 id="save-template-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'450px', 'lg': '450px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#save-template-drawer-close">
+
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="save-template-drawer-header">
+				<h3 class="card-title fw-bolder text-dark">Save as Template</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="save-template-drawer-close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative pt-2" id="save-template-drawer-body">
+				<div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#save-template-drawer-body"
+					 data-kt-scroll-dependencies="#save-template-drawer-header, #save-template-drawer-footer"
+					 data-kt-scroll-offset="5px">
+						<form class="form-binder" id="form-template">
+							<div class="input-group input-group-sm mb-2">
+								<span class="input-group-text" id="basic-addon1">Template Name</span>
+								<input type="text" class="form-control" id="txtTemplateName" name="name" value="" data-model="name">
+							</div>
+							<div class="input-group mb-5 justify-content-start">
+								<label class="form-check form-switch form-check-custom form-check-solid">
+								<input class="form-check-input" type="checkbox" value="1" data-model="overwrite" evt-change="onOverwriteSet" id="chkOverwrite" />
+									<span class="form-check-label fw-bold text-muted">
+										Overwrite Source
+									</span>
+								</label>
+							</div>
+						<div class="input-group mb-5 justify-content-start">
+							<label class="form-check form-switch form-check-custom form-check-solid">
+								<input class="form-check-input" type="checkbox" value="1" data-model="default" id="chkDefaultTemplate" />
+								<span class="form-check-label fw-bold text-muted">
+									Set as Default Template
+								</span>
+							</label>
+						</div>
+						</form>	
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="save-template-drawer-footer">
+				<button type="button" class="btn btn-sm btn-primary always-enabled w-150px" evt-click="onSaveTemplate">
+					<span class="indicator-label">
+						Save
+					</span>
+					<span class="indicator-progress">
+						Saving Template...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

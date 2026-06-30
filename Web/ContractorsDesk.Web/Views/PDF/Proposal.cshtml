@@ -1,0 +1,433 @@
+﻿@using ContractorsDesk.WebPortal.Helpers;
+@using ContractorsDesk.Core.Dto;
+@model ProposalDto
+@{
+	Layout = null;
+	var categories = Model.Template.Categories.Where(c => c.TotalAmount > 0).ToList();
+	var lastNonOverheadCategory = categories.Count >= 2 ? categories[^2] : null;
+	var overheadCategory = categories.Last();
+	var nonOverheadCategories = categories.Where(c => c.Id != overheadCategory.Id).ToList();
+	var totalNonOverhead = nonOverheadCategories.Sum(c => c.TotalAmount);
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+	<title></title>
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="website" property="og:type" />
+	<meta content="" property="og:description" />
+	<meta content="https://gdx8f9i99q.preview-beefreedesign.com/ZFyty" property="og:url" />
+	<meta content="https://pro-bee-beepro-thumbnail.getbee.io/messages/1331205/1317537/2331702/12227207_large.jpg" property="og:image" />
+	<meta content="" property="og:title" />
+	<meta content="" name="description" />
+	<meta charset="utf-8" />
+	<meta content="width=device-width" name="viewport" />
+	<style>
+		.bee-row,
+		.bee-row-content {
+			position: relative
+		}
+
+		.bee-row-6,
+		body {
+			background-color: #ffffff
+		}
+
+		body {
+			color: #000000;
+			font-family: Arial, Helvetica, sans-serif
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1 a,
+		.bee-row-3 .bee-col-2 .bee-block-1 a,
+		.bee-row-4 .bee-col-1 .bee-block-1 a,
+		.bee-row-4 .bee-col-2 .bee-block-1 a,
+		a {
+			color: #7747FF
+		}
+
+		* {
+			box-sizing: border-box
+		}
+
+		body,
+		h3,
+		p {
+			margin: 0
+		}
+
+		.bee-row-content {
+			max-width: 1280px;
+			margin: 0 auto;
+			display: flex
+		}
+
+		.bee-row-content .bee-col-w6 {
+			flex-basis: 50%
+		}
+
+		.bee-row-content .bee-col-w12 {
+			flex-basis: 100%
+		}
+
+		.bee-icon .bee-icon-label-right a {
+			text-decoration: none
+		}
+
+		.bee-image {
+			overflow: auto
+		}
+
+		.bee-image .bee-center {
+			margin: 0 auto
+		}
+
+		.bee-row-1 .bee-col-1 .bee-block-1 {
+			width: 100%
+		}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3,
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			color: #514d5a;
+			direction: ltr;
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: 700;
+			letter-spacing: normal;
+			line-height: 120%
+		}
+
+		.bee-icon {
+			display: inline-block;
+			vertical-align: middle
+		}
+
+		.bee-icon .bee-content {
+			display: flex;
+			align-items: center
+		}
+
+		.bee-image img {
+			display: block;
+			width: 100%
+		}
+
+		.bee-paragraph {
+			overflow-wrap: anywhere
+		}
+
+		.bee-table table {
+			border-collapse: collapse;
+			width: 100%
+		}
+
+		.bee-table table tbody,
+		.bee-table table thead {
+			vertical-align: top
+		}
+
+		.bee-table table td,
+		.bee-table table th {
+			padding: 10px;
+			word-break: break-word
+		}
+
+		.bee-row-1,
+		.bee-row-2,
+		.bee-row-3,
+		.bee-row-4,
+		.bee-row-5 {
+			background-repeat: no-repeat
+		}
+
+		.bee-row-1 .bee-row-content,
+		.bee-row-6 .bee-row-content {
+			background-repeat: no-repeat;
+			color: #000000
+		}
+
+		.bee-row-1 .bee-col-1,
+		.bee-row-2 .bee-col-1,
+		.bee-row-3 .bee-col-1,
+		.bee-row-3 .bee-col-2,
+		.bee-row-4 .bee-col-1,
+		.bee-row-4 .bee-col-2,
+		.bee-row-5 .bee-col-1,
+		.bee-row-6 .bee-col-1 {
+			padding-bottom: 5px;
+			padding-top: 5px
+		}
+
+		.bee-row-2 .bee-row-content,
+		.bee-row-3 .bee-row-content,
+		.bee-row-4 .bee-row-content,
+		.bee-row-5 .bee-row-content {
+			background-repeat: no-repeat;
+			border-radius: 0;
+			color: #000000
+		}
+
+		.bee-row-2 .bee-col-1 .bee-block-1,
+		.bee-row-5 .bee-col-1 .bee-block-1 {
+			padding: 10px;
+			text-align: center;
+			width: 100%
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1,
+		.bee-row-3 .bee-col-2 .bee-block-1,
+		.bee-row-4 .bee-col-1 .bee-block-1,
+		.bee-row-4 .bee-col-2 .bee-block-1,
+		.bee-row-5 .bee-col-1 .bee-block-2 {
+			padding: 10px
+		}
+
+		.bee-row-6 {
+			background-repeat: no-repeat
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 {
+			color: #1e0e4b;
+			font-family: Inter, sans-serif;
+			font-size: 15px;
+			padding-bottom: 5px;
+			padding-top: 5px;
+			text-align: center
+		}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3 {
+			font-size: 24px;
+			text-align: center
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1,
+		.bee-row-3 .bee-col-2 .bee-block-1,
+		.bee-row-4 .bee-col-1 .bee-block-1,
+		.bee-row-4 .bee-col-2 .bee-block-1 {
+			color: #101112;
+			direction: ltr;
+			font-size: 16px;
+			font-weight: 400;
+			letter-spacing: 0;
+			line-height: 120%;
+			text-align: left
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1 p:not(:last-child),
+		.bee-row-3 .bee-col-2 .bee-block-1 p:not(:last-child),
+		.bee-row-4 .bee-col-1 .bee-block-1 p:not(:last-child),
+		.bee-row-4 .bee-col-2 .bee-block-1 p:not(:last-child) {
+			margin-bottom: 16px
+		}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			font-size: 16px;
+			text-align: left
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon-image {
+			padding: 5px 6px 5px 5px
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon:not(.bee-icon-first) .bee-content {
+			margin-left: 0
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon::not(.bee-icon-last) .bee-content {
+			margin-right: 0
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bee-page-container">
+		<div class="bee-row bee-row-1">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-image"><img alt="" class="bee-center bee-autowidth" src="@CompanySettings.CompanyLogoUrl" style="max-width:333px;" /></div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-2">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-heading">
+						<h3><span class="tinyMce-placeholder">JOB ESTIMATE PROPOSAL</span> </h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-3">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w6" style="float:left;width:50%;">
+					<div class="bee-block bee-block-1 bee-paragraph">
+						<p>
+							<strong>
+								<span style="color: #514d5a;">@CompanySettings.CompanyName     </span>
+							</strong><br />
+							@if (!string.IsNullOrWhiteSpace(CompanySettings.Address1))
+							{
+								<span style="color: #7a8085;">@CompanySettings.Address1</span>
+
+								<br />
+							}
+							@if (!string.IsNullOrWhiteSpace(CompanySettings.Address2))
+							{
+								<span style="color: #7a8085;">@CompanySettings.Address2</span>
+
+								<br />
+							}
+
+							@if (!string.IsNullOrWhiteSpace(CompanySettings.City) || !string.IsNullOrWhiteSpace(CompanySettings.State) || !string.IsNullOrWhiteSpace(CompanySettings.Zip))
+							{
+								var cityStateZip = $"{CompanySettings.City}, {CompanySettings.State} {CompanySettings.Zip}".Trim(' ', ',');
+								<span style="color: #7a8085;">@cityStateZip</span>
+
+								<br />
+							}
+							@if (!string.IsNullOrWhiteSpace(CompanySettings.PhoneNumber))
+							{
+								<span style="color: #7a8085;">Phone: @CompanySettings.PhoneNumber</span>
+
+								<br />
+							}
+							@if (!string.IsNullOrWhiteSpace(CompanySettings.CompanyEmail))
+							{
+								<span style="color: #7a8085;">Email: @CompanySettings.CompanyEmail</span>
+							}
+						</p>
+					</div>
+				</div>
+				<div class="bee-col bee-col-2 bee-col-w6" style="float:left;">
+					<div class="bee-block bee-block-1 bee-paragraph">
+						<p>
+							<span style="color: #514d5a;"><strong>Number</strong></span>: <span style="color: #7a8085;">@Model.Number</span><br />
+							<span style="color: #514d5a;"><strong>Date</strong></span>: <span style="color: #7a8085;">@Model.Date</span><br />
+							<span style="color: #514d5a;"><strong>Doc Status</strong>:</span><span style="color: #7a8085;"> @Model.StatusString</span>
+						</p>
+					</div>
+				</div>
+				<div style="clear:both">&nbsp;</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-4">
+			<div class="bee-row-content">
+				@{
+					var clientName = Model.Client != null ? $"{Model.Client.Name}" : string.Empty;
+					var companyName = Model.Client != null ? Model.Client.CompanyName : string.Empty;
+					var email = Model.Client != null ? Model.Client.EmailAddress : string.Empty;
+					var phone = Model.Client != null ? Model.Client.Phone : string.Empty;
+				}
+				<div class="bee-col bee-col-1 bee-col-w6" style="float:left;width:50%;">
+					<div class="bee-block bee-block-1 bee-paragraph">
+						<p><span style="color: #514d5a;"><strong>Client Information</strong></span></p>
+						<p><span style="color: #514d5a;">Name</span>: <span style="color: #7a8085;">@clientName</span><br />
+							<span style="color: #514d5a;">Company</span>: <span style="color: #7a8085;">@companyName</span><br />
+							<span style="color: #514d5a;">Email</span>: <span style="color: #7a8085;">@email</span><br />
+							<span style="color: #514d5a;">Phone</span>: <span style="color: #7a8085;">@phone</span>
+						</p>
+					</div>
+				</div>
+				<div class="bee-col bee-col-2 bee-col-w6" style="float:left;">
+					<div class="bee-block bee-block-1 bee-paragraph">
+						<p><span style="color: #514d5a;"><strong>Project Information</strong></span></p>
+						<p>
+							<span style="color: #514d5a;">Name</span>: <span style="color: #7a8085;">@Model.Project.Name</span><br />
+							<span style="color: #514d5a;">Address</span>: <span style="color: #7a8085;">@Model.Project.Address</span>
+						</p>
+						<p> </p>
+					</div>
+				</div>
+
+				<div style="clear:both">&nbsp;</div>
+			</div>
+		</div>
+		@foreach (var category in Model.Template.Categories)
+		{
+			var lineItemsWithDescriptionCount = category.LineItems.Count(l => !string.IsNullOrEmpty(l.Description));
+			if (category.TotalAmount > 0 || lineItemsWithDescriptionCount > 0)
+			{
+				<div class="bee-row bee-row-5">
+					<div class="bee-row-content">
+						<div class="bee-col bee-col-1 bee-col-w12">
+							<div class="bee-block bee-block-1 bee-heading">
+								<h3><span class="tinyMce-placeholder">@category.Name</span> </h3>
+							</div>
+							<div class="bee-block bee-block-2 bee-table">
+								<table style="table-layout:fixed;direction:ltr;background-color:transparent;font-family:Arial, Helvetica, sans-serif;font-weight:400;color:#101112;text-align:left;letter-spacing:0px;">
+									<thead style="background-color:#f2f2f2;color:#101112;font-size:14px;line-height:120%;text-align:center;">
+										<tr>
+											<th style="font-weight:700;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;width:75px;"><span class="tinyMce-placeholder" style="color: #514d5a;">#</span></th>
+											<th style="font-weight:700;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;"><span class="tinyMce-placeholder" style="color: #514d5a;">ITEM</span></th>
+											<th style="font-weight:700;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;"><span class="tinyMce-placeholder" style="color: #514d5a;">DESCRIPTION</span></th>
+											<th style="font-weight:700;border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;width: 150px;"><span class="tinyMce-placeholder" style="color: #514d5a;">AMOUNT</span></th>
+										</tr>
+									</thead>
+									<tbody style="font-size:16px;line-height:120%;">
+										@{
+											var borderBottom = "border-bottom: 5px double black !important";
+											var borderTop = "border-top: 2px solid black !important";
+											var cellStyle = "border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;";
+										}
+										@foreach (var lineItem in category.LineItems)
+										{
+											if (lineItem.Amount > 0 || !string.IsNullOrEmpty(lineItem.Description))
+											{
+												<tr>
+													<td style="text-align:center;@cellStyle">@lineItem.Sequence</td>
+													<td style="@cellStyle">@lineItem.Name</td>
+													<td style="@cellStyle">
+														<span>@Html.Raw((lineItem.Description ?? "").Replace("\n", "<br/>"))</span>
+													</td>
+													<td class="text-center" style="@cellStyle text-align:right;">
+														<span>@Html.FormatAsMoney(lineItem.Amount)</span>
+													</td>
+												</tr>
+											}
+										}
+										<tr>
+											<td class="pb-2 pt-2" style="text-align:center;@cellStyle">&nbsp;</td>
+											<td style="@borderTop;@borderBottom;@cellStyle"><strong style="text-transform:uppercase;">Total @category.Name</strong></td>
+											<td style="@borderTop;@borderBottom;@cellStyle">&nbsp;</td>
+											<td style="text-align:center;@borderTop;@borderBottom;@cellStyle">
+												<strong>@Html.FormatAsMoney(category.TotalAmount)</strong>
+											</td>
+										</tr>
+										@if (lastNonOverheadCategory != null && category.Id == lastNonOverheadCategory.Id)
+										{
+											<tr>
+												<td class="pb-2 pt-2" style="text-align:center;@cellStyle">&nbsp;</td>
+												<td style="@borderTop;@borderBottom;@cellStyle"><strong style="text-transform:uppercase;">Subtotal (Non-Overhead)</strong></td>
+												<td style="@borderTop;@borderBottom;@cellStyle">&nbsp;</td>
+												<td style="text-align:center;@borderTop;@borderBottom;@cellStyle">
+													<strong>@Html.FormatAsMoney(totalNonOverhead)</strong>
+												</td>
+											</tr>
+										}
+										@if (category.Id == overheadCategory.Id)
+										{
+											<tr>
+												<td class="pb-2 pt-2" style="text-align:center;@cellStyle">&nbsp;</td>
+												<td style="@borderTop;@borderBottom;@cellStyle"><strong style="text-transform:uppercase;">Project Totals</strong></td>
+												<td style="@borderTop;@borderBottom;@cellStyle">&nbsp;</td>
+												<td style="text-align:center;@borderTop;@borderBottom;@cellStyle">
+													<strong>@Html.FormatAsMoney(Model.Total)</strong>
+												</td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		}
+		
+		
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+﻿@using ContractorsDesk.Core.Dto
+@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions",
+	"sticky-header",
+	"virtual-select",
+	"autocomplete",
+	"invoice"
+})
+
+@{
+	var Permissions = (PermissionViewModel)ViewBag.Permissions;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+<div class="card mb-2 mb-xl-2 loading proposal-details" id="proposal-header">
+	@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 7, Header = false, CardBody = false })
+	<div class="card-body pb-0 pt-0">
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+
+			<div class="flex-grow-1">
+				<div class="flex-shrink-0 bg-white mt-5" style="justify-self:center;">
+					<img class="mw-100px mw-lg-250px" src="@CompanySettings.CompanyLogoUrl" alt="image" />
+				</div>
+
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;">
+					<h1>Updated Budget Report</h1>
+					<h3 class="text-center">@currentDate</h3>
+				</div>
+				<div class="row">
+					<div class="py-3 justify-content-between align-items-start flex-wrap mb-2 fs-5">
+						<div class="">
+							<div class="fw-bolder">Project Name: <span class="text-gray-600" id="lblProjectName" data-bookmark-title="true"></span></div>
+						</div>
+						<div class="">
+							<div class="fw-bolder">Start Date: <span class="text-gray-600" id="lblStartDate"></span></div>
+						</div>
+						<div class="">
+							<div class="fw-bolder">Estimated Completion Date: <span class="text-gray-600" id="lblEstimatedCompletionDate"></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--end::Wrapper-->
+		</div>
+		<div class="justify-self-right mb-4 d-flex align-items-center">
+			@Html.InputGroupDropdown(new InputGroupModel { Id = "slc-cost-revision-project", Label = "Project", LabelCssClass = "mn-w-134px", CssClass = "mt-2 me-2" })
+
+			<button type="button" class="btn btn-sm btn-bg-secondary text-inverse-secondary ms-auto ms-3 always-enabled" evt-click="print" id="btnPrint">
+				<span class="indicator-label">Print</span>
+				<span class="indicator-progress">
+					Please wait...
+					<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+				</span>
+			</button>
+		</div>
+	</div>
+</div>
+
+
+<div id="dv-proposal-categories" class="loading d-none">
+
+	@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 20, Header = false, CardBody = false })
+	<div class="row mb-2 g-6 g-xl-9 category-row">
+		<div class="col-lg-12">
+			<div class="card card-flush h-lg-100">
+				<div class="card-body pt-5">
+					<table class="table table-cell-bordered proposal-items">
+						<thead class="sticky-header">
+							<tr class="fw-bolder fs-6 text-gray-800 bg-light">
+								<th class="w-300px ps-2">Item</th>
+								<th class="w-200px text-center">Original Estimate</th>
+								<th class="w-200px text-center">Total Adjustment</th>
+								<th class="w-200px text-center">Revised Estimate</th>
+								<th class="w-200px text-center">Cost To Date</th>
+								<th class="text-center">Balance</th>
+							</tr>
+						</thead>
+						<tbody id="body-categories">
+						</tbody>
+					</table>
+				</div>
+				<!--end::Card body-->
+			</div>
+		</div>
+	</div>
+
+</div>

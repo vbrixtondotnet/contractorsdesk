@@ -1,0 +1,88 @@
+﻿
+@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"table", "tabcontrol"
+})
+<div id="dv-action-item-main-container">
+	<div class="card mb-6 mb-xl-9">
+		<div class="card flex-1">
+			<div class="col-md-6">
+				<!--begin::Card header-->
+				<div class="card-header cursor-pointer">
+					<!--begin::Card title-->
+					<div class="card-title m-0">
+						<h3 class="fw-bolder m-0">Contract Details</h3>
+					</div>
+					<div class="card-toolbar">
+						<button type="button" class="btn btn-sm btn-primary" id="btn-client-details-save" evt-click="generateContract">
+							<span class="indicator-label">
+								<i class="bi bi-save"></i>Generate and Download Contract
+							</span>
+							<span class="indicator-progress">
+								Generating Contract...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+
+				</div>
+				<!--begin::Card header-->
+				<!--begin::Card body-->
+				<div class="card-body p-9">
+					<form class="form-binder" id="form-contract-details">
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Proposal ID</span>
+							<input type="text" class="form-control" id="txtProposalId" value="5bf5380c-1c1e-41b0-aeeb-a1ffbff1b7b0">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Client Name</span>
+							<input type="text" class="form-control" id="txtClientName" value="Brixton Ray Villanueva">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Client Email Address</span>
+							<input type="text" class="form-control" id="txtClientEmail" value="vbrixtondotnet@gmail.com">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Project Address</span>
+							<input type="text" class="form-control" id="txtprojectAddress" value="113 Alamo">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Est. Start Date</span>
+							<input type="text" class="form-control" id="txtestStartDate" value="12/25/2024">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Est. Completion Date</span>
+							<input type="text" class="form-control" id="txtestCompletionDate" value="12/25/2025">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Gen. Contractor's Fee (%)</span>
+							<input type="text" class="form-control" id="txtgenContractorsFeePercentage" value="10">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Gen. Contractor's Fee ($)</span>
+							<input type="text" class="form-control" id="txtgenContractorsFeeAmount" value="5000">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Project Cost</span>
+							<input type="text" class="form-control" id="txtprojectCost" value="1500000">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Initial Deposit (%)</span>
+							<input type="text" class="form-control" id="txtinitialDepositPercentage" value="10">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Contractor</span>
+							<input type="text" class="form-control" id="txtcontractor" value="Craig Anderson">
+						</div>
+					</form>
+
+				</div>
+				<!--end::Card body-->
+
+			</div>
+		</div>
+	</div>
+</div>
+
+

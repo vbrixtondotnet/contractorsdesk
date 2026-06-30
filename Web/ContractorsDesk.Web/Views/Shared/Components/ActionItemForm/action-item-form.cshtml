@@ -1,0 +1,92 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@{
+	var actionTypes = new List<DropdownOptionModel>{
+			new DropdownOptionModel{ Text = "Select an action type", Value = "", Disabled = true, Selected = true },
+			new DropdownOptionModel{ Text = "Cost Change", Value = "1" },
+			//new DropdownOptionModel{ Text = "Schedule Change", Value = "2" },
+			new DropdownOptionModel{ Text = "Note", Value = "5" },
+			//new DropdownOptionModel{ Text = "General Change Order", Value = "8" }
+	};
+}
+<div class="bg-body"
+	 id="actionitem-form-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-name="actionitem-form-drawer"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'600px', 'lg': '550px'}"
+	 data-kt-drawer-direction="end">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="actionitem-drawer-form-header">
+				<h3 class="card-title fw-bolder text-dark" id="actionitem-drawer-form-title">Action Item</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5"  evt-click="resetActionItemForm">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative" id="actionitem-drawer-form-body">
+				<div id="kt_activities_scroll_edit" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#actionitem-drawer-form-body"
+					 data-kt-scroll-dependencies="#actionitem-drawer-form-header, #actionitem-drawer-form-footer"
+					 data-kt-scroll-offset="5px">
+					<form id="actionitem-form-drawer-form">
+						<div class="row">
+							<div class="col-md-12">
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-action-item-form-title", CssClass="show-on-assign", Label = "Title", LabelCssClass = "mn-w-134px", Required = true })
+								@Html.InputGroupTextArea(new InputGroupModel { Id = "txt-action-item-form-description", CssClass = "show-on-assign", Label = "Description", LabelCssClass = "mn-w-134px", TextAreaRows = 5 })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-action-item-form-duedate", Label = "Due Date", LabelCssClass = "mn-w-134px", Required = true })
+								@Html.InputGroupDropdown(new InputGroupModel { Id = "slc-action-item-form-actiontype", Label = "Action Type", LabelCssClass = "mn-w-134px", OnChange = "onActionTypeChange", Required = true, DropdownOptions = actionTypes })
+								@Html.InputGroupDropdown(new InputGroupModel { Id = "slc-action-item-form-project", Label = "Project", LabelCssClass = "mn-w-134px", })
+								@Html.InputGroupDropdown(new InputGroupModel { Id = "slc-action-item-form-assignedto", CssClass = "show-on-assign", Label = "Assigned To", LabelCssClass = "mn-w-134px", Multiple = true, Required = true })
+								@Html.InputGroupDropdown(new InputGroupModel { Id = "slc-action-item-form-estimatecategory", CssClass = "cost-change general-cost-change d-none", Label = "Estimate Category", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-action-item-form-currentamount", CssClass = "cost-change general-cost-change d-none", Label = "Current Amount", LabelCssClass = "mn-w-134px", Disabled = true, DataType = "money" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-action-item-form-costchange", CustomInputClass = "allow-negative", CssClass = "cost-change general-cost-change d-none", Label = "Cost Change", LabelCssClass = "mn-w-134px", DataType = "money", OnInput = "onCostChangeInput" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-action-item-form-revisedamount", CssClass = "cost-change general-cost-change d-none", Label = "Revised Amount", LabelCssClass = "mn-w-134px", DataType = "money", OnInput = "onRevisedAmountInput" })
+								@Html.InputGroupDropdown(new InputGroupModel { Id = "slc-action-item-form-constructiontask", CssClass = "schedule-change general-cost-change d-none", Label = "Construction Task", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-action-item-form-numberofdays", CssClass = "schedule-change general-cost-change d-none", Label = "Number of Days", LabelCssClass = "mn-w-134px", DataType = "int" })
+
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="actionitem-drawer-form-footer">
+				<button type="button" class="btn btn-sm btn-light-primary btn-actionitem-save" evt-click="onActionItemFormSave">
+					<span class="indicator-label">
+						<i class="bi bi-save"></i>Save Action Item
+					</span>
+					<span class="indicator-progress">
+						Saving...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+				<button type="button" class="btn btn-sm btn-light-primary d-none btn-actionitem-saveandstart" evt-click="onActionItemFormSave">
+					<span class="indicator-label">
+						<i class="bi bi-save"></i>Save & Start Action Item
+					</span>
+					<span class="indicator-progress">
+						Saving...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

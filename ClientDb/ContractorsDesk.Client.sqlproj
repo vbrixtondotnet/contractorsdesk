@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>ContractorsDesk.Client</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{d824f5b3-e5a3-44c4-8b28-235c7b1a4f5f}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath />
+    <RootNamespace>ClientDb</RootNamespace>
+    <AssemblyName>ClientDb</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\User Defined Types\" />
+    <Folder Include="Post-Deployment" />
+    <Folder Include="Scripts" />
+    <Folder Include="audit" />
+    <Folder Include="audit\Tables" />
+    <Folder Include="audit\Stored Procedures" />
+    <Folder Include="schema" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\__EFMigrationsHistory.sql" />
+    <Build Include="dbo\Tables\_TransactionIndex_db5d640b-c978-4222-b1f5-319e2688640a.sql" />
+    <Build Include="dbo\Tables\ActionItems.sql" />
+    <Build Include="dbo\Tables\ProposalTemplateUserDefault.sql" />
+    <Build Include="dbo\Tables\ActionItemsSupervisors.sql" />
+    <Build Include="dbo\Tables\ActionTypes.sql" />
+    <Build Include="dbo\Tables\AppConfiguration.sql" />
+    <Build Include="dbo\Tables\AspNetRoleClaims.sql" />
+    <Build Include="dbo\Tables\AspNetRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUserClaims.sql" />
+    <Build Include="dbo\Tables\AspNetUserLogins.sql" />
+    <Build Include="dbo\Tables\AspNetUserRoles.sql" />
+    <Build Include="dbo\Tables\AspNetUsers.sql" />
+    <Build Include="dbo\Tables\AspNetUserTokens.sql" />
+    <Build Include="dbo\Tables\ClientProjects.sql" />
+    <Build Include="dbo\Tables\ConstructionTasks.sql" />
+    <Build Include="dbo\Tables\ProjectScheduleTasks.sql" />
+    <Build Include="dbo\Tables\EstimateCategories.sql" />
+    <Build Include="dbo\Tables\ProjectSchedules.sql" />
+    <Build Include="dbo\Tables\EstimateHistories.sql" />
+    <Build Include="dbo\Tables\EstimateMappings.sql" />
+    <Build Include="dbo\Tables\Estimates.sql" />
+    <Build Include="dbo\Tables\Logs.sql" />
+    <Build Include="dbo\Tables\ProjectManagements.sql" />
+    <Build Include="dbo\Tables\ProjectSupervisors.sql" />
+    <Build Include="dbo\Tables\ProposalLines.sql" />
+    <Build Include="dbo\Tables\ProposalLinesHistory.sql" />
+    <Build Include="dbo\Tables\Proposals.sql" />
+    <Build Include="dbo\Tables\ProposalTemplates.sql" />
+    <Build Include="dbo\Tables\ProposalTemplatesLineItems.sql" />
+    <Build Include="dbo\Tables\QBAccounts.sql" />
+    <Build Include="dbo\Tables\QBBills.sql" />
+    <Build Include="dbo\Tables\QBClasses.sql" />
+    <Build Include="dbo\Tables\QBClassesExcel.sql" />
+    <Build Include="dbo\Tables\QBClassesExcelNew.sql" />
+    <Build Include="dbo\Tables\QBCreditMemos.sql" />
+    <Build Include="dbo\Tables\QBCustomers.sql" />
+    <Build Include="dbo\Tables\QBInvoices.sql" />
+    <Build Include="dbo\Tables\QBItems.sql" />
+    <Build Include="dbo\Tables\QBJournalEntries.sql" />
+    <Build Include="dbo\Tables\QBLocations.sql" />
+    <Build Include="dbo\Tables\QBOLastModifiedTimestamps.sql" />
+    <Build Include="dbo\Tables\QBSalesReceipts.sql" />
+    <Build Include="dbo\Tables\QBTransactions.sql" />
+    <Build Include="dbo\Tables\QBVendorCredits.sql" />
+    <Build Include="dbo\Tables\QBVendors.sql" />
+    <Build Include="dbo\Tables\Token.sql" />
+    <Build Include="dbo\Views\Test1.sql" />
+    <Build Include="dbo\Views\vwActiveConstructionJobDetails.sql" />
+    <Build Include="dbo\Views\vwActiveSpecJobDetails.sql" />
+    <Build Include="dbo\Views\MismatchesJobTransactions.sql" />
+    <Build Include="dbo\Functions\LSHBox30.sql" />
+    <Build Include="dbo\Functions\LBM500Box6.sql" />
+    <Build Include="dbo\Functions\LBBox67.sql" />
+    <Build Include="dbo\Functions\LSHBoxK2.sql" />
+    <Build Include="dbo\Functions\LSHBoxK1.sql" />
+    <Build Include="dbo\Functions\LBM500Box9WithRent1.sql" />
+    <Build Include="dbo\Functions\LBM500Box9.sql" />
+    <Build Include="dbo\Functions\LBM500Box8.sql" />
+    <Build Include="dbo\Functions\LBM500Box7.sql" />
+    <Build Include="dbo\Functions\LBBoxK2.sql" />
+    <Build Include="dbo\Functions\LBBoxK1.sql" />
+    <Build Include="dbo\Functions\getQBClassTopLevel.sql" />
+    <Build Include="dbo\Functions\getPercentageACAD.sql" />
+    <Build Include="dbo\Functions\getPercentage.sql" />
+    <Build Include="dbo\Functions\fn_diagramobjects.sql" />
+    <Build Include="dbo\Functions\msf_QuarterlyCashBudgetVsExpenses.sql" />
+    <Build Include="dbo\Functions\msf_QDRPCommittmentsVsActualCommittments.sql" />
+    <Build Include="dbo\Functions\msf_OpenJobs.sql" />
+    <Build Include="dbo\Functions\msf_OpenConstructionJobDetailReport.sql" />
+    <Build Include="dbo\Functions\msf_GetMismatchesJobTransactions.sql" />
+    <Build Include="dbo\Functions\msf_CHAOpenJobsReport.sql" />
+    <Build Include="dbo\Functions\msf_ActualCommittmentsVsActualDisbursmentsTest.sql" />
+    <Build Include="dbo\Functions\msf_ActualCommittmentsVsActualDisbursments.sql" />
+    <Build Include="dbo\Functions\msf_ActiveSpecJobsDetails.sql" />
+    <Build Include="dbo\Functions\msf_ActiveConstructionJobsDetails.sql" />
+    <Build Include="dbo\Functions\getQBAccountChildrenID.sql" />
+    <Build Include="dbo\Functions\GetHighestPercentageOfTransactions.sql" />
+    <Build Include="dbo\Functions\getAccountLevels.sql" />
+    <Build Include="dbo\Functions\getAccountChildrenID.sql" />
+    <Build Include="dbo\Stored Procedures\spGetProjectSchedule.sql" />
+    <Build Include="dbo\Stored Procedures\spVendorReport.sql" />
+    <Build Include="dbo\Stored Procedures\spVendorComulativeReport.sql" />
+    <Build Include="dbo\Stored Procedures\spUpdateOpenedAndClosedDate.sql" />
+    <Build Include="dbo\Stored Procedures\spTruncateTables.sql" />
+    <Build Include="dbo\Stored Procedures\spTransactionsReport1.sql" />
+    <Build Include="dbo\Stored Procedures\spTransactionsReport.sql" />
+    <Build Include="dbo\Stored Procedures\spRevisedEstimate_Test.sql" />
+    <Build Include="dbo\Stored Procedures\spRevisedEstimate_New.sql" />
+    <Build Include="dbo\Stored Procedures\spRevisedEstimate.sql" />
+    <Build Include="dbo\Stored Procedures\spReverseJobBankReconciliationReport.sql" />
+    <Build Include="dbo\Stored Procedures\spReportErrorCheckingRoutine.sql" />
+    <Build Include="dbo\Stored Procedures\spQuarterlyCashBudgetVsExpenses.sql" />
+    <Build Include="dbo\Stored Procedures\spQDRPCommittmentsVsActualCommittments.sql" />
+    <Build Include="dbo\Stored Procedures\spPrintJobEstimate.sql" />
+    <Build Include="dbo\Stored Procedures\spOpenJobs.sql" />
+    <Build Include="dbo\Stored Procedures\spOpenConstructionJobsReport.sql" />
+    <Build Include="dbo\Stored Procedures\spOpenConstructionJobDetailReport.sql" />
+    <Build Include="dbo\Stored Procedures\spMonthlyBudgetReportDetail.sql" />
+    <Build Include="dbo\Stored Procedures\spMonthlyBudgetReport_Test_2.sql" />
+    <Build Include="dbo\Stored Procedures\spMonthlyBudgetReport_Test.sql" />
+    <Build Include="dbo\Stored Procedures\spMonthlyBudgetReport.sql" />
+    <Build Include="dbo\Stored Procedures\spJobBankReconciliationReport.sql" />
+    <Build Include="dbo\Stored Procedures\spJobBankAllowedReport.sql" />
+    <Build Include="dbo\Stored Procedures\spExtractTransactionsAndCreateMissingProposal.sql" />
+    <Build Include="dbo\Stored Procedures\spDeleteProposal.sql" />
+    <Build Include="dbo\Stored Procedures\spCreateProposalFromSpecJob.sql" />
+    <Build Include="dbo\Stored Procedures\spCreateProposalFromJob.sql" />
+    <Build Include="dbo\Stored Procedures\spClassTransactionsReport.sql" />
+    <Build Include="dbo\Stored Procedures\spCHAOpenJobsReport.sql" />
+    <Build Include="dbo\Stored Procedures\spCDMonthlyBudgetReportDetail.sql" />
+    <Build Include="dbo\Stored Procedures\spCDMonthlyBudgetReport.sql" />
+    <Build Include="dbo\Stored Procedures\spActualCommittmentsVsActualDisbursments.sql" />
+    <Build Include="dbo\Stored Procedures\spActivesSpecJobs.sql" />
+    <Build Include="dbo\Stored Procedures\spActiveSpecJobsDetails_Test.sql" />
+    <Build Include="dbo\Stored Procedures\spActiveSpecJobsDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spActiveConstructionJobsDetails_Test.sql" />
+    <Build Include="dbo\Stored Procedures\spActiveConstructionJobsDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spActiveConstructionJobs.sql" />
+    <Build Include="dbo\Stored Procedures\sp_upgraddiagrams.sql" />
+    <Build Include="dbo\Stored Procedures\sp_renamediagram.sql" />
+    <Build Include="dbo\Stored Procedures\sp_helpdiagrams.sql" />
+    <Build Include="dbo\Stored Procedures\sp_helpdiagramdefinition.sql" />
+    <Build Include="dbo\Stored Procedures\sp_dropdiagram.sql" />
+    <Build Include="dbo\Stored Procedures\sp_creatediagram.sql" />
+    <Build Include="dbo\Stored Procedures\sp_alterdiagram.sql" />
+    <Build Include="dbo\User Defined Types\AccountExpense.sql" />
+    <Build Include="dbo\User Defined Types\AccountsISYTD.sql" />
+    <Build Include="dbo\User Defined Types\BankingAccountClassType.sql" />
+    <Build Include="dbo\User Defined Types\BankingAccountType.sql" />
+    <Build Include="dbo\User Defined Types\CategoryDetailsType.sql" />
+    <Build Include="dbo\User Defined Types\TempResultQ1Type.sql" />
+    <Build Include="dbo\User Defined Types\TransactionsACAD.sql" />
+    <Build Include="dbo\User Defined Types\TransactionsPLs.sql" />
+    <Build Include="dbo\Stored Procedures\spGetMissingAccountMappings.sql" />
+    <Build Include="dbo\Tables\ProjectScheduleDelays.sql" />
+    <Build Include="dbo\Tables\AudioUploads.sql" />
+    <Build Include="dbo\Tables\ActionItemCostChange.sql" />
+    <Build Include="dbo\Tables\ActionItemScheduleChange.sql" />
+    <Build Include="dbo\Stored Procedures\spCDSyncProposalFromQBTransactions.sql" />
+    <Build Include="dbo\Functions\getCDPercentage.sql" />
+    <Build Include="dbo\Stored Procedures\spCDGetRevisedEstimate.sql" />
+    <Build Include="dbo\Stored Procedures\spCDGetTransactionDetails.sql" />
+    <Build Include="dbo\Views\vwEstimateDataMapping.sql" />
+    <Build Include="dbo\Functions\fnJobBalance.sql" />
+    <Build Include="dbo\Views\vwActiveJobs.sql" />
+    <Build Include="dbo\Tables\ScheduleTaskMappings.sql" />
+    <Build Include="dbo\Tables\ProjectDocuments.sql" />
+    <Build Include="dbo\Stored Procedures\spSynchTransactionsToEstimates.sql" />
+    <Build Include="dbo\Tables\UserBookmarks.sql" />
+    <Build Include="dbo\Tables\SysFolders.sql" />
+    <Build Include="dbo\Tables\ClientDocuments.sql" />
+    <Build Include="dbo\Stored Procedures\spCleanUpEstimateCategories.sql" />
+    <Build Include="dbo\Tables\UserResetPasswordRequest.sql" />
+    <Build Include="dbo\Tables\UserNotification.sql" />
+    <Build Include="dbo\Stored Procedures\spEnsureUniqueProposalLines.sql" />
+    <Build Include="audit\Tables\SpErrorLogs.sql" />
+    <Build Include="schema\CreateAuditSchema.sql" />
+    <Build Include="audit\Stored Procedures\spLogSpError.sql" />
+    <Build Include="dbo\Stored Procedures\sp_QBClassesActiveJobsSync.sql" />
+    <Build Include="dbo\Tables\ActivityStreams.sql" />
+    <Build Include="dbo\Tables\Permissions.sql" />
+    <Build Include="dbo\Tables\Roles.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\RolePermissions.sql" />
+    <Build Include="dbo\Tables\ProjectJournal.sql" />
+    <Build Include="dbo\Tables\QuickBooksToken.sql" />
+    <Build Include="dbo\Stored Procedures\spCleanUpDuplicateProposalLinesAndEstimateCategories.sql" />
+    <Build Include="dbo\Tables\SysDataSyncSetting.sql" />
+    <Build Include="dbo\Stored Procedures\spCDPopulateProposalLinesParentCategories.sql" />
+    <Build Include="dbo\Tables\CompanySettings.sql" />
+    <Build Include="dbo\Functions\getTotalCost.sql" />
+    <Build Include="dbo\Stored Procedures\spGetTotalCost.sql" />
+    <Build Include="dbo\Functions\fnCDJobBalance.sql" />
+    <Build Include="dbo\Tables\ProjectTotals.sql" />
+    <Build Include="dbo\Stored Procedures\spCDUpdateProjectTotals.sql" />
+    <Build Include="dbo\Tables\Emails.sql" />
+    <Build Include="dbo\Tables\EmailAttachments.sql" />
+    <Build Include="dbo\Tables\SubContractors.sql" />
+    <Build Include="dbo\Tables\Invoices.sql" />
+    <Build Include="dbo\Tables\InvoiceItems.sql" />
+    <Build Include="dbo\Tables\SysBackgroundJobs.sql" />
+    <Build Include="dbo\Tables\JobBalances.sql" />
+    <Build Include="dbo\Views\vwActionItemsSummary.sql" />
+    <Build Include="dbo\Views\vwSupervisorAndClientActiveJobs.sql" />
+    <Build Include="dbo\Views\vwProjectShortDetails.sql" />
+    <Build Include="dbo\Stored Procedures\spCDGetEstimateCategoriesByProject.sql" />
+    <Build Include="dbo\Stored Procedures\spCDGetProjectScheduleItems.sql" />
+    <Build Include="dbo\Tables\ChangeOrders.sql" />
+    <Build Include="dbo\Tables\ProjectSubContractors.sql" />
+    <Build Include="dbo\Tables\ScheduleRevisions.sql" />
+    <Build Include="dbo\Tables\CostRevisions.sql" />
+    <Build Include="dbo\Tables\Vendors.sql" />
+    <Build Include="dbo\Tables\ScheduleRevisionItems.sql" />
+    <Build Include="dbo\Tables\CostRevisionItems.sql" />
+    <Build Include="dbo\Tables\SubContractorCategories.sql" />
+    <Build Include="dbo\Tables\VendorCategories.sql" />
+    <Build Include="dbo\Tables\EmailTemplate.sql" />
+    <Build Include="dbo\Tables\ProjectThresholds.sql" />
+    <Build Include="dbo\Stored Procedures\spSynchProjectThresholds.sql" />
+    <Build Include="dbo\Tables\Contract.sql" />
+    <Build Include="dbo\Tables\Clients.sql" />
+    <Build Include="dbo\Tables\ProposalProjects.sql" />
+    <Build Include="dbo\Tables\ProposalSupervisors.sql" />
+    <Build Include="dbo\Tables\ProjectNotes.sql" />
+    <Build Include="dbo\Tables\UserLogs.sql" />
+    <Build Include="dbo\Stored Procedures\spCDGetUserInbox.sql" />
+    <Build Include="dbo\Tables\ActionItemComments.sql" />
+    <Build Include="dbo\Stored Procedures\spCDGetUserSentItems.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="ClientDb.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Database.Publish.xml" />
+    <None Include="ClientDb.publish.xml" />
+    <PostDeploy Include="Post-Deployment\PostDeployment.sql" />
+    <None Include="Scripts\FixProposalLinesEstimateCategories.sql" />
+    <None Include="Scripts\FixProposalTemplateLineItemsEstimateCategories.sql" />
+    <None Include="Scripts\FixProposalLinesWithCorrectEstimateCategoryId.sql" />
+    <None Include="Scripts\RemoveDuplicateEstimateCategoriesAndUpdateProposalLines.sql" />
+    <None Include="Scripts\ShowDuplicateEstimateCategoriesWithSameParent.sql" />
+    <None Include="Scripts\SynchProposalLineItemNameToEstimateCategoryName.sql" />
+    <None Include="Scripts\ShowDuplicateEstimateCategoriesWithProjectName.sql" />
+    <None Include="Scripts\DeleteDuplicateRowsInEstimateMappings.sql" />
+    <None Include="Scripts\DeleteDuplicateRowsInProposalLines.sql" />
+    <None Include="Scripts\RenameSysFolders.sql" />
+    <None Include="Scripts\PopulateUsersFromApexWebPortal.sql" />
+    <None Include="NewClientDb.publish.publish.xml" />
+    <None Include="Scripts\EstimateCategoriesDefaultData.sql" />
+    <None Include="Scripts\CleanupDuplicateProposalLinesAndEstimateCategories.sql" />
+    <None Include="Scripts\PopulateProposalLineHistoryByProposalId.sql" />
+    <None Include="Scripts\UpdateBookmarks.sql" />
+    <None Include="Scripts\PopulateProposalLinesParentCategories.sql" />
+    <None Include="Scripts\ResetHangFireTables.sql" />
+    <None Include="ClientDb.kendallhales.publish.publish.xml" />
+    <None Include="Scripts\DeleteClassAndProposal.sql" />
+    <None Include="chaconstruction.live.publish.publish.xml" />
+    <None Include="kendallhales.live.publish.publish.publish.xml" />
+    <None Include="chaconstruction.test.publish.xml" />
+    <None Include="Local.ClientDb.publish.publish.xml" />
+    <None Include="Local-ClientDb.publish.publish.xml" />
+    <None Include="Scripts\PopulateProposalSupervisors.sql" />
+    <None Include="Scripts\EmailInbox.sql" />
+    <None Include="Scripts\UpdateProposalsCreatedBy.sql" />
+  </ItemGroup>
+</Project>

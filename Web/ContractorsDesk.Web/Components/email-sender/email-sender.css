@@ -1,0 +1,16 @@
+﻿.dropzone-progress.uploading .upload-progress{
+    display:block;
+}
+.dropzone-progress.uploading .upload-status {
+    display: none;
+}
+.dropzone-progress.uploaded .upload-progress {
+    display: none;
+}
+.dropzone-progress.uploaded .upload-status {
+    display: block;
+}
+
+.select2-selection.select2-selection--single.form-select{
+    border: none !important;
+}

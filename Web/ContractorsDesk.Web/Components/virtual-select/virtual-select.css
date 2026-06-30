@@ -1,0 +1,64 @@
+﻿.virtual-select {
+    display: flex; /* Makes the content and the arrow align horizontally */
+    justify-content: space-between; /* Pushes the arrow to the far right */
+    align-items: center; /* Centers the content vertically */
+    width: 100%; /* Makes the link span the entire width of the container */
+    padding: 10px; /* Adds some padding for better appearance */
+    text-decoration: none; /* Removes the underline from the link */
+    /*background-color: #f8f9fa;*/ /* Optional: Add a background color */
+    /*border: 1px solid #ccc;*/ /* Optional: Add a border */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    color: #000; /* Link text color */
+    /*font-size: 16px;*/ /* Adjust the font size */
+    position: relative; /* Required for the arrow positioning */
+}
+
+.virtual-select:hover {
+    background-color: #009ef70d; /* Change background color on hover */
+}
+
+.virtual-select .arrow {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 10px; /* Spacing between text and arrow */
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #a1a1a1; /* The arrow color */
+}
+.virtual-select-container {
+    position: absolute;
+    z-index: 1000;
+    background-color: #fff;
+    border: 1px solid #bec3c6;
+    max-height: 250px;
+    overflow-y: auto;
+   /* width: 230px;*/
+    border-top: none;
+    margin-top: -5px;
+    border-top: 1px;
+}
+
+.virtual-select-item {
+    padding: 8px;
+    cursor: pointer;
+}
+.virtual-select-item-search {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.autocomplete-item-searching {
+    padding: 8px;
+    pointer-events: none;
+}
+
+.virtual-select-item:hover {
+    background-color: #009ef70d;
+}
+
+.virtual-select.current {
+    border-left: 1px solid #bec3c6;
+    border-top: 1px solid #bec3c6;
+    border-right: 1px solid #bec3c6;
+}

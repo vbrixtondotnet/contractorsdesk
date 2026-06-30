@@ -1,0 +1,145 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+<div class="col-md-12 tabcontrol-item mt-3" id="tab-settings">
+	<div class="row">
+		<div class="col-md-6 d-flex pe-0">
+			<div class="card flex-1">
+				<!--begin::Card header-->
+				<div class="card-header cursor-pointer">
+					<!--begin::Card title-->
+					<div class="card-title m-0">
+						<h3 class="fw-bolder m-0">Client Details</h3>
+					</div>
+					<div class="card-toolbar">
+						<button type="button" class="btn btn-sm btn-light-primary" id="btn-client-details-save" evt-click="updateClientDetails">
+							<span class="indicator-label">
+								<i class="bi bi-save"></i>Save Changes
+							</span>
+							<span class="indicator-progress">
+								Saving...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+
+				</div>
+				<!--begin::Card header-->
+				<!--begin::Card body-->
+				<div class="card-body p-9">
+					<form class="form-binder" id="form-client-details">
+						<div class="d-flex align-items-center gap-2 mb-1" id="slcCustomerContainer">
+							<select class="form-select form-select-sm form-select-solid" data-control="select2" id="slcCustomer">
+								<option value="0" selected>Search for an existing customer</option>
+							</select>
+							<button type="button" class="btn btn-sm btn-secondary" evt-click="onResetCustomer">
+								Reset
+							</button>
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Name</span>
+							<input type="text" class="form-control" data-model="name" required>
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Company Name</span>
+							<input type="text" class="form-control" data-model="companyName">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Address</span>
+							<input type="text" class="form-control" data-model="address">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">City</span>
+							<input type="text" class="form-control" data-model="city">
+						</div>
+						@Html.StatesDropdown(new HtmlElementModel { Classes = "form-select-sm", Id = "slcCustomerState", DataModel="state" })
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Phone</span>
+							<input type="text" class="form-control" data-model="phone" evt-input="formatPhone">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Primary Email</span>
+							<input type="text" class="form-control" data-model="emailAddress" name="email" required>
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text">Secondary Email(s)</span>
+							<input type="text" class="form-control" data-model="secondaryEmailAddress" name="secondaryEmailAddress" id="txtSecondaryEmail">
+						</div>
+					</form>
+
+				</div>
+				<!--end::Card body-->
+			</div>
+		</div>
+		<div class="col-md-6 d-flex">
+			<div class="card flex-1">
+				<!--begin::Card header-->
+				<div class="card-header cursor-pointer">
+					<!--begin::Card title-->
+					<div class="card-title m-0">
+						<h3 class="fw-bolder m-0">Job Settings</h3>
+					</div>
+					<div class="card-toolbar">
+						<button type="button" class="btn btn-sm btn-light-primary" evt-click="onUpdateProject">
+							<span class="indicator-label">
+								<i class="bi bi-save"></i>Save Changes
+							</span>
+							<span class="indicator-progress">
+								Saving...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+				</div>
+				<!--begin::Card header-->
+				<!--begin::Card body-->
+				<div class="card-body p-9">
+					<form class="form-binder" id="form-project-settings">
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Project Name</span>
+							<input type="text" class="form-control" data-model="name" />
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text mn-w-125px">Address</span>
+							<input type="text" class="form-control" autocomplete="off" name="address" data-model="address">
+							<button type="button" class="btn btn-sm btn-secondary" evt-click="onUseClientAddress">
+								Use Client Address
+							</button>
+						</div>
+						@Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", LabelCssClass = "mn-w-125px", Label = "City", Id = "txtCustomerCity", Name = "city", DataModel = "city" })
+						@Html.StatesDropdown(new HtmlElementModel { Classes = "form-select-sm", Id = "slcProjectState", DataModel = "state" })
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text">Project Managers</span>
+							<select class="form-select" data-control="select2" multiple="multiple" data-placeholder="Select Project Managers" id="slcSupervisor1">
+							</select>
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text">Asst. Project Managers</span>
+							<select class="form-select" data-control="select2" multiple="multiple" data-placeholder="Select Asst. Project Managers" id="slcSupervisor2">
+							</select>
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text">On-Site Supervisors</span>
+							<select class="form-select" data-control="select2" multiple="multiple" data-placeholder="Selec On-Site Supervisors" id="slcSupervisor3">
+							</select>
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text">Job Type</span>
+							<select class="form-select" data-model="jobTypeId">
+								<option value="1">Construction</option>
+								<option value="2">Spec</option>
+							</select>
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text">Status</span>
+							<select class="form-select" data-model="statusId">
+								<option value="1">Archived</option>
+								<option value="2">Active</option>
+							</select>
+						</div>
+						
+					</form>
+				</div>
+				<!--end::Card body-->
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,53 @@
+﻿<div class="modal fade" tabindex="-1" id="mdl-merge-proposal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2">
+                <h5 class="modal-title">Existing Project(s) Found</h5>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x">
+                        <i class="bi bi-x fs-2"></i>
+                    </span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <p>We’ve identified existing project(s) that match the name of this proposal. Would you like to merge this proposal with one of the projects listed below?</p>
+                <div id="content-matching-projects">
+                    <table class="table bottom-border-0 row-hoverable">
+                        <thead>
+                            <tr class="fw-bolder fs-6 text-gray-800">
+                                <th>Project Name</th>
+                                <th>&nbsp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-matching-projects">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-success btn-merge-action" disabled evt-click="onMergeProposal">
+                    <span class="indicator-label">
+                        Yes, Merge from Selected Project
+                    </span>
+                    <span class="indicator-progress">
+                        Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger btn-merge-action" disabled evt-click="onSaveAsNewProposal">
+                    <span class="indicator-label">
+                        No, Save as a New Proposal
+                    </span>
+                    <span class="indicator-progress">
+                        Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

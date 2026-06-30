@@ -1,0 +1,101 @@
+﻿
+<div class="col-md-6 d-flex">
+	<div class="card flex-1">
+		<!--begin::Card header-->
+		<div class="card-header cursor-pointer">
+			<!--begin::Card title-->
+			<div class="card-title m-0">
+				<h3 class="fw-bolder m-0">Action Type Details</h3>
+			</div>
+		</div>
+		<!--begin::Card header-->
+		<!--begin::Card body-->
+		<div class="card-body p-9">
+			<form class="form-binder" id="form-action-type-details">
+				<div class="input-group input-group-sm mb-2">
+					<span class="input-group-text label-fixed-width" id="basic-addon1">Action Type</span>
+					<input type="text" class="form-control" data-model="actionTypeName" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2 cost-change">
+					<span class="input-group-text label-fixed-width" id="basic-addon10">Current Amount</span>
+					<input type="text" class="form-control" data-model="currentAmount" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2 cost-change">
+					<span class="input-group-text label-fixed-width" id="basic-addon2">Cost Change Amount</span>
+					<input type="text" class="form-control" data-model="amount" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2 cost-change">
+					<span class="input-group-text label-fixed-width" id="basic-addon11">New Revised Total</span>
+					<input type="text" class="form-control" data-model="revisedAmount" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2 cost-change">
+					<span class="input-group-text label-fixed-width" id="basic-addon3">Cost Change Line Item</span>
+					<input type="text" class="form-control" data-model="costChangeItem" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2 schedule-change">
+					<span class="input-group-text label-fixed-width" id="basic-addon5">Construction Task</span>
+					<input type="text" class="form-control" data-model="scheduleChangeItem" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2 schedule-change">
+					<span class="input-group-text label-fixed-width" id="basic-addon4">Original Duration</span>
+					<input type="text" class="form-control" data-model="duration" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2 schedule-change">
+					<span class="input-group-text label-fixed-width" id="basic-addon4">No. Of Days Change</span>
+					<input type="text" class="form-control" data-model="noOfDays" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2 schedule-change">
+					<span class="input-group-text label-fixed-width" id="basic-addon4">New Duration</span>
+					<input type="text" class="form-control" data-model="newDuration" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2">
+					<span class="input-group-text label-fixed-width" id="basic-addon6">Requires Client Approval</span>
+					<input type="text" class="form-control" data-model="requiresClientApproval" disabled>
+				</div>
+			</form>
+		</div>
+		<!--end::Card body-->
+	</div>
+</div>
+
+<div class="col-md-6 d-flex same-height-item">
+	<div class="card flex-1">
+		<!--begin::Card header-->
+		<div class="card-header cursor-pointer">
+			<!--begin::Card title-->
+			<div class="card-title m-0">
+				<h3 class="fw-bolder m-0 mn-w-125px">Other Details</h3>
+			</div>
+			@* <div class="card-toolbar">
+			<button type="button" class="btn btn-sm btn-light-primary" id="btn-client-details-save">
+			<span class="indicator-label">
+			<i class="bi bi-save"></i>Save Changes
+			</span>
+			<span class="indicator-progress">
+			Saving...
+			<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+			</span>
+			</button>
+			</div> *@
+		</div>
+		<!--begin::Card header-->
+		<!--begin::Card body-->
+		<div class="card-body p-9">
+			<form class="form-binder" id="form-other-details">
+				<div class="input-group input-group-sm mb-2">
+					<span class="input-group-text mn-w-125px" id="basic-addon7">Project Name</span>
+					<input type="text" class="form-control" data-model="projectName" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2">
+					<span class="input-group-text mn-w-125px" id="basic-addon8">Created By</span>
+					<input type="text" class="form-control" data-model="createdBy" disabled>
+				</div>
+				<div class="input-group input-group-sm mb-2">
+					<span class="input-group-text mn-w-125px" id="basic-addon9">Assigned To</span>
+					<input type="text" class="form-control" data-model="assignedTo" disabled>
+				</div>
+			</form>
+		</div>
+		<!--end::Card body-->
+	</div>
+</div>

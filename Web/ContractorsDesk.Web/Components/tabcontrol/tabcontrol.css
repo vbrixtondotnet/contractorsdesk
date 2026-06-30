@@ -1,0 +1,6 @@
+﻿div.tabcontrol-item{
+    display:none;
+}
+div.tabcontrol-item.active{
+    display:block;
+}

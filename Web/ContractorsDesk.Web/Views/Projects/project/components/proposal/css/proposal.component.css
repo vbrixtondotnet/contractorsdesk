@@ -1,0 +1,70 @@
+﻿td.subtotal h3, td.subtotal h2 {
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+/*VIEW MODE*/
+div.category-row table.proposal-items tr.row-new-item{
+    display:none;
+}
+
+div.category-row.editing table.proposal-items tr.row-new-item {
+    display: table-row;
+}
+
+div.category-row input,
+div.category-row textarea,
+div.category-row div.input-group,
+div.category-row a {
+    display: none  !important;
+}
+
+div.category-row td{
+    padding-bottom: 10px !important;
+    padding-top:10px !important;
+}
+
+div.category-row th{
+    padding-left: 0 !important;
+    text-align:left;
+}
+
+/*EDIT MODE*/
+div.category-row.editing input,
+div.category-row.editing textarea,
+div.category-row.editing div.input-group,
+div.category-row.editing a {
+    display: inline-flex !important;
+}
+
+div.category-row.editing a.btn-add-item {
+    display: inline-block !important;
+}
+
+div.category-row.editing td span.view-only,
+div.category-row.editing td strong.view-only {
+    display: none !important;
+}
+
+div.category-row.editing td span.totals{
+    display: inline !important;
+}
+
+div.category-row.editing td {
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+}
+div.category-row.editing span.input-group-text,
+div.category-row.editing td strong.always-visible{
+    display: block !important;
+}
+
+div.category-row.editing textarea {
+    margin-top: 10px !important;
+}
+
+.h-37px{
+    height:37px !important;
+}
+
+

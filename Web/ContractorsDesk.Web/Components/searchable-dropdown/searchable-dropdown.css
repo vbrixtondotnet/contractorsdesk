@@ -1,0 +1,12 @@
+﻿.input-group > .form-control, .input-group > span.select2 {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0
+}
+
+.input-group .select2-selection--single, .input-group .select2-selection--multiple {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0 !important;
+}
+

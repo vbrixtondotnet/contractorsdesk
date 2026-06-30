@@ -1,0 +1,46 @@
+﻿table.table-cell-bordered.cell-bottom-border-2px tr td {
+    border: 2px solid #eff2f5;
+}
+
+td.revised-amount span {
+    width: 100%;
+    display: block;
+    cursor: pointer;
+}
+
+td.revised-amount input {
+    display: none !important;
+}
+
+td.revised-amount.editing span {
+    display: none !important;
+}
+
+td.revised-amount.editing input {
+    display: block !important;
+}
+
+td.revised-amount.updated {
+    background: #FFF9C4 !important;
+}
+
+td.border-bottom-single {
+    border-bottom: 3px solid black !important;
+}
+
+td.border-bottom-double {
+    border-bottom: 5px double black !important;
+}
+
+td.border-top-single{
+    border-top: 2px solid black !important;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: 3px solid #eff2f5 !important;
+}
+
+.table tbody tr:last-child td.border-bottom-double {
+    border-top: 2px solid black !important;
+    border-bottom: 5px double black !important;
+}

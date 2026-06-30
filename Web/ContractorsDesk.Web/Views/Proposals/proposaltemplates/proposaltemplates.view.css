@@ -1,0 +1,27 @@
+﻿td.subtotal {
+    text-align: right !important;
+    padding-top: 20px !important;
+    padding-right: 20px !important;
+    padding-bottom: 10px !important;
+}
+
+textarea.textarea-dynamic {
+    width: 100%; /* Adjust width as needed */
+    height: 37px; /* Initial height */
+    overflow: hidden; /* Prevent scrollbar until dynamically resized */
+    resize: none; /* Prevent manual resizing */
+    padding: 8px; /* Add padding for user comfort */
+    font-size: 14px; /* Adjust font size as needed */
+    box-sizing: border-box; /* Ensures padding is included in height/width */
+    border: 1px solid #ccc; /* Optional: Add border for visibility */
+    border-radius: 4px; /* Optional: Rounded corners */
+}
+
+.h-37px {
+    height: 37px !important;
+}
+
+table.proposal-items tr td {
+    vertical-align: top !important;
+    padding-top: 5px !important;
+}

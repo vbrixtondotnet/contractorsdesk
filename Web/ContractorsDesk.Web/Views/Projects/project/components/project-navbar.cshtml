@@ -1,0 +1,38 @@
+﻿@using ContractorsDesk.WebPortal.Helpers;
+@using ContractorsDesk.Core.Enums;
+@{
+	var CurrentRole = (Roles?)ViewBag.Role;
+	var Tab = ViewBag.Tab as string;
+	Tab = string.IsNullOrEmpty(Tab) ? "action-items" : Tab;
+}
+<div class="d-flex overflow-auto h-55px">
+	<ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-6 fw-bolder flex-nowrap">
+		<li class="nav-item">
+			<a class="nav-link text-active-primary me-6 @PageHelper.IsActiveTab(Tab, "action-items") tabcontrol-link" href="javascript:" data-tab-item="tab-action-items">Action Items</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-active-primary me-6 tabcontrol-link  @PageHelper.IsActiveTab(Tab, "proposal")" href="javascript:" data-tab-item="tab-proposal">Proposal</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-active-primary me-6 tabcontrol-link  @PageHelper.IsActiveTab(Tab, "estimate-to-actual")" href="javascript:" data-tab-item="tab-budget-to-actual">Estimate to Actual</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-active-primary me-6 tabcontrol-link @PageHelper.IsActiveTab(Tab, "schedule")" href="javascript:" data-tab-item="tab-schedule">Schedule</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-active-primary me-6 tabcontrol-link" href="javascript:" data-tab-item="tab-client-documents">Client Documents</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-active-primary me-6 tabcontrol-link" href="javascript:" data-tab-item="tab-journal">Status Reports</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-active-primary me-6 tabcontrol-link" href="javascript:" data-tab-item="tab-sub-contractors">Sub-Contractors</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-active-primary me-6 tabcontrol-link" href="javascript:" data-tab-item="tab-notes">Notes</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link text-active-primary me-6 tabcontrol-link" href="javascript:" data-tab-item="tab-settings">Settings</a>
+		</li>	
+	</ul>
+</div>

@@ -1,0 +1,17 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@{
+	var Tab = ViewBag.Tab as string;
+	Tab = string.IsNullOrEmpty(Tab) ? "action-items" : Tab;
+}
+
+<div class="col-md-12 tabcontrol-item mt-3" id="tab-action-items">
+	<div class="card">
+		<!--begin::Tab panel-->
+		<div class="card-body p-0 tab-pane role="tabpanel">
+			<div class="table-responsive">
+				@await Html.PartialAsync("Components/ActionItemList/action-item-list")
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,68 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+
+<div id="projectClientContainer" class="">
+    <!-- Project Details Column -->
+    
+</div>
+<!--begin::Accordion-->
+<div class="accordion mb-2" id="kt_accordion_1">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="kt_accordion_1_header_1">
+            <button id="toggleProjectClientDetails" class="accordion-button fs-4 fw-bold bg-white text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#kt_accordion_1_body_1" aria-expanded="true" aria-controls="kt_accordion_1_body_1">
+                Project and Client Information
+            </button>
+        </h2>
+        <div id="kt_accordion_1_body_1" class="accordion-collapse collapse show" aria-labelledby="kt_accordion_1_header_1" data-bs-parent="#kt_accordion_1">
+            <div class="accordion-body border-gray-1">
+               <div class="row">
+                    <div class="col-md-12 d-flex ps-1">
+                        <div class="card flex-grow-1">
+                            <div class="card-body pt-0 proposal-details loading">
+                                @await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 7, Header = false, CardBody = false })
+                                    <div class="row"> 
+                                        <div class="col-md-6">     
+                                            <form id="frmClientDetails">
+                                                <h5 class="mb-2">Client Details</h5>
+                                                <div class="d-flex align-items-center gap-2 mb-1" id="slcCustomerContainer">
+                                                    <select class="form-select form-select-sm form-select-solid" data-control="select2" id="slcCustomer">
+                                                        <option value="0" selected>Search for an existing customer</option>
+                                                    </select>
+                                                    <button type="button" class="btn btn-sm btn-secondary" evt-click="onResetCustomer">
+                                                        Reset
+                                                    </button>
+                                                </div>
+                                                @Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", Label = "Name", LabelCssClass = "mn-w-125px", Id = "txtCustomerName", Name = "customerName", DataModel = "name" })
+                                                @Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", Label = "Address", LabelCssClass = "mn-w-125px", Id = "txtCustomerAddress", DataModel = "address" })
+                                                @Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", LabelCssClass = "mn-w-125px", Label = "City", Id = "txtCustomerCity", Name = "customerCity", DataModel = "city" })
+                                                @Html.StatesDropdown(new HtmlElementModel { Classes = "form-select-sm", Id = "slcCustomerState" })
+                                                @Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", Label = "Company", LabelCssClass = "mn-w-125px", Id = "txtCustomerCompanyName", DataModel = "companyName" })
+                                                @Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", Label = "Email Address", LabelCssClass = "mn-w-125px", Id = "txtCustomerEmail", Name = "customerEmail", DataModel = "emailAddress" })
+                                                @Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", LabelCssClass = "mn-w-125px", Label = "Phone", Id = "txtCustomerPhone", Name = "customerPhone", DataModel = "phone", OnInput = "formatPhone" })
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form id="frmProjectDetails">
+                                                <h5 class="mb-2">Project Details</h5>
+                                                @Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", Label = "Project Name", LabelCssClass = "mn-w-125px", Name = "name", IsBookmarkTitle = true, DataModel = "name" })
+                                                @Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", LabelCssClass = "mn-w-125px", Label = "Sq Feet", Id = "txtSquareFeet", Name = "sqFeet", DataModel = "sqFeet", OnInput = "onProjectSqFeetChange", DataType = "int" })
+                                                <div class="input-group input-group-sm mb-2">
+                                                    <span class="input-group-text mn-w-125px">Address</span>
+                                                    <input type="text" class="form-control" autocomplete="off" name="address" data-model="address">
+                                                    <button type="button" class="btn btn-sm btn-secondary" evt-click="onUseClientAddress">
+                                                        Use Client Address
+                                                    </button>
+                                                </div>
+                                                @Html.InputGroupTextbox(new InputGroupModel { CssClass = "input-group-sm mb-2", LabelCssClass = "mn-w-125px", Label = "City", Id = "txtCustomerCity", Name = "city", DataModel = "city" })
+                                                @Html.StatesDropdown(new HtmlElementModel { Classes = "form-select-sm", Id = "slcProjectState", DataModel="state" })
+                                            </form>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end::Accordion-->

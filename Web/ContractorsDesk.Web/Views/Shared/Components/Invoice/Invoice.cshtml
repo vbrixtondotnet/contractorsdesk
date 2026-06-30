@@ -1,0 +1,183 @@
+﻿@using ContractorsDesk.Core.Dto
+@using ContractorsDesk.WebPortal.Helpers
+@model dynamic;
+@{
+	string width = Model?.Width ?? "75%"; 
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+
+<div class="bg-body"
+	 id="create-invoice-component-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'@width', 'lg': '@width'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#create-invoice-component-close">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0 h-100">
+			<!--begin::Header-->
+			<div class="card-header" id="create-invoice-component-header">
+				<h3 class="card-title fw-bolder text-dark">Create Invoice</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="create-invoice-component-close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative" id="create-invoice-component-body">
+				<div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#create-invoice-component-body"
+					 data-kt-scroll-dependencies="#create-invoice-component-header, #create-invoice-component-footer"
+					 data-kt-scroll-offset="5px">
+					<div class="flex-shrink-0 bg-white" style="justify-self:center;">
+						<img class="mw-100px mw-lg-250px" src="@CompanySettings.CompanyLogoUrl" alt="image" />
+					</div>
+
+					<form id="frmCreateInvoiceForm">
+					<!--begin::Head-->
+						<div class="d-flex justify-content-between align-items-start flex-wrap mb-2 mt-4">
+						<!--begin::Details-->
+						<div class="d-flex flex-column">
+							<!--begin::Status-->
+							<h2 class="text-gray-800 fs-3 fw-bolder mb-1 justify-self-right"> @CompanySettings.CompanyName  </h2>
+							<!--end::Status-->
+							<!--begin::Description-->
+							<div class="d-flex flex-wrap fw-bold mb-4 fs-5 text-gray-400">
+								@if (!string.IsNullOrWhiteSpace(CompanySettings.Address1))
+								{
+									@CompanySettings.Address1
+									<br />
+								}
+								@if (!string.IsNullOrWhiteSpace(CompanySettings.Address2))
+								{
+									@CompanySettings.Address2
+
+									<br />
+								}
+								@if (!string.IsNullOrWhiteSpace(CompanySettings.City) || !string.IsNullOrWhiteSpace(CompanySettings.State) || !string.IsNullOrWhiteSpace(CompanySettings.Zip))
+								{
+									var cityStateZip = $"{CompanySettings.City}, {CompanySettings.State} {CompanySettings.Zip}".Trim(' ', ',');
+									@cityStateZip
+
+									<br />
+								}
+								@if (!string.IsNullOrWhiteSpace(CompanySettings.PhoneNumber))
+								{
+									<text>Phone: @CompanySettings.PhoneNumber<br /></text>
+								}
+
+								@if (!string.IsNullOrWhiteSpace(CompanySettings.CompanyEmail))
+								{
+									<text>Email: @CompanySettings.CompanyEmail</text>
+								}
+							</div>
+							<!--end::Description-->
+						</div>
+						<!--end::Details-->
+						<!--begin::Actions-->
+						<div class="d-flex mw-lg-550px print-50">
+							<div class="row">
+								<div class="col-md-12">
+									<h2 class="text-gray-800 fs-1 fw-bolder mb-5 justify-self-right"> Invoice</h2>
+									<div class="row">
+											<div class="d-flex gap-3 mb-2">
+												<div class="input-group input-group-sm mw-300px justify-self-right">
+													<span class="input-group-text mn-w-85px">Invoice #</span>
+													<input type="text" class="form-control" id="invoice-drawer-invoiceno" evt-input="onInvoiceNoChange" disabled>
+												</div>
+												<div class="input-group input-group-sm mw-lg-250px justify-self-right">
+													<span class="input-group-text  mn-w-85px">Date</span>
+													<input type="date" class="form-control " name="" id="invoice-drawer-date" data-model="" data-bookmark-input-title="False" evt-change="onInvoiceDateChange">
+												</div>
+											</div>
+											<div class="d-flex gap-3 mb-2">
+												<div class="input-group input-group-sm mw-400px justify-self-right">
+													<span class="input-group-text mn-w-85px">Bill To</span>
+													<select class="form-select" id="invoice-drawer-bill-to">
+													</select>
+												</div>
+												<div class="input-group input-group-sm mw-lg-250px justify-self-right">
+													<span class="input-group-text  mn-w-85px">Due Date</span>
+													<input required type="date" class="form-control " name="" id="invoice-drawer-due-date" data-model="" data-bookmark-input-title="False" evt-change="onInvoiceDueDateChange">
+												</div>
+											</div>
+											<div class="d-flex gap-3 mb-2">
+												<div class="input-group input-group-sm mw-300px justify-self-right">
+												</div>
+												<div class="input-group input-group-sm mw-lg-250px justify-self-right">
+													<span class="input-group-text  mn-w-85px">Terms</span>
+													<select class="form-select" evt-change="onInvoiceTermChange">
+														<option value="1">Due on receipt</option>
+													</select>
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!--end::Actions-->
+					</div>
+
+						<div class="row mb-2 g-6 g-xl-9">
+						<div class="col-lg-12">
+							<div class="card card-flush h-lg-100">
+								<table class="table table-cell-bordered invoice-table">
+									<thead class="">
+										<tr class="fw-bolder fs-6 text-gray-800 bg-light">
+											<th class="w-200px ps-2">Date</th>
+											<th class="w-400px">Activity</th>
+											<th class="text-center">Qty</th>
+											<th class="text-center">Rate</th>
+											<th class="text-center">Amount</th>
+											<th class="text-center w-50px">&nbsp;</th>
+										</tr>
+									</thead>
+									<tbody id="invoice-items-body">
+										<tr class="border-0 add-button-container">
+											<td class="w-200px ps-2 border-0" colspan="4">
+												
+											</td>
+											<td class="text-right border-0" colspan="2">
+												<button type="button" class="btn btn-sm btn-success always-enabled mt-1" evt-click="addNewItem">
+													+ Add Item
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					</form>
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-1 text-center" id="create-invoice-component-footer">
+				<button type="button" class="btn btn-sm btn-primary always-enabled mt-1" evt-click="onSaveInvoice">
+					<span class="indicator-label">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+							<path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+						</svg>&nbsp;&nbsp;Save & Email Invoice
+					</span>
+					<span class="indicator-progress">
+						Saving Invoice...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

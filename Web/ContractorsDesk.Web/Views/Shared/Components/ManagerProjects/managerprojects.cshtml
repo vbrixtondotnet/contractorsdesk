@@ -1,0 +1,55 @@
+﻿<div id="managerprojects" 
+	class="bg-body" 
+	data-kt-drawer="true" 
+	data-kt-drawer-name="explore" 
+	data-kt-drawer-activate="true" 
+	data-kt-drawer-overlay="true" 
+	data-kt-drawer-width="{default:'350px', 'lg': '475px'}" 
+	data-kt-drawer-direction="end"
+	 data-kt-drawer-toggle="#btnManagerProjectsToggle"
+	 data-kt-drawer-close="#managerprojects_close">
+	<!--begin::Card-->
+	<div class="card shadow-none rounded-0 w-100">
+		<!--begin::Header-->
+		<div class="card-header" id="managerprojects_header">
+			<h3 class="card-title fw-bolder text-gray-700">Manager Projects</h3>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="managerprojects_close">
+					<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+					<span class="svg-icon svg-icon-2">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+							<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</button>
+			</div>
+		</div>
+		<!--end::Header-->
+		<!--begin::Body-->
+		<div class="card-body" id="managerprojects_body">
+			<div class="d-flex flex-stack justify-content-end mb-2">
+				<select id="manager-projects-filter" class="form-select form-select-solid" data-kt-select2="true" data-placeholder="Select option" data-dropdown-parent="#managerprojects_body" data-allow-clear="true">
+					<option></option>
+				</select>
+			</div>
+			@* <div class="d-flex align-items-center mb-2">
+				<input type="text" class="form-control ps-13 fs-7 h-40px" name="search" value="" placeholder="Search Project">
+			</div> *@
+			<!--begin::Content-->
+			<div id="managerprojects_scroll" class="scroll-y me-n5 pe-5" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-wrappers="#managerprojects_body" data-kt-scroll-dependencies="#managerprojects_header" data-kt-scroll-offset="5px">
+				<!--begin::Wrapper-->
+				<div class="mb-0">
+					<div id="manager-projects-active-projects-list">
+
+					</div>
+				</div>
+				<!--end::Wrapper-->
+			</div>
+			<!--end::Content-->
+		</div>
+		<!--end::Body-->
+	</div>
+	<!--end::Card-->
+</div>

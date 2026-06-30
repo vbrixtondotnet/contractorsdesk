@@ -1,0 +1,41 @@
+﻿@model dynamic;
+@{
+    int linesCount = Model?.LinesCount ?? 18;
+    bool header = Model?.Header ?? true;
+    bool hasCardBody = Model?.CardBody ?? true;
+    string className = string.Empty;
+    if (Model != null && Model.GetType().GetProperty("Style") != null)
+    {
+        className = Model.Style;
+    }
+}
+@if (hasCardBody)
+{
+    <div class="card card-flush h-md-100">
+        @if (header)
+        {
+            <div class="card-header pt-5">
+                <div class="preloader @className">
+                    <div class="loading-line"></div>
+                </div>
+            </div>
+        }
+        <div class="card-body pt-0">
+            <div class="preloader @className">
+                @for (int i = 0; i < linesCount; i++)
+                {
+                    <div class="loading-line"></div>
+                }
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="preloader @className">
+        @for (int i = 0; i < linesCount; i++)
+        {
+            <div class="loading-line"></div>
+        }
+    </div>
+}

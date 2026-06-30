@@ -1,0 +1,155 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@using ContractorsDesk.WebPortal.Models
+
+@model TransactionDetailsViewModel
+
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions"
+})
+@{
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+	var isOwnerDepositsReport = Model.IsOwnerDepositsReport;
+}
+
+<div class="card mb-2 mb-xl-2" id="proposal-header">
+	<div class="card-body pb-0 pt-0">
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+			
+			<div class="flex-grow-1">
+				<div class="flex-shrink-0 bg-white mt-10" style="justify-self:right;">
+					
+					<button type="button" class="btn btn-sm btn-bg-secondary text-inverse-secondary me-1 w-175px" evt-click="print">
+						<span class="indicator-label">Print</span>
+						<span class="indicator-progress">
+							Please wait...
+							<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+						</span>
+					</button>
+				</div>
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;margin-top:-25px;">
+					<img class="mw-100px mw-lg-250px" src="/assets/media/logos/company-logo.jpeg" alt="image" />
+				</div>
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;">
+					<h1 style="margin-top:-40px;">Transaction Detail Report</h1>
+					<h3 class="text-center">@currentDate</h3>
+				</div>
+				<div class="row">
+					<div class="py-3 justify-content-between align-items-start flex-wrap mb-2 fs-5">
+						<div class="">
+							<div class="fw-bolder">Project Name: <span class="text-gray-600 ms-4">@Model.ProjectName</span></div>
+						</div>
+						<div class="">
+							<div class="fw-bolder">Item Name: <span class="text-gray-600 ms-10">@Model.ItemName</span></div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<!--end::Wrapper-->
+		</div>
+	</div>
+</div>
+
+<div id="dv-proposal-categories" class="">
+
+	<div class="row mb-2 g-6 g-xl-9 category-row">
+		<div class="col-lg-12">
+			<div class="card card-flush h-lg-100">
+				<div class="card-body pt-5">
+					<table class="table table-cell-bordered cell-bottom-border-2px proposal-items">
+						<thead>
+							<tr class="fw-bolder fs-6 text-gray-800 bg-light">
+								<th class="w-250px ps-2">&nbsp;</th>
+								<th class="w-125px ps-2 text-center">Date</th>
+								<th class="w-100px text-center">Type</th>
+								<th class="w-100px text-center">Num</th>
+								<th class="w-150px text-center">Amount</th>
+								<th class="w-300px text-center">Payee</th>
+								<th class="w-300px text-center">Memo/Description</th>
+							</tr>
+						</thead>
+						<tbody id="body-categories">
+							@foreach(var transactionDetails in Model.TransactionDetails)
+							{
+								<tr>
+									<td class="ps-2 py-2 fw-bolder">@(isOwnerDepositsReport ? "Owner Deposits" : transactionDetails.Category)</td>
+									<td class="ps-2 py-2">&nbsp;</td>
+									<td class="text-center">&nbsp;</td>
+									<td class="text-center">&nbsp;</td>
+									<td class="text-right">&nbsp;</td>
+									<td class="text-center">&nbsp;</td>
+									<td class="text-center">&nbsp;</td>
+								</tr>
+								foreach(var lineItem in transactionDetails.LineItems)
+								{
+									var textClass = lineItem.Balance < 0 ? "text-danger" : "";
+									if(!isOwnerDepositsReport)
+                                    {
+										<tr>
+											<td class="ps-10 py-2 ">@lineItem.Name</td>
+											<td class="ps-2 py-2 ">&nbsp;</td>
+											<td class="text-center ">&nbsp;</td>
+											<td class="text-center">&nbsp;</td>
+											<td class="text-right ">&nbsp;</td>
+											<td class="text-center ">&nbsp;</td>
+											<td class="text-center">&nbsp;</td>
+										</tr>
+                                    }
+									
+									foreach (var transaction in lineItem.Transactions)
+									{
+										var borderBottomClass = transaction == lineItem.Transactions.Last() ? "border-bottom-single" : "";
+										<tr>
+											<td class="ps-10 py-2 @borderBottomClass">&nbsp</td>
+											<td class="ps-2 py-2 text-center @borderBottomClass">@transaction.FormattedDate</td>
+											<td class="text-center @borderBottomClass">@transaction.Type</td>
+											<td class="text-center @borderBottomClass">@transaction.Num</td>
+											<td class="text-right @borderBottomClass">@Html.FormatAsMoney(transaction.Amount)</td>
+											<td class="text-center">@transaction.Payee</td>
+											<td class="text-center">@transaction.Memo</td>
+										</tr>
+									}
+									<tr>
+										<td class="ps-2 py-2 text-right fw-bolder border-bottom-double border-top-single" colspan="4" style="">@(isOwnerDepositsReport ? "TOTAL DEPOSITS" : "COST TOTAL")</td>
+										<td class="text-right fw-bolder border-bottom-double border-top-single">@Html.FormatAsMoney(lineItem.Total)</td>
+										<td class="text-center">&nbsp;</td>
+										<td class="text-center">&nbsp;</td>
+									</tr>
+									<tr>
+										@{
+											var amount = isOwnerDepositsReport ? Model.TotalCost : lineItem.RevisedEstimate;
+										}
+										<td class="ps-2 py-2 text-right fw-bolder border-bottom-double" colspan="4" style="">@(isOwnerDepositsReport ? "TOTAL COST" : "Revised Estimate")</td>
+										<td class="text-right fw-bolder border-bottom-double">@Html.FormatAsMoney(amount)</td>
+										<td class="text-center">&nbsp;</td>
+										<td class="text-center">&nbsp;</td>
+									</tr>
+									<tr>
+										@{
+											var balance = isOwnerDepositsReport ? lineItem.Total - Model.TotalCost : lineItem.Balance;
+                                        }
+										<td class="ps-2 py-2 text-right fw-bolder border-bottom-double" colspan="4" style="">Net Balance</td>
+										<td class="text-right fw-bolder border-bottom-double @textClass">@Html.FormatAsMoney(balance)</td>
+										<td class="text-center">&nbsp;</td>
+										<td class="text-center">&nbsp;</td>
+									</tr>
+								}
+							}
+							@if(!isOwnerDepositsReport){
+								<tr>
+									<td class="text-right border-bottom-double fs-3 fw-bolder" colspan="4">TOTAL AMOUNT</td>
+									<td class="text-right fw-bolder border-bottom-double fs-3">@Html.FormatAsMoney(Model.TransactionDetails.Sum(t=> t.TotalAmount))</td>
+									<td class="text-center">&nbsp;</td>
+									<td class="text-center">&nbsp;</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+				<!--end::Card body-->
+			</div>
+		</div>
+	</div>
+	
+</div>

@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[QBInvoices] (
+    [ID]                            NVARCHAR (450)  NOT NULL,
+    [Deposit]                       DECIMAL (18, 2) NULL,
+    [InvoiceStatus]                 NVARCHAR (MAX)  NULL,
+    [EInvoiceStatus]                NVARCHAR (MAX)  NULL,
+    [CustomerName]                  NVARCHAR (MAX)  NULL,
+    [DueDate]                       DATETIME2 (7)   NULL,
+    [TotalAmt]                      DECIMAL (18, 2) NULL,
+    [ApplyTaxAfterDiscount]         BIT             NULL,
+    [ShippingTaxIncludedInTotalTax] BIT             NULL,
+    [Balance]                       DECIMAL (18, 2) NULL,
+    [PaymentType]                   NVARCHAR (MAX)  NULL,
+    [DocNumber]                     NVARCHAR (MAX)  NULL,
+    [NetAmount0]                    DECIMAL (18, 2) NULL,
+    [TaxAmount8]                    DECIMAL (18, 2) NULL,
+    [NetAmount8]                    DECIMAL (18, 2) NULL,
+    [TaxAmount18]                   DECIMAL (18, 2) NULL,
+    [NetAmount18]                   DECIMAL (18, 2) NULL,
+    [TotalTax]                      DECIMAL (18, 2) NULL,
+    [TxnDate]                       DATETIME2 (7)   NULL,
+    [TimeCreated]                   DATETIME2 (7)   NULL,
+    [TimeModified]                  DATETIME2 (7)   NULL,
+    [CreatedBy]                     NVARCHAR (MAX)  NULL,
+    [UpdatedBy]                     NVARCHAR (MAX)  NULL,
+    CONSTRAINT [PK_QBInvoices] PRIMARY KEY CLUSTERED ([ID] ASC)
+);
+

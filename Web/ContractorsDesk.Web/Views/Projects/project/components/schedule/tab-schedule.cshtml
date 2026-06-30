@@ -1,0 +1,134 @@
+﻿@using ContractorsDesk.WebPortal.Helpers;
+@{
+	var Tab = ViewBag.Tab as string;
+	Tab = string.IsNullOrEmpty(Tab) ? "action-items" : Tab;
+}
+<div class="col-md-12 tabcontrol-item mt-3 @PageHelper.IsActiveTab(Tab, "schedule")" id="tab-schedule">
+	<div id="dv-tab-schedule" class="loading">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+		<div class="card card-flush h-lg-100 p-0" id="schedule-body">
+			<!--begin::Card header-->
+			<div class="card-header justify-content-end schedule-content ribbon ribbon-start ribbon-clip">
+				<div class="ribbon-label bg-secondary text-dark fs-4" data-status-toggle="Draft">
+					DRAFT
+					<span class="ribbon-inner"></span>
+				</div>
+				<div class="ribbon-label bg-success fs-4" data-status-toggle="Final">
+					FINAL
+					<span class="ribbon-inner"></span>
+				</div>
+				<div class="card-title">
+					<div class="justify-self-right">
+						<button type="button" class="btn btn-sm btn-bg-primary text-inverse-primary me-1 min-w-lg-100px d-none btn-save-schedule"
+								data-status="Draft"
+								data-status-toggle="Draft"
+								evt-click="saveSchedule">
+							<span class="indicator-label">Save as Draft</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+						<button type="button" class="btn btn-sm btn-bg-success text-inverse-success me-1 min-w-lg-100px d-none btn-save-schedule"
+								data-status="Final"
+								data-status-toggle="Draft"
+								evt-click="saveSchedule">
+							<span class="indicator-label">Save and Finalize</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+						<button type="button" class="btn btn-sm btn-bg-primary text-inverse-primary me-1 min-w-lg-100px d-none btn-save-schedule"
+								data-status="Final"
+								data-status-toggle="Final"
+								evt-click="saveSchedule">
+							<span class="indicator-label">Save Schedule</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+						<a href="javascript:" class="btn btn-sm btn-bg-light text-inverse-light me-1 d-none" evt-click="onCancelChanges">Cancel Changes</a>
+						<button type="button" class="btn btn-sm btn-bg-secondary text-inverse-secondary me-1" evt-click="printSchedule" id="btnPrint">
+							<span class="indicator-label">
+								<i class="bi bi-printer me-1"></i>
+								Print
+							</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+						<a href="javascript:" class="btn btn-sm btn-info me-1 always-enabled" evt-click="onEmailScheduleToClientClick">
+							<i class="bi bi-envelope"></i>
+							Email to Client
+						</a>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="card-body pt-0  schedule-content" id="schedule-details">
+				<div class="row">
+					<div class="card-title flex-column justify-content-start align-items-start">
+						<div class="d-flex flex-wrap">
+							<div class="justify-content-lg-start" style="flex:1;">
+								<div class="input-group input-group-sm w-250px">
+									<span class="input-group-text" id="basic-addon1">Start Date</span>
+									<input type="text" class="form-control form-control-sm" placeholder="Enter Date" id="txtStartDate" disabled>
+								</div>
+							</div>
+							<div class="d-flex justify-content-end mb-5" style="flex:1;">
+								<button type="button" class="btn btn-sm btn-light-danger ms-2 min-w-lg-125px align-self-end delay-controls d-none" id="btnAddDelay" evt-click="showAddDelayForm">
+									<i class="bi bi-clock"></i>
+									<span class="indicator-label">Add Delay</span>
+								</button>
+								<button type="button" class="btn btn-sm btn-light-primary ms-2 min-w-lg-125px align-self-end delay-controls d-none" evt-click="showDelays" id="btnShowDelays">
+									<i class="bi bi-eye"></i>
+									<span class="indicator-label">Show Delays</span>
+								</button>
+								<button type="button" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary align-self-end ms-2"
+										evt-click="onAddNewItem">
+									<i class="bi bi-plus"></i>
+									<span class="indicator-label">Add New Item</span>
+								</button>
+								<button type="button" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-danger btn-active-light-danger align-self-end ms-2"
+										evt-click="onDeleteItems">
+									<i class="bi bi-trash"></i>
+									<span class="indicator-label">Delete Items</span>
+								</button>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-cell-bordered schedule-table">
+						<thead class="sticky-header-schedule">
+							<tr class="fw-bolder fs-6 text-gray-800 bg-light border-3">
+								<th class="ps-2 w-75px text-center">Seq</th>
+								<th class="text-center min-w-250px mw-250px">Name</th>
+								<th class="text-center w-50px">Duration</th>
+								<th class="text-center min-w-125px">Start Date</th>
+								<th class="text-center min-w-125px">End Date</th>
+								<th class="text-center min-w-250px mw-150px">Predecessor</th>
+								<th class="text-center w-50px">Lag</th>
+							</tr>
+						</thead>
+						<tbody id="schedule-details-body">
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--end::Card body-->
+		</div>
+	</div>
+</div>
+
+@await Html.PartialAsync("add-delay-drawer.cshtml")
+@await Html.PartialAsync("add-item-drawer.cshtml")
+@await Html.PartialAsync("delay-list-drawer.cshtml")
+@await Html.PartialAsync("delete-item-drawer.cshtml")
+@await Html.PartialAsync("action-menu-bar.cshtml")

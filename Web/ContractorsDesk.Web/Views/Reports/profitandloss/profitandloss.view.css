@@ -1,0 +1,244 @@
+﻿
+
+
+/* Report Table Styling */
+#report-table {
+    border-collapse: collapse;
+    margin-top: 0;
+    table-layout: fixed; /* Essential for fixed column widths */
+    font-size: 0.9em;
+    margin:0px auto;
+    /* The table's width is determined by the sum of its column widths */
+}
+
+    #report-table th,
+    #report-table td {
+        border: 1px solid #ddd;
+        padding: 6px 8px;
+        text-align: left;
+        word-wrap: break-word;
+    }
+
+        /* Define fixed widths for each column */
+        #report-table th:nth-child(1),
+        #report-table td:nth-child(1) {
+            width: 200px; /* Fixed width for the first column */
+            /* Removed sticky positioning: position, left, z-index, background-color */
+        }
+
+        #report-table th:nth-child(2),
+        #report-table td:nth-child(2) {
+            width: 150px; /* Fixed width for the second column */
+        }
+
+        #report-table th:nth-child(3),
+        #report-table td:nth-child(3) {
+            width: 150px; /* Fixed width for the third column */
+        }
+
+        #report-table th:nth-child(4),
+        #report-table td:nth-child(4) {
+            width: 150px; /* Fixed width for the fourth column */
+        }
+
+        #report-table th:nth-child(5),
+        #report-table td:nth-child(5) {
+            width: 150px; /* Fixed width for the fifth column (Total) */
+        }
+    /* Add more columns if needed, e.g., th:nth-child(6), td:nth-child(6) { width: 250px; } */
+
+
+    #report-table th {
+        background-color: #f8f8f8; /* Lighter grey */
+        font-weight: bold;
+        font-size: 0.95em; /* Reduced font size for headers */
+        /* Header rows are still sticky at the top during vertical scroll */
+        position: sticky;
+        top: 0;
+        z-index: 1; /* Ensure headers stay above scrolling content (set to 1, lower than sticky column was) */
+    }
+/* No extra z-index needed for the first TH if the column isn't sticky */
+/* #report-table th:first-child { z-index: 4; } */
+
+
+/* Style for expandable section headers */
+.expandable-header {
+    cursor: pointer;
+}
+
+.group-header-row td {
+    background-color: #f5f5f5; /* Lighter grey */
+    font-weight: bold;
+    font-size: 0.90em;
+}
+/* First cell of group header takes full indent */
+.group-header-row.level-0 td:first-child {
+    padding-left: 12px;
+}
+
+.group-header-row.level-1 td:first-child {
+    padding-left: 24px !important;
+}
+
+.group-header-row.level-2 td:first-child {
+    padding-left: 36px !important;
+}
+
+.group-header-row.level-3 td:first-child {
+    padding-left: 48px !important;
+}
+/* Add more levels if needed */
+
+
+/* Style for data rows */
+.data-row td {
+    /* Default styling inherited from #report-table */
+}
+/* Indent data rows based on level */
+.data-row.level-1 td:first-child {
+    padding-left: 24px !important;
+}
+
+.data-row.level-2 td:first-child {
+    padding-left: 36px !important;
+}
+
+.data-row.level-3 td:first-child {
+    padding-left: 48px !important;
+}
+
+.data-row.level-4 td:first-child {
+    padding-left: 60px !important;
+}
+/* Add more levels if needed */
+
+/* Reduce font size for nested data rows */
+.data-row.level-1 td {
+    font-size: 0.85em;
+}
+
+.data-row.level-2 td {
+    font-size: 0.8em;
+}
+
+.data-row.level-3 td {
+    font-size: 0.75em;
+}
+
+.data-row.level-4 td {
+    font-size: 0.7em;
+}
+
+
+/* Style for all summary rows */
+.summary-row td {
+    background-color: #eeeeee;
+    font-weight: bold;
+    border-top: 1px solid #bbb;
+    font-size: 0.90em;
+}
+/* Indent summary rows based on level */
+.summary-row.level-0 td:first-child {
+    padding-left: 8px;
+}
+
+.summary-row.level-1 td:first-child {
+    padding-left: 20px !important;
+}
+
+.summary-row.level-2 td:first-child {
+    padding-left: 32px !important;
+}
+
+.summary-row.level-3 td:first-child {
+    padding-left: 44px !important;
+}
+
+.summary-row.level-4 td:first-child {
+    padding-left: 56px !important;
+}
+/* Add more levels if needed */
+
+
+/* Style for the specific Net Income row (overrides generic summary) */
+.summary-row.net-income-row td {
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    background-color: #dddddd;
+}
+
+.summary-row.net-income-row.level-0 td:first-child {
+    padding-left: 8px;
+}
+
+
+/* Specific styling for other key summaries - keeping lighter grey */
+.summary-row.gross-profit-row td,
+.summary-row.net-operating-income-row td,
+.summary-row.net-other-income-row td {
+    font-weight: bold;
+    border-top: 1px solid #bbb;
+    border-bottom: 1px solid #ccc;
+    background-color: #eeeeee;
+}
+
+
+/* Style for numerical columns in the group header (They remain empty) */
+.group-header-row td:not(:first-child) {
+    /* Intentionally left empty */
+}
+
+/* Style for numerical columns in summary/data rows */
+.summary-row td:not(:first-child),
+.data-row td:not(:first-child) {
+    text-align: right;
+    white-space: nowrap;
+}
+
+/* Style for negative values */
+.negative-value {
+    color: red;
+}
+
+
+/* Style for the expand/collapse toggler */
+.toggler {
+    display: inline-block;
+    margin-right: 6px;
+    width: 0.8em;
+    text-align: center;
+    user-select: none;
+    font-weight: normal;
+}
+
+
+/* Initial placeholder styling */
+#report-container.empty:before {
+    content: "Paste valid JSON data on the right and click 'Generate Report'";
+    display: block;
+    text-align: center;
+    color: #888;
+    margin-top: 50px;
+    font-size: 1em;
+}
+
+/* Hide report header content regardless of state */
+#report-header {
+    display: none !important;
+}
+
+/* Keep the default empty state styles */
+#report-container.empty #report-header,
+#report-container.empty #report-body {
+    display: none;
+}
+
+/* Ensure placeholder is centered when #report-body is display: none */
+#report-container.empty {
+    justify-content: center;
+    align-items: center;
+}
+
+    #report-container.empty:before {
+        margin-top: 0;
+    }

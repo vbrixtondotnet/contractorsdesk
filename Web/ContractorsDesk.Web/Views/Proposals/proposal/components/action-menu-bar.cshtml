@@ -1,0 +1,38 @@
+﻿<div id="scroll-action-bar" class="action-menu-bar notice bg-light-primary rounded border-primary border border-dashed">
+    <div style="display: flex; gap: 5px;">
+        <button type="button" 
+            class="btn btn-sm btn-bg-primary text-inverse-primary me-1 min-w-lg-100px" 
+            evt-click="saveProposal" 
+            id="btnSaveProposal"
+            onmouseover="this.style.transform='scale(1.1)'"
+            onmouseout="this.style.transform='scale(1)'"
+			style="transition: transform 0.3s ease;">
+            <span class="indicator-label">Save</span>
+            <span class="indicator-progress">
+                Please wait...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+        </button>
+		
+		<button type="button"
+				class="btn btn-sm btn-success me-1 min-w-lg-100px"
+				evt-click="onEditProposal"
+				onmouseover="this.style.transform='scale(1.1)'"
+				onmouseout="this.style.transform='scale(1)'"
+				style="transition: transform 0.3s ease;">Edit</button>
+
+        <button type="button"
+                class="btn btn-sm btn-secondary min-w-lg-100px"
+                evt-click="onCancelBtn"
+                id="cancelBtnHeader"
+                onmouseover="this.style.transform='scale(1.1)'"
+                onmouseout="this.style.transform='scale(1)'"
+				style="transition: transform 0.3s ease;">
+            Cancel
+        </button>
+		@await Html.PartialAsync("Components/KTMenuButton/KTMenuButton")
+		<!--begin::Menu-->
+        @await Html.PartialAsync("action-menu-items.cshtml")
+        <!--end::Menu-->
+    </div>
+</div>

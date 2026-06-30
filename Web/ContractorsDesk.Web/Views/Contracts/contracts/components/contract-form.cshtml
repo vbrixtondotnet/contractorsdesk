@@ -1,0 +1,74 @@
+﻿@model dynamic;
+@using ContractorsDesk.WebPortal.Helpers
+
+@{
+	string width;
+
+	var modelType = Model?.GetType();
+	var hasWidth = modelType?.GetProperty("Width") != null;
+
+	width = hasWidth ? (string)Model.Width : "800px";
+}
+
+<div class="bg-body"
+	 id="contract-form-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-name="contract-form-drawer"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'@width', 'lg': '@width'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#btn-contract-form-drawer-close">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<div class="card-header" id="contract-drawer-form-header">
+				<h3 class="card-title fw-bolder text-dark" id="contract-drawer-form-title">email templates</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="btn-contract-form-drawer-close" evt-click="resetActionItemForm">
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="card-body position-relative" id="contract-drawer-form-body">
+				<div id="kt_activities_scroll_edit" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#contract-drawer-form-body"
+					 data-kt-scroll-dependencies="#contract-drawer-form-header, #contract-drawer-form-footer"
+					 data-kt-scroll-offset="5px">
+					<form id="contract-form-drawer-form">
+						<div class="d-block">
+							<div class="col-md-12">
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-contract-name", Label = "Email Template Name", LabelCssClass = "mn-w-134px", Required = true })
+							</div>
+							<div class="fv-row">
+								<div class="d-flex align-items-center border-bottom px-0 min-h-50px">
+									<span class="text-dark fw-bolder w-150px">Email Template Body:</span>
+								</div>
+								<div id="txt-contract-body-component-editor-toolbar" style="background:white;"></div>
+								<div id="txt-contract-body-component-editor-document" style="background:white;height:600px;border:1px solid #0000003b;"></div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="card-footer py-3 text-center" id="contract-drawer-form-footer">
+				<button type="button" class="btn btn-sm btn-light-primary btn-contract-save" evt-click="onContractFormSave">
+					<span class="indicator-label">
+						<i class="bi bi-save"></i>Save
+					</span>
+					<span class="indicator-progress">
+						Saving...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

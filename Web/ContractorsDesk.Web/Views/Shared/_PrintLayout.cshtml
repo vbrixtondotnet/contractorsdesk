@@ -1,0 +1,35 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+
+<!DOCTYPE html>
+
+<html lang="en">
+<!--begin::Head-->
+<head>
+	<base href="">
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="/assets/fonts/poppins.css" />
+	<!--end::Page Vendor Stylesheets-->
+	<!--begin::Global Stylesheets Bundle(used by all pages)-->
+	<link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="/css/site.css?v=1.6" rel="stylesheet" type="text/css" />
+	<style>
+		@@media print {
+			body {
+				margin: 0 !important;
+			}
+			/* Alternatively, you can set margins for specific elements */
+			.print-area {
+				margin: 0 5px; /* Top/Bottom 10mm, Left/Right 15mm */
+			}
+		}
+	</style>
+</head>
+
+<!--end::Head-->
+<!--begin::Body-->
+<body id="kt_body" class="header-tablet-and-mobile-fixed aside-enabled bg-white">
+	@RenderBody()
+</body>
+</html>

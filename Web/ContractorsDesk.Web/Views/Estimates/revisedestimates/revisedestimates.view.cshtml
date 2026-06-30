@@ -1,0 +1,150 @@
+﻿@using ContractorsDesk.Core.Dto
+@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions",
+	"sticky-header",
+	"virtual-select",
+	"autocomplete",
+	"invoice"
+})
+
+@{
+	var Permissions = (PermissionViewModel)ViewBag.Permissions;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+<div class="card mb-2 mb-xl-2 loading proposal-details" id="proposal-header">
+	@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 7, Header = false, CardBody = false })
+	<div class="card-body pb-0 pt-0">
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+			
+			<div class="flex-grow-1">
+				<div class="flex-shrink-0 bg-white mt-5" style="justify-self:center;">
+					<img class="mw-100px mw-lg-250px" src="@CompanySettings.CompanyLogoUrl" alt="image" />
+				</div>
+				
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;">
+					<h1>Estimate To Actual Form</h1>
+					<h3 class="text-center">@currentDate</h3>
+				</div>
+				<div class="row">
+					<div class="py-3 justify-content-between align-items-start flex-wrap mb-2 fs-5">
+						<div class="">
+							<div class="fw-bolder">Project Name: <span class="text-gray-600" id="lblProjectName" data-bookmark-title="true"></span></div>
+						</div>
+						<div class="">
+							<div class="fw-bolder">Start Date: <span class="text-gray-600" id="lblStartDate"></span></div>
+						</div>
+						<div class="">
+							<div class="fw-bolder">Estimated Completion Date: <span class="text-gray-600" id="lblEstimatedCompletionDate"></span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--end::Wrapper-->
+		</div>
+		<div class="justify-self-right mb-4">
+			<button type="button" class="btn btn-sm btn-bg-primary text-inverse-primary me-1 min-w-lg-100px" evt-click="saveEstimate">
+				<span class="indicator-label">Save</span>
+				<span class="indicator-progress">
+					Please wait...
+					<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+				</span>
+			</button>
+			<a href="javascript:" class="btn btn-sm btn-light-primary me-1 always-enabled" evt-click="onEmailToClientClick">
+				<span class="svg-icon svg-icon-muted">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path d="M15.43 8.56949L10.744 15.1395C10.6422 15.282 10.5804 15.4492 10.5651 15.6236C10.5498 15.7981 10.5815 15.9734 10.657 16.1315L13.194 21.4425C13.2737 21.6097 13.3991 21.751 13.5557 21.8499C13.7123 21.9488 13.8938 22.0014 14.079 22.0015H14.117C14.3087 21.9941 14.4941 21.9307 14.6502 21.8191C14.8062 21.7075 14.9261 21.5526 14.995 21.3735L21.933 3.33649C22.0011 3.15918 22.0164 2.96594 21.977 2.78013C21.9376 2.59432 21.8452 2.4239 21.711 2.28949L15.43 8.56949Z" fill="black"></path>
+						<path opacity="0.3" d="M20.664 2.06648L2.62602 9.00148C2.44768 9.07085 2.29348 9.19082 2.1824 9.34663C2.07131 9.50244 2.00818 9.68731 2.00074 9.87853C1.99331 10.0697 2.04189 10.259 2.14054 10.4229C2.23919 10.5869 2.38359 10.7185 2.55601 10.8015L7.86601 13.3365C8.02383 13.4126 8.19925 13.4448 8.37382 13.4297C8.54839 13.4145 8.71565 13.3526 8.85801 13.2505L15.43 8.56548L21.711 2.28448C21.5762 2.15096 21.4055 2.05932 21.2198 2.02064C21.034 1.98196 20.8409 1.99788 20.664 2.06648Z" fill="black"></path>
+					</svg>
+				</span>
+				Email to Client
+			</a>
+			<button type="button" class="btn btn-sm btn-bg-secondary text-inverse-secondary me-1 always-enabled" evt-click="print" id="btnPrint">
+				<span class="indicator-label">Print</span>
+				<span class="indicator-progress">
+					Please wait...
+					<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+				</span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="card mb-2 mb-xl-2 d-none" id="div-unmapped-items">
+	<div class="card-body pb-0">
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+			<div class="alert bg-light-danger border border-danger border-dashed d-flex flex-column flex-sm-row w-100 p-5 ">
+				<span class="svg-icon svg-icon-2hx svg-icon-danger me-4 mb-5 mb-sm-0">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path opacity="0.3" d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z" fill="black"></path>
+						<rect x="9" y="13.0283" width="7.3536" height="1.2256" rx="0.6128" transform="rotate(-45 9 13.0283)" fill="black"></rect>
+						<rect x="9.86664" y="7.93359" width="7.3536" height="1.2256" rx="0.6128" transform="rotate(45 9.86664 7.93359)" fill="black"></rect>
+					</svg>
+				</span>
+				<div class="d-flex flex-column pe-0 pe-sm-10">
+					<h5 class="mb-1">Missing QuickBooks Transactions</h5>
+					<span>This estimate to actual form contain missing transactions. Click <a href="javascript:" evt-click="toggleMappingDrawer">here</a> to fix this problem.</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card mb-2 mb-xl-2 d-none" id="div-quickbooks-account">
+	<div class="card-body pb-0">
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+			<div class="alert bg-light-danger border border-danger border-dashed d-flex flex-column flex-sm-row w-100 p-5 ">
+				<span class="svg-icon svg-icon-2hx svg-icon-danger me-4 mb-5 mb-sm-0">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+						<path opacity="0.3" d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z" fill="black"></path>
+						<rect x="9" y="13.0283" width="7.3536" height="1.2256" rx="0.6128" transform="rotate(-45 9 13.0283)" fill="black"></rect>
+						<rect x="9.86664" y="7.93359" width="7.3536" height="1.2256" rx="0.6128" transform="rotate(45 9.86664 7.93359)" fill="black"></rect>
+					</svg>
+				</span>
+				<div class="d-flex flex-column pe-0 pe-sm-10">
+					<h5 class="mb-1">Missing Quickbooks Integration</h5>
+					<span>Quickbooks account is not currently linked to the ContractorsDesk System. In order to synch your quickbooks data to the system, please link your quickbooks account by clicking <a href=" /quickbooks/connect">here</a>.</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="dv-proposal-categories" class="loading">
+
+	@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 20, Header = false, CardBody = false })
+	<div class="row mb-2 g-6 g-xl-9 category-row">
+		<div class="col-lg-12">
+			<div class="card card-flush h-lg-100">
+				<div class="card-body pt-5">
+					<table class="table table-cell-bordered proposal-items">
+						<thead class="sticky-header">
+							<tr class="fw-bolder fs-6 text-gray-800 bg-light">
+								<th class="w-300px ps-2">Item</th>
+								<th class="w-200px text-center">Original Estimate</th>
+								<th class="w-200px text-center">Revised Estimate</th>
+								<th class="w-200px text-center">Cost To Date</th>
+								<th class="text-center">Balance</th>
+								<th class="text-center">%</th>
+								<th class="text-center">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody id="body-categories">
+
+						</tbody>
+					</table>
+				</div>
+				<!--end::Card body-->
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+@await Html.PartialAsync("components/estimate-mapping-drawer.cshtml")
+@await Html.PartialAsync("Components/EstimateCategoryForm/EstimateCategoryForm")
+@await Html.PartialAsync("Components/Invoice/Invoice")

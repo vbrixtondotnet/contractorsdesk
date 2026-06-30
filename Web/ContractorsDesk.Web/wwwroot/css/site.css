@@ -1,0 +1,226 @@
+.has-shadow {
+    box-shadow: -10px 9px 8px 0px rgba(208,208,208,0.75);
+    -webkit-box-shadow: -10px 9px 8px 0px rgba(208,208,208,0.75);
+    -moz-box-shadow: -10px 9px 8px 0px rgba(208,208,208,0.75);
+}
+
+.padding-right-0{
+    padding-right:0px;
+}
+
+.flex-1 {
+   flex:1;
+}
+
+.mr-50{
+    margin-right:50px;
+}
+
+.fixed-table-wrapper {
+    max-height: 400px; /* Set the height you want for the scrollable area */
+    overflow-y: auto;
+    display: block;
+}
+
+.fixed-table-wrapper .table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #fff; /* Or choose a different background color */
+    z-index: 2;
+}
+
+.fixed-table-wrapper .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Optional: alternate row colors */
+}
+
+.symbol.symbol-32px .symbol-label{
+    width:32px;
+    height:32px;
+    font-size:11px !important;
+}
+
+.mx-w-350px{
+    max-width:350px;
+}
+
+.text-right{
+    text-align:right !important;
+}
+
+
+.justify-self-right{
+    justify-self:right;
+}
+
+.mn-w-85px{
+    min-width: 85px;
+}
+.mn-w-125px {
+    min-width: 125px;
+}
+.mn-w-130px {
+    min-width: 130px;
+}
+.mn-w-131px {
+    min-width: 131px;
+}
+.mn-w-132px {
+    min-width: 132px;
+}
+.mn-w-133px {
+    min-width: 133px;
+}
+.mn-w-134px {
+    min-width: 134px;
+}
+.mn-w-135px {
+    min-width: 135px;
+}
+
+.mw-lg-160px {
+    max-width: 160px !important
+}
+
+table.proposal-items tr td {
+    padding-bottom:2px;
+    padding-top:2px;
+    vertical-align:middle;
+}
+
+
+.preload div:not(.preloader):not(.loading-line) {
+    display: none !important;
+}
+
+div.loaded .preloader{
+    display: none !important;
+}
+
+div.loading div:not(.preloader):not(.loading-line) {
+    display: none !important;
+}
+
+div.loading table {
+    display: none !important;
+}
+
+.highlight-on-scroll {
+    background: #009ef73d !important;
+}
+
+.loaded .content{
+    padding-top: 0 !important;
+}
+
+.invalid {
+    border: 1px solid red !important;
+}
+
+.disabled-link {
+    color: gray; /* Change the color to indicate it's disabled */
+    pointer-events: none; /* Disable clicking */
+    text-decoration: none; /* Remove underline if desired */
+    cursor: not-allowed; /* Change cursor to indicate it's disabled */
+}
+
+table.table-cell-bordered tr td {
+    border: 3px solid #eff2f5;
+}
+
+@media print {
+    .header-brand, .toolbar, .footer {
+        display: none !important;
+    }
+    .print-50{
+        width: 50% !important;
+    }
+}
+
+table.table thead.table-header {
+    z-index:50 !important;
+}
+
+table.table-cell-bordered.cell-bottom-border-2px tr td {
+    border: 2px solid #eff2f5;
+}
+
+td.border-bottom-single {
+    border-bottom: 3px solid black !important;
+}
+
+td.border-bottom-double {
+    border-bottom: 5px double black !important;
+}
+
+td.border-top-single {
+    border-top: 2px solid black !important;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: 3px solid #eff2f5 !important;
+}
+
+    .table tbody tr:last-child td.border-bottom-double {
+        border-top: 2px solid black !important;
+        border-bottom: 5px double black !important;
+    }
+
+/* Adjustments for mobile if needed - flex-wrap helps, but alignment might shift */
+@media (max-width: 767.98px) { /* Adjust breakpoint if needed */
+    .d-flex.justify-content-between.flex-wrap > .d-flex {
+        /* On small screens, let the pairs stack or take full width */
+        width: 100%;
+        justify-content: flex-start; /* Align items within the pair to the left */
+        margin-bottom: 0.5em; /* Add vertical space between stacked pairs */
+    }
+
+        .d-flex.justify-content-between.flex-wrap > .d-flex:last-child {
+            margin-bottom: 0; /* No extra margin after the last pair */
+        }
+
+    .me-8 { /* Reduce the large margin added for the 2em gap on line 1 */
+        margin-right: 1rem !important; /* Use a smaller margin on small screens */
+    }
+    /* Adjust label width or remove for small screens if needed */
+    .right-label {
+        min-width: auto;
+    }
+}
+
+.mini-loader {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid #ccc;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: mini-spin 0.7s linear infinite;
+    vertical-align: middle;
+}
+
+@keyframes mini-spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.visibility-hidden{
+    visibility:hidden;
+}
+
+.action-menu-bar {
+    position: fixed;
+    border: 1px solid darkgray;
+    bottom: -100px; /* start hidden below */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    background-color: #f0f4f8;
+    padding: 15px 25px;
+    border-radius: 10px;
+    /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);*/
+    transition: bottom 0.4s ease;
+    box-shadow: -4px -26px 19px -17px rgba(0,0,0,0.39);
+    -webkit-box-shadow: -4px -26px 19px -17px rgba(0,0,0,0.39);
+    -moz-box-shadow: -4px -26px 19px -17px rgba(0,0,0,0.39);
+}

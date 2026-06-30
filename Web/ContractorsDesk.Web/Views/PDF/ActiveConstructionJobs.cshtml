@@ -1,0 +1,325 @@
+﻿@using ContractorsDesk.Core.Dto;
+@model ActiveConstructionJobsReportViewModel
+@{
+	Layout = null;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+	<title></title>
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="website" property="og:type" />
+	<meta content="" property="og:description" />
+	<meta content="https://gdx8f9i99q.preview-beefreedesign.com/ZFyty" property="og:url" />
+	<meta content="https://pro-bee-beepro-thumbnail.getbee.io/messages/1331205/1317537/2331702/12227207_large.jpg" property="og:image" />
+	<meta content="" property="og:title" />
+	<meta content="" name="description" />
+	<meta charset="utf-8" />
+	<meta content="width=device-width" name="viewport" />
+	<style>
+		.bee-row,
+		.bee-row-content {
+			position: relative
+		}
+
+		.bee-row-6,
+		body {
+			background-color: #ffffff
+		}
+
+		body {
+			color: #000000;
+			font-family: Arial, Helvetica, sans-serif
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1 a,
+		.bee-row-3 .bee-col-2 .bee-block-1 a,
+		.bee-row-4 .bee-col-1 .bee-block-1 a,
+		.bee-row-4 .bee-col-2 .bee-block-1 a,
+		a {
+			color: #7747FF
+		}
+
+		* {
+			box-sizing: border-box
+		}
+
+		body,
+		h3,
+		p {
+			margin: 0
+		}
+
+		.bee-row-content {
+			max-width: 1280px;
+			margin: 0 auto;
+			display: flex
+		}
+
+			.bee-row-content .bee-col-w6 {
+				flex-basis: 50%
+			}
+
+			.bee-row-content .bee-col-w12 {
+				flex-basis: 100%
+			}
+
+		.bee-icon .bee-icon-label-right a {
+			text-decoration: none
+		}
+
+		.bee-image {
+			overflow: auto
+		}
+
+			.bee-image .bee-center {
+				margin: 0 auto
+			}
+
+		.bee-row-1 .bee-col-1 .bee-block-1 {
+			width: 100%
+		}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3,
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			color: #514d5a;
+			direction: ltr;
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: 700;
+			letter-spacing: normal;
+			line-height: 120%
+		}
+
+		.bee-icon {
+			display: inline-block;
+			vertical-align: middle
+		}
+
+			.bee-icon .bee-content {
+				display: flex;
+				align-items: center
+			}
+
+		.bee-image img {
+			display: block;
+			width: 100%
+		}
+
+		.bee-paragraph {
+			overflow-wrap: anywhere
+		}
+
+		.bee-table table {
+			border-collapse: collapse;
+			width: 100%
+		}
+
+			.bee-table table tbody,
+			.bee-table table thead {
+				vertical-align: top
+			}
+
+			.bee-table table td,
+			.bee-table table th {
+				padding: 10px;
+				word-break: break-word
+			}
+
+		.bee-row-1,
+		.bee-row-2,
+		.bee-row-3,
+		.bee-row-4,
+		.bee-row-5 {
+			background-repeat: no-repeat
+		}
+
+			.bee-row-1 .bee-row-content,
+			.bee-row-6 .bee-row-content {
+				background-repeat: no-repeat;
+				color: #000000
+			}
+
+			.bee-row-1 .bee-col-1,
+			.bee-row-2 .bee-col-1,
+			.bee-row-3 .bee-col-1,
+			.bee-row-3 .bee-col-2,
+			.bee-row-4 .bee-col-1,
+			.bee-row-4 .bee-col-2,
+			.bee-row-5 .bee-col-1,
+			.bee-row-6 .bee-col-1 {
+				padding-bottom: 5px;
+				padding-top: 5px
+			}
+
+			.bee-row-2 .bee-row-content,
+			.bee-row-3 .bee-row-content,
+			.bee-row-4 .bee-row-content,
+			.bee-row-5 .bee-row-content {
+				background-repeat: no-repeat;
+				border-radius: 0;
+				color: #000000
+			}
+
+			.bee-row-2 .bee-col-1 .bee-block-1,
+			.bee-row-5 .bee-col-1 .bee-block-1 {
+				padding: 10px;
+				text-align: center;
+				width: 100%
+			}
+
+			.bee-row-3 .bee-col-1 .bee-block-1,
+			.bee-row-3 .bee-col-2 .bee-block-1,
+			.bee-row-4 .bee-col-1 .bee-block-1,
+			.bee-row-4 .bee-col-2 .bee-block-1,
+			.bee-row-5 .bee-col-1 .bee-block-2 {
+				padding: 10px
+			}
+
+		.bee-row-6 {
+			background-repeat: no-repeat
+		}
+
+			.bee-row-6 .bee-col-1 .bee-block-1 {
+				color: #1e0e4b;
+				font-family: Inter, sans-serif;
+				font-size: 15px;
+				padding-bottom: 5px;
+				padding-top: 5px;
+				text-align: center
+			}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3 {
+			font-size: 24px;
+			text-align: center
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1,
+		.bee-row-3 .bee-col-2 .bee-block-1,
+		.bee-row-4 .bee-col-1 .bee-block-1,
+		.bee-row-4 .bee-col-2 .bee-block-1 {
+			color: #101112;
+			direction: ltr;
+			font-size: 16px;
+			font-weight: 400;
+			letter-spacing: 0;
+			line-height: 120%;
+			text-align: left
+		}
+
+			.bee-row-3 .bee-col-1 .bee-block-1 p:not(:last-child),
+			.bee-row-3 .bee-col-2 .bee-block-1 p:not(:last-child),
+			.bee-row-4 .bee-col-1 .bee-block-1 p:not(:last-child),
+			.bee-row-4 .bee-col-2 .bee-block-1 p:not(:last-child) {
+				margin-bottom: 16px
+			}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			font-size: 16px;
+			text-align: left
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon-image {
+			padding: 5px 6px 5px 5px
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon:not(.bee-icon-first) .bee-content {
+			margin-left: 0
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon::not(.bee-icon-last) .bee-content {
+			margin-right: 0
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bee-page-container">
+		<div class="bee-row bee-row-1">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-image">
+						<img alt="" class="bee-center bee-autowidth" src="@CompanySettings.CompanyLogoUrl" style="max-width:333px;" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-2">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-heading">
+						<h3><span class="tinyMce-placeholder">Active Construction Jobs Report</span> </h3>
+						<strong><span class="tinyMce-placeholder">@Model.StartDate.ToString("MMMM dd, yyyy") to @Model.EndDate.ToString("MMMM dd, yyyy") </span> </strong>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="bee-row bee-row-5">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-2 bee-table">
+						<table style="width:75%; margin:0px auto;table-layout:fixed;direction:ltr;background-color:transparent;font-family:Arial, Helvetica, sans-serif;font-weight:400;color:#101112;text-align:left;letter-spacing:0px;">
+							<thead style="background-color:#f2f2f2;color:#101112;font-size:14px;line-height:120%;text-align:center;">
+								@{
+									var headerStyle = "border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;";
+									var cellStyle = "border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;";
+									var textRight = "text-align:right;"; 
+									var textCenter = "text-align:center;";
+								}
+								<tr>
+									<th style="@headerStyle;width:75px;"><span class="tinyMce-placeholder" style="color: #514d5a;">#</span></th>
+									<th style="@headerStyle;text-align:left;"><span class="tinyMce-placeholder" style="color: #514d5a;">Project Name</span></th>
+									<th style="@headerStyle;width:175px;"><span class="tinyMce-placeholder" style="color: #514d5a;">Balance</span></th>
+								</tr>
+							</thead>
+							<tbody style="font-size:16px;line-height:120%;">
+								@if (Model.ActiveConstructionJobs != null && Model.ActiveConstructionJobs.Any())
+								{
+									int taskIndex = 1;
+									var hasBorder = false;
+									var addBorder = false;
+									foreach (var task in Model.ActiveConstructionJobs)
+									{
+										var nonProjectItem = new List<string> { "Total Job Balance:","QB CHA 9100 Acct Balance:","Difference:" };
+										var textColor = task.JobBalance < 0 ? "color:red;" : "";
+										var isNonProjectItem = nonProjectItem.Contains(task.ActiveConstructionJobs);
+										var itemNo = isNonProjectItem ? "" : (taskIndex++).ToString();
+										var cellTextStyle = isNonProjectItem ? "text-align:right;" : "";
+
+										if (isNonProjectItem && !hasBorder)
+										{
+											hasBorder = true;
+											addBorder = true;
+										}
+
+										var rowTopBorderStyle = addBorder ? "border-top:2px solid;" : "";
+										<tr style="@rowTopBorderStyle">
+											<td class="ps-2 py-2 fw-bolder" style="text-align:center;">@(itemNo)</td>
+											<td class="" style="@cellTextStyle">@task.ActiveConstructionJobs
+											</td>
+											<td class="text-right pe-5" style="@textColor">@task.JobBalance.Value.ToString("$#,##0.00;($#,##0.00);$0.00")
+											</td>
+										</tr>
+
+										if (addBorder) addBorder = false;
+									}
+								}
+								else
+								{
+									<tr>
+										<td colspan="5" style="@cellStyle">No tasks available.</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

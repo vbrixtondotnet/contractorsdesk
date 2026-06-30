@@ -1,0 +1,110 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@* @Html.RenderSharedComponentStyle("listloader", "listloader.css") *@
+
+@* @await Html.PartialAsync("Components/listloader/listloader") *@ @* -> PRELOADER *@
+
+@* YOUR VIEW HTML CODE STARTS HERE *@
+<div class="col-md-12 tabcontrol-item mt-3" id="tab-settings">
+	<div class="row">
+		<div class="col-md-6 d-flex pe-0">
+			<div class="card flex-1">
+				<!--begin::Card header-->
+				<div class="card-header cursor-pointer">
+					<!--begin::Card title-->
+					<div class="card-title m-0">
+						<h3 class="fw-bolder m-0">Company Settings</h3>
+					</div>
+					<div class="card-toolbar">
+						<button type="button" class="btn btn-sm btn-light-primary" id="btn-settings-save" evt-click="updateData">
+							<span class="indicator-label">
+								<i class="bi bi-save"></i>Save Changes
+							</span>
+							<span class="indicator-progress">
+								Saving...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+
+				</div>
+				<!--begin::Card header-->
+				<!--begin::Card body-->
+				<div class="card-body p-9">
+					<form class="form-binder" id="form-setting-details">
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon1">Company Name</span>
+							<input type="text" class="form-control" name="companyName" data-model="companyName">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon3">General Contractor Name</span>
+							<input type="text" class="form-control" data-model="generalContractorName">
+						</div>
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text" id="basic-addon2">Company Email</span>
+							<input type="text" class="form-control" data-model="companyEmail">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon4">Phone</span>
+							<input type="text" class="form-control" data-model="phoneNumber">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon4">Address 1</span>
+							<input type="text" class="form-control" data-model="address1">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon4">Address 2</span>
+							<input type="text" class="form-control" data-model="address2">
+						</div>
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon4">City</span>
+							<input type="text" class="form-control" data-model="city">
+						</div>
+						@Html.StatesDropdown(new HtmlElementModel { Classes = "form-select-sm", Id = "slcState" })
+						<div class="input-group input-group-sm mb-2">
+							<span class="input-group-text" id="basic-addon4">Zip</span>
+							<input type="text" class="form-control" data-model="zip">
+						</div>
+					</form>
+				</div>
+				<!--end::Card body-->
+			</div>
+		</div>
+		<div class="col-md-6 d-flex">
+			<div class="card flex-1">
+				<!--begin::Card header-->
+				<div class="card-header cursor-pointer">
+					<!--begin::Card title-->
+					<div class="card-title m-0">
+						<h3 class="fw-bolder m-0">Company Logo</h3>
+					</div>
+					<div class="card-toolbar">
+						<button type="button" class="btn btn-sm btn-light-primary" id="btn-settings-save" evt-click="saveUpload">
+							<span class="indicator-label">
+								<i class="bi bi-save"></i>Save Changes
+							</span>
+							<span class="indicator-progress">
+								Saving...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+
+				</div>
+				<!--begin::Card header-->
+				<!--begin::Card body-->
+				<div class="card-body p-9">
+					<form class="form-binder" id="form-setting-upload">
+						<div class="input-group input-group-sm mb-4">
+							<span class="input-group-text">Company Logo</span>
+							<input type="file" class="form-control" id="companyLogoInput" name="companyLogoInput" accept="image/*" evt-change="upload">
+						</div>
+						<div class="logo-preview-wrapper">
+							<img id="companyLogoPreview" class="logo-preview-img" src="#" alt="Logo Preview" style="display: none;" />
+						</div>
+					</form>
+				</div>
+				<!--end::Card body-->
+			</div>
+		</div>
+	</div>
+</div>

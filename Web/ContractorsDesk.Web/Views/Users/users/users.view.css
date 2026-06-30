@@ -1,0 +1,14 @@
+﻿.fixed-header {
+    position: sticky;
+    top: 0;
+    padding-bottom: 20px;
+    background: white;
+    z-index: 101;
+}
+
+.list-item {
+    display: grid !important;
+    grid-template-columns: 1fr auto auto; /* First column takes up available space, others auto-size */
+    align-items: center; /* Aligns content vertically */
+    gap: 1rem; /* Adds space between columns */
+}

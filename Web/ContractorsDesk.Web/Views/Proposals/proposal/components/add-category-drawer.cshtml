@@ -1,0 +1,54 @@
+﻿<div class="bg-body"
+	 id="add-category-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'450px', 'lg': '450px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#add-category-drawer-close">
+
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="save-template-drawer-header">
+				<h3 class="card-title fw-bolder text-dark">Add Category</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="add-category-drawer-close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative pt-2" id="add-category-drawer-body">
+				<form class="form-binder" id="form-add-category">
+					<div class="fv-row mb-2">
+						<label class="fs-6 fw-bold required mb-2">Category Name</label>
+						<input type="text" class="form-control" id="txtCategoryName" name="categoryName" value="" data-model="name" autocomplete="off">
+					</div>
+					<div class="fv-row mb-5">
+						<label class="fs-6 fw-bold mb-2">Sequence</label>
+						<input type="text" data-type="int" class="form-control" id="txtCategorySequence" name="sequence" value="" data-model="sequence">
+					</div>
+				</form>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="add-category-drawer-footer">
+				<button type="button" class="btn btn-sm btn-primary always-enabled w-150px" evt-click="onAddCategory">
+					<span class="indicator-label">
+						Add
+					</span>
+				</button>
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

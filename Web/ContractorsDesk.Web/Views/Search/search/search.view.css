@@ -1,0 +1,74 @@
+﻿.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+/* Card custom container with scrollable behavior */
+.card-custom {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-height: 500px; /* Set maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+    /* Title inside card */
+    .card-custom h2 {
+        margin-bottom: 20px;
+        color: #555;
+        font-size: 1.6em;
+        text-align: center;
+    }
+
+/* List styling */
+.result-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    border: 1px solid #e3e6f0;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-size: 1.1em;
+}
+
+    .list-group-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+.result-content {
+    flex: 1;
+}
+
+.highlight-keyword {
+    font-weight: bold;
+}
+
+.redirect-arrow {
+    color: #007bff;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+    .redirect-arrow:hover {
+        transform: translateX(5px);
+    }
+
+.search-badge {
+    background-color: #28a745;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    margin-left: 10px;
+}

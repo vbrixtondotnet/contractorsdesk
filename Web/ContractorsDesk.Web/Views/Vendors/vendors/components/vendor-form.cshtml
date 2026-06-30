@@ -1,0 +1,73 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+
+<div class="bg-body"
+	 id="vendor-form-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-name="vendor-form-drawer"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'300px', 'lg': '450px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#btn-vendor-form-drawer-close">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="vendor-drawer-form-header">
+				<h3 class="card-title fw-bolder text-dark" id="vendor-drawer-form-title">vendor</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="btn-vendor-form-drawer-close" evt-click="resetActionItemForm">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative" id="vendor-drawer-form-body">
+				<div id="kt_activities_scroll_edit" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#vendor-drawer-form-body"
+					 data-kt-scroll-dependencies="#vendor-drawer-form-header, #vendor-drawer-form-footer"
+					 data-kt-scroll-offset="5px">
+					<form id="vendor-form-drawer-form">
+						<div class="row">
+							<div class="col-md-12">
+								@Html.InputGroupDropdown(new InputGroupModel { Id = "slc-vendor-category", Label = "Category", LabelCssClass = "mn-w-134px", Required = true, IsSelect2 = true, CustomInputClass = "form-select-sm w-100" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-vendor-category", Label = "Category", LabelCssClass = "mn-w-134px visibility-hidden", CustomInputClass = "form-control-sm" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-vendor-company", Label = "Company", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-vendor-name", Label = "Name", LabelCssClass = "mn-w-134px", Required = true })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-vendor-address", Label = "Address", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-vendor-city", Label = "City", LabelCssClass = "mn-w-134px" })
+								@Html.StatesDropdown(new HtmlElementModel { Classes = "form-select-sm", Id = "slc-vendor-state", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-vendor-zip", Label = "Zip Code", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-vendor-phone", Label = "Phone", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-vendor-email", Label = "Email", LabelCssClass = "mn-w-134px" })
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="vendor-drawer-form-footer">
+				<button type="button" class="btn btn-sm btn-light-primary btn-vendor-save" evt-click="onvendorFormSave">
+					<span class="indicator-label">
+						<i class="bi bi-save"></i>Save
+					</span>
+					<span class="indicator-progress">
+						Saving...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+				
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

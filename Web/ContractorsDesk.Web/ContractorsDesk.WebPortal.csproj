@@ -1,0 +1,297 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>622056f6-2400-4ef5-9553-58836055e269</UserSecretsId>
+		<EnableDefaultContentItems>false</EnableDefaultContentItems>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Components\modal\**" />
+		<Compile Remove="Components\notification\**" />
+		<Content Remove="Components\modal\**" />
+		<Content Remove="Components\notification\**" />
+		<EmbeddedResource Remove="Components\modal\**" />
+		<EmbeddedResource Remove="Components\notification\**" />
+		<None Remove="Components\modal\**" />
+		<None Remove="Components\notification\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Secrets\" />
+		<Folder Include="Views\ClientDashboard\dashboard\components\" />
+		<Folder Include="Views\Settings\settings\components\" />
+    <Folder Include="Views\SubContractors\subcontractors\components\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="13.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.2.0" />
+		<PackageReference Include="Microsoft.IdentityModel.Tokens.Saml" Version="8.2.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\ContractorsDesk.DataStore.Master\ContractorsDesk.DataStore.Master.csproj" />
+		<ProjectReference Include="..\..\Core\ContractorsDesk.Core.ApiPayloadModels\ContractorsDesk.Core.ApiPayloadModels.csproj" />
+		<ProjectReference Include="..\..\Core\ContractorsDesk.Core.Models\ContractorsDesk.Core.Models.csproj" />
+		<ProjectReference Include="..\..\Core\ContractorsDesk.Core\ContractorsDesk.Core.csproj" />
+		<ProjectReference Include="..\..\DataStore\ContractorsDesk.DataStore.ClientData\ContractorsDesk.DataStore.Client.csproj" />
+		<ProjectReference Include="..\..\Services\ContractorsDesk.Services\ContractorsDesk.Services.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Views\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Include="Components\**\">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="DinkToPDF\NativeBinaries\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="PDF\Templates\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+  <ItemGroup>
+    <Content Include="HTMLTemplates\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+	<ItemGroup>
+	  <None Remove="Views\Approvals\CostRevisions.cshtml" />
+	  <None Remove="Views\Approvals\Revisions.cshtml" />
+	  <None Remove="Views\Approvals\ScheduleRevisions.cshtml" />
+	  <None Remove="Views\Archives\actionitems\actionitems.view.cshtml" />
+	  <None Remove="Views\Archives\actionitems\actionitems.view.css" />
+	  <None Remove="Views\Archives\actionitems\actionitems.view.js" />
+	  <None Remove="Views\Archives\actionitems\models\actionitems.model.js" />
+	  <None Remove="Views\Archives\actionitems\services\actionitems.service.js" />
+	  <None Remove="Views\Archives\projects\models\projects.model.js" />
+	  <None Remove="Views\Archives\projects\projects.view.cshtml" />
+	  <None Remove="Views\Archives\projects\projects.view.css" />
+	  <None Remove="Views\Archives\projects\projects.view.js" />
+	  <None Remove="Views\Archives\projects\services\projects.service.js" />
+	  <None Remove="Views\Archives\proposals\models\proposals.model.js" />
+	  <None Remove="Views\Archives\proposals\proposals.view.cshtml" />
+	  <None Remove="Views\Archives\proposals\proposals.view.css" />
+	  <None Remove="Views\Archives\proposals\proposals.view.js" />
+	  <None Remove="Views\Archives\proposals\services\proposals.service.js" />
+	  <None Remove="Views\ClientDashboard\dashboard\dashboard.view.cshtml" />
+	  <None Remove="Views\ClientDashboard\dashboard\dashboard.view.css" />
+	  <None Remove="Views\ClientDashboard\dashboard\dashboard.view.js" />
+	  <None Remove="Views\ClientDashboard\dashboard\models\dashboard.model.js" />
+	  <None Remove="Views\ClientDashboard\dashboard\services\dashboard.service.js" />
+	  <None Remove="Views\ClientDashboard\project\components\budget-to-actual\css\revisedestimates.view.css" />
+	  <None Remove="Views\ClientDashboard\project\components\budget-to-actual\js\revisedestimates.component.js" />
+	  <None Remove="Views\ClientDashboard\project\components\budget-to-actual\js\revisedestimates.model.js" />
+	  <None Remove="Views\ClientDashboard\project\components\budget-to-actual\js\revisedestimates.service.js" />
+	  <None Remove="Views\ClientDashboard\project\components\budget-to-actual\sticky-action-bar.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\budget-to-actual\tab-budget-to-actual.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\project-navbar.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\project-schedule-error-card.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\proposal\css\proposal.component.css" />
+	  <None Remove="Views\ClientDashboard\project\components\proposal\css\proposal.report.css" />
+	  <None Remove="Views\ClientDashboard\project\components\proposal\js\proposal.component.js" />
+	  <None Remove="Views\ClientDashboard\project\components\proposal\js\proposal.model.js" />
+	  <None Remove="Views\ClientDashboard\project\components\proposal\js\proposal.service.js" />
+	  <None Remove="Views\ClientDashboard\project\components\proposal\sticky-action-bar.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\proposal\tab-proposal.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\schedule\action-menu-bar.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\schedule\css\schedule.view.css" />
+	  <None Remove="Views\ClientDashboard\project\components\schedule\js\schedule.component.js" />
+	  <None Remove="Views\ClientDashboard\project\components\schedule\js\schedule.model.js" />
+	  <None Remove="Views\ClientDashboard\project\components\schedule\js\schedule.service.js" />
+	  <None Remove="Views\ClientDashboard\project\components\schedule\tab-schedule.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\subcontractor-projects-drawer.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\tab-client-documents.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\tab-loading.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\components\tab-sub-contractors.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\models\project.model.js" />
+	  <None Remove="Views\ClientDashboard\project\project.view.cshtml" />
+	  <None Remove="Views\ClientDashboard\project\project.view.css" />
+	  <None Remove="Views\ClientDashboard\project\project.view.js" />
+	  <None Remove="Views\ClientDashboard\project\services\project.service.js" />
+	  <None Remove="Views\Emails\inbox\inbox.view.cshtml" />
+	  <None Remove="Views\Emails\inbox\inbox.view.css" />
+	  <None Remove="Views\Emails\inbox\inbox.view.js" />
+	  <None Remove="Views\Emails\inbox\models\inbox.model.js" />
+	  <None Remove="Views\Emails\inbox\services\inbox.service.js" />
+	  <None Remove="Views\Emails\sentitems\models\sentitems.model.js" />
+	  <None Remove="Views\Emails\sentitems\sentitems.view.cshtml" />
+	  <None Remove="Views\Emails\sentitems\sentitems.view.css" />
+	  <None Remove="Views\Emails\sentitems\sentitems.view.js" />
+	  <None Remove="Views\Emails\sentitems\services\sentitems.service.js" />
+	  <None Remove="Views\Home\dashboard\components\actionitems-listview.cshtml" />
+	  <None Remove="Views\Home\dashboard\components\projects-listview.cshtml" />
+	  <None Remove="Views\Home\dashboard\components\proposals-listview.cshtml" />
+	  <None Remove="Views\Home\dashboard\components\quickbooks-integration-card.cshtml" />
+	  <None Remove="Views\Home\dashboard\components\statistics.cshtml" />
+	  <None Remove="Views\Home\dashboard\dashboard.view.cshtml" />
+	  <None Remove="Views\Home\dashboard\dashboard.view.css" />
+	  <None Remove="Views\Home\dashboard\dashboard.view.js" />
+	  <None Remove="Views\Home\dashboard\models\dashboard.model.js" />
+	  <None Remove="Views\Home\dashboard\services\dashboard.service.js" />
+	  <None Remove="Views\PDF\CostRevision.cshtml" />
+	  <None Remove="Views\PDF\ScheduleRevision.cshtml" />
+	  <None Remove="Views\Projects\project\components\budget-to-actual\css\revisedestimates.view.css" />
+	  <None Remove="Views\Projects\project\components\budget-to-actual\js\revisedestimates.component.js" />
+	  <None Remove="Views\Projects\project\components\budget-to-actual\js\revisedestimates.model.js" />
+	  <None Remove="Views\Projects\project\components\budget-to-actual\js\revisedestimates.service.js" />
+	  <None Remove="Views\Projects\project\components\budget-to-actual\sticky-action-bar.cshtml" />
+	  <None Remove="Views\Projects\project\components\budget-to-actual\tab-budget-to-actual.cshtml" />
+	  <None Remove="Views\Projects\project\components\proposal\css\proposal.component.css" />
+	  <None Remove="Views\Projects\project\components\proposal\css\proposal.report.css" />
+	  <None Remove="Views\Projects\project\components\proposal\js\proposal.component.js" />
+	  <None Remove="Views\Projects\project\components\proposal\js\proposal.model.js" />
+	  <None Remove="Views\Projects\project\components\proposal\js\proposal.service.js" />
+	  <None Remove="Views\Projects\project\components\proposal\sticky-action-bar.cshtml" />
+	  <None Remove="Views\Projects\project\components\schedule\schedule.view.css" />
+	  <None Remove="Views\Projects\project\components\schedule\schedule.view.js" />
+	  <None Remove="Views\Projects\project\components\schedule\tab-schedule.cshtml" />
+	  <None Remove="Views\Projects\project\components\tab-loading.cshtml" />
+	  <None Remove="Views\Projects\project\components\tab-proposal.cshtml" />
+	  <None Remove="Views\Projects\schedule\components\action-menu-bar.cshtml" />
+	  <None Remove="Views\Proposals\proposal\components\modal-merge-draft-proposals.cshtml" />
+	  <None Remove="Views\Shared\Components\ManagerProjects\managerprojects.cshtml" />
+	  <None Remove="Views\Proposals\proposal\components\action-menu-bar.cshtml" />
+	  <None Remove="Views\Proposals\proposal\components\action-menu-items.cshtml" />
+	  <None Remove="Views\Proposals\proposal\components\modal-merge-proposal.cshtml" />
+	  <None Remove="Views\Proposals\proposal\components\project-customer-detail.cshtml" />
+	  <None Remove="Views\Shared\Components\KTMenuButton\KTMenuButton.cshtml" />
+	  <None Remove="Views\SubContractors\subcontractors\models\subcontractors.model.js" />
+	  <None Remove="Views\Notifications\notifications\models\notifications.model.js" />
+	  <None Remove="Views\Notifications\notifications\notifications.view.cshtml" />
+	  <None Remove="Views\Notifications\notifications\notifications.view.css" />
+	  <None Remove="Views\Notifications\notifications\notifications.view.js" />
+	  <None Remove="Views\Notifications\notifications\services\notifications.service.js" />
+	  <None Remove="Views\PDF\ClientEmail.cshtml" />
+	  <None Remove="Views\PDF\Invoice.cshtml" />
+	  <None Remove="Views\PDF\StatusReport.cshtml" />
+	  <None Remove="Views\Projects\project\components\sub-contractor-modal.cshtml" />
+	  <None Remove="Views\Proposals\proposal\components\add-category-drawer.cshtml" />
+	  <None Remove="Views\Proposals\proposal\components\print-option-drawer.cshtml" />
+	  <None Remove="Views\Proposals\proposal\components\save-template-drawer.cshtml" />
+	  <None Remove="Views\Reports\budgettoactualcost\budgettoactualcost.view.cshtml" />
+	  <None Remove="Views\Reports\budgettoactualcost\budgettoactualcost.view.css" />
+	  <None Remove="Views\Reports\budgettoactualcost\budgettoactualcost.view.js" />
+	  <None Remove="Views\Reports\budgettoactualcost\models\budgettoactualcost.model.js" />
+	  <None Remove="Views\Reports\budgettoactualcost\services\budgettoactualcost.service.js" />
+	  <None Remove="Views\Reports\profitandloss\models\profitandloss.model.js" />
+	  <None Remove="Views\Reports\profitandloss\profitandloss.view.cshtml" />
+	  <None Remove="Views\Reports\profitandloss\profitandloss.view.css" />
+	  <None Remove="Views\Reports\profitandloss\profitandloss.view.js" />
+	  <None Remove="Views\Reports\profitandloss\services\profitandloss.service.js" />
+	  <None Remove="Views\Reports\proposal\models\proposal.model.js" />
+	  <None Remove="Views\Reports\proposal\proposal.view.cshtml" />
+	  <None Remove="Views\Reports\proposal\proposal.view.css" />
+	  <None Remove="Views\Reports\proposal\proposal.view.js" />
+	  <None Remove="Views\Reports\proposal\services\proposal.service.js" />
+	  <None Remove="Views\Reports\schedule\models\schedule.model.js" />
+	  <None Remove="Views\Reports\schedule\schedule.view.cshtml" />
+	  <None Remove="Views\Reports\schedule\schedule.view.css" />
+	  <None Remove="Views\Reports\schedule\schedule.view.js" />
+	  <None Remove="Views\Reports\schedule\services\schedule.service.js" />
+	  <None Remove="Views\Search\search\models\search.model.js" />
+	  <None Remove="Views\Search\search\search.view.cshtml" />
+	  <None Remove="Views\Search\search\search.view.css" />
+	  <None Remove="Views\Search\search\search.view.js" />
+	  <None Remove="Views\Search\search\services\search.service.js" />
+	  <None Remove="Views\Settings\settings\models\settings.model.js" />
+	  <None Remove="Views\Settings\settings\services\settings.service.js" />
+	  <None Remove="Views\Settings\settings\settings.view.cshtml" />
+	  <None Remove="Views\Settings\settings\settings.view.css" />
+	  <None Remove="Views\Settings\settings\settings.view.js" />
+	  <None Remove="Views\Shared\Components\ActionItemForm\action-item-form.cshtml" />
+	  <None Remove="Views\Shared\Components\ActionItemList\action-item-list.cshtml" />
+	  <None Remove="Views\Shared\Components\FileSystem\FileUploadModal.cshtml" />
+	  <None Remove="Views\Shared\Components\Invoice\Invoice.cshtml" />
+	  <None Remove="Views\Shared\Components\SubcontractorForm\subcontractor-form.cshtml" />
+	  <None Remove="Views\Shared\Components\SubContractorList\subcontractor-list.cshtml" />
+	  <None Remove="Views\Shared\_BackgroundProcessMessages.cshtml" />
+	  <None Remove="Views\Shared\_HeaderDropdownMenu.cshtml" />
+	  <None Remove="Views\SubContractors\subcontractors\services\subcontractors.service.js" />
+	  <None Remove="Views\SubContractors\subcontractors\subcontractors.view.cshtml" />
+	  <None Remove="Views\SubContractors\subcontractors\subcontractors.view.css" />
+	  <None Remove="Views\SubContractors\subcontractors\subcontractors.view.js" />
+	  <None Remove="Views\Users\account\account.view.cshtml" />
+	  <None Remove="Views\Users\account\account.view.css" />
+	  <None Remove="Views\Users\account\account.view.js" />
+	  <None Remove="Views\Users\account\models\account.model.js" />
+	  <None Remove="Views\Users\account\services\account.service.js" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+		<PackageReference Include="System.IO.FileSystem.Primitives" Version="4.3.0" />
+		<PackageReference Include="System.Text.Encoding.Extensions" Version="4.3.0" />
+		<PackageReference Include="System.Net.Primitives" Version="4.3.0" />
+		<PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Components\**\*">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Views\**\*">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <Content Update="Views\PDF\StatusReport.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\PDF\CostRevision.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\Home\dashboard\components\actionitems-listview.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <Content Update="Views\Shared\Components\ManagerProjects\managerprojects.cshtml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
+	  <None Update="web.config">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="wwwroot\assets\audio\notification-alert.wav">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="wwwroot\assets\media\logos\project-logo.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="wwwroot\assets\media\logos\proposal-logo.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="wwwroot\css\site.css">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Views\Shared\_HeaderDropdownMenu.cshtml" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,40 @@
+﻿<div class="modal fade" id="fileUploadModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content text-center p-4" style="border-radius: 10px;">
+			<div class="modal-header border-0">
+				<h4 class="modal-title w-100 fw-bolder">Upload File</h4>
+			</div>
+			<div class="modal-body">
+				<p class="text-dark mb-4">Choose a file to upload</p>
+
+				<div id="dropArea" class="border border-dashed border-2 rounded p-5 mb-4" style="height: 150px; display: flex; align-items: center; justify-content: center;">
+					<p class="text-dark">Drop your files here</p>
+				</div>
+
+				<input type="file" id="fileInput" class="d-none" accept=".pdf" multiple />
+				<button id="chooseFileBtn" class="btn btn-outline-primary mb-3">Choose file</button>
+
+				<div id="fileUploadStatus" class="text-muted mb-2" style="display: none;">Uploading...</div>
+				<div id="fileListContainer" class="mt-3" style="display: none;">
+					<div class="scrollable-container">
+						<table class="table table-sm table-bordered mb-0">
+							<thead class="table-light">
+								<tr>
+									<th>File Name</th>
+									<th>Status</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody id="fileListBody" class="scrollable-tbody"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal-footer border-0 justify-content-center">
+				<button id="uploadBtn" class="btn btn-dark px-5">UPLOAD</button>
+				<button class="btn btn-outline-dark px-5" data-bs-dismiss="modal">CANCEL</button>
+			</div>
+		</div>
+	</div>
+</div>

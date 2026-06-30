@@ -1,0 +1,125 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+
+<div class="bg-body"
+	 id="subcontractor-form-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-name="subcontractor-form-drawer"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'800px', 'lg': '800px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#btn-subcontractor-form-drawer-close">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="subcontractor-drawer-form-header">
+				<h3 class="card-title fw-bolder text-dark" id="subcontractor-drawer-form-title">Subcontractor</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="btn-subcontractor-form-drawer-close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative" id="subcontractor-drawer-form-body">
+				<div id="kt_activities_scroll_edit" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#subcontractor-drawer-form-body"
+					 data-kt-scroll-dependencies="#subcontractor-drawer-form-header, #subcontractor-drawer-form-footer"
+					 data-kt-scroll-offset="5px">
+					<form id="subcontractor-form-drawer-form">
+						<div class="row" id="row-subcontractors-search-container">
+							<div class="col-md-12">
+								<div class="input-group input-group-sm mb-1" id="slcSubcontractorSearchContainer">
+									<select class="form-select form-select-sm form-select-solid" data-control="select2" id="slcSubcontractorSearch">
+										<option value="0" selected>Select an existing sub-contractor</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-12 p-5">
+								<span class="d-block text-center"> OR create new record below</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								@Html.InputGroupDropdown(new InputGroupModel { Id = "slc-subcontractor-category", Label = "Category", LabelCssClass = "mn-w-134px", Required = true, IsSelect2 = true, CustomInputClass = "form-select-sm w-100" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-category", LabelCssClass = "mn-w-134px visibility-hidden", CustomInputClass = "form-control-sm" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-company", Label = "Company", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-name", Label = "Name", LabelCssClass = "mn-w-134px", Required = true })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-address", Label = "Address", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-city", Label = "City", LabelCssClass = "mn-w-134px" })
+								@Html.StatesDropdown(new HtmlElementModel { Classes = "form-select-sm", Id = "slc-subcontractor-state", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-zip", Label = "Zip Code", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-phone", Label = "Phone", LabelCssClass = "mn-w-134px", OnInput = "formatPhone" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-email", Label = "Email", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-licenseno", Label = "License No", LabelCssClass = "mn-w-134px" })
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-licenseexp", Label = "License Expiration", LabelCssClass = "mn-w-134px" })
+							</div>
+							<div class="col-md-6">
+								<div class="py-1">
+									<div class="card shadow-sm">
+										<div class="card-header min-h-15px ps-2">
+											<strong class="card-title">Liability Insurance</strong>
+										</div>
+
+										<div class="card-body p-2">
+											@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-liability-policyno", Label = "Policy No", LabelCssClass = "mn-w-134px" })
+											@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-liability-policyexp", Label = "Expiration Date", LabelCssClass = "mn-w-134px" })
+										</div>
+									</div>
+								</div>
+								<div class="py-1">
+									<div class="card shadow-sm">
+										<div class="card-header min-h-15px ps-2">
+											<strong class="card-title">Workman's Comp Insurance</strong>
+										</div>
+										<div class="card-body p-2">
+											@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-comp-policyno", Label = "Policy No", LabelCssClass = "mn-w-134px" })
+											@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-comp-policyexp", Label = "Expiration Date", LabelCssClass = "mn-w-134px" })
+										</div>
+									</div>
+								</div>
+								<div class="py-1">
+									<div class="card shadow-sm">
+										<div class="card-header min-h-15px ps-2">
+											<strong class="card-title">Bond Insurance</strong>
+										</div>
+
+										<div class="card-body p-2">
+											@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-bond-policyno", Label = "Policy No", LabelCssClass = "mn-w-134px" })
+											@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-subcontractor-bond-policyexp", Label = "Expiration Date", LabelCssClass = "mn-w-134px" })
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="subcontractor-drawer-form-footer">
+				<button type="button" class="btn btn-sm btn-light-primary btn-subcontractor-save" evt-click="onSubContractorFormSave">
+					<span class="indicator-label">
+						<i class="bi bi-save"></i>Save
+					</span>
+					<span class="indicator-progress">
+						Saving...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+				
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

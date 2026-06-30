@@ -1,0 +1,36 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@using ContractorsDesk.Core.Enums;
+@using ContractorsDesk.WebPortal.Models;
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@{
+	var bookmarksLoaderModel = new { LinesCount = 7, Header = false, CardBody = false };
+	var Permissions = (PermissionViewModel)ViewBag.Permissions;
+	var CurrentRole = (Roles?)ViewBag.Role;
+}
+
+@await Html.PartialAsync("components/quickbooks-integration-card.cshtml")
+@await Html.PartialAsync("components/statistics.cshtml")
+<div class="row g-6 g-xl-9">
+	<!--begin::Col-->
+	<div class="col-md-6 col-xl-4">
+		@await Html.PartialAsync("components/projects-listview.cshtml")
+	</div>
+	<!--end::Col-->
+	<!--begin::Col-->
+	<div class="col-md-6 col-xl-4">
+		@await Html.PartialAsync("components/proposals-listview.cshtml")
+	</div>
+	<!--end::Col-->
+	<!--begin::Col-->
+	<div class="col-md-6 col-xl-4">
+		@await Html.PartialAsync("components/actionitems-listview.cshtml")
+	</div>
+	
+</div>
+
+<div class="d-none">
+	<button id="btnAssignActionItemToggle"></button>
+</div>
+
+<!--begin::Row-->
+

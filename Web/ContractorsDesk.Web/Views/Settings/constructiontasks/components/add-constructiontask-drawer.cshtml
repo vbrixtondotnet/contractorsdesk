@@ -1,0 +1,63 @@
+﻿<div class="bg-body"
+	 id="add-constructiontask-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'300px', 'lg': '450px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#add-constructiontask-drawer_close">
+
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="add-constructiontask-drawer_header">
+				<h3 class="card-title fw-bolder text-dark">Add New Construction Task</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="add-constructiontask-drawer_close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative" id="add-constructiontask-drawer_body">
+				<div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#add-constructiontask-drawer_body"
+					 data-kt-scroll-dependencies="#add-constructiontask-drawer_header, #add-constructiontask-drawer_footer"
+					 data-kt-scroll-offset="5px">
+					<form id="frmAddItem">
+						<div class="fv-row mb-2">
+							<label class="fs-6 fw-bold required mb-2">Name</label>
+							<input type="text" class="form-control form-control-sm" placeholder="Enter Name" name="name" id="txtAddItemName">
+						</div>
+						<div class="fv-row mb-2">
+							<label class="fs-6 fw-bold required mb-2">Duration</label>
+							<input type="text" data-type="int" class="form-control form-control-sm" placeholder="Enter Duration" name="duration" id="txtAddItemDuration">
+						</div>
+						<div class="fv-row mb-2">
+							<label class="fs-6 fw-bold mb-2">Predecessor</label>
+							<select class="form-select form-select-sm"
+								data-control="new-item-select2"
+								id="slcAddItemPred1">
+							</select>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="add-constructiontask-drawer_footer">
+				@await Html.PartialAsync("Components/Buttons/Save", new { OnSave = "onNewConstructionTaskSave" })
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

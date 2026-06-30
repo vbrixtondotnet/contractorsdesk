@@ -1,0 +1,366 @@
+﻿@using ContractorsDesk.Core.Dto;
+@model ProjectScheduleViewDto
+@{
+	Layout = null;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+	<title></title>
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="website" property="og:type" />
+	<meta content="" property="og:description" />
+	<meta content="https://gdx8f9i99q.preview-beefreedesign.com/ZFyty" property="og:url" />
+	<meta content="https://pro-bee-beepro-thumbnail.getbee.io/messages/1331205/1317537/2331702/12227207_large.jpg" property="og:image" />
+	<meta content="" property="og:title" />
+	<meta content="" name="description" />
+	<meta charset="utf-8" />
+	<meta content="width=device-width" name="viewport" />
+	<style>
+		.bee-row,
+		.bee-row-content {
+			position: relative
+		}
+
+		.bee-row-6,
+		body {
+			background-color: #ffffff
+		}
+
+		body {
+			color: #000000;
+			font-family: Arial, Helvetica, sans-serif
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1 a,
+		.bee-row-3 .bee-col-2 .bee-block-1 a,
+		.bee-row-4 .bee-col-1 .bee-block-1 a,
+		.bee-row-4 .bee-col-2 .bee-block-1 a,
+		a {
+			color: #7747FF
+		}
+
+		* {
+			box-sizing: border-box
+		}
+
+		body,
+		h3,
+		p {
+			margin: 0
+		}
+
+		.bee-row-content {
+			max-width: 1280px;
+			margin: 0 auto;
+			display: flex
+		}
+
+			.bee-row-content .bee-col-w6 {
+				flex-basis: 50%
+			}
+
+			.bee-row-content .bee-col-w12 {
+				flex-basis: 100%
+			}
+
+		.bee-icon .bee-icon-label-right a {
+			text-decoration: none
+		}
+
+		.bee-image {
+			overflow: auto
+		}
+
+			.bee-image .bee-center {
+				margin: 0 auto
+			}
+
+		.bee-row-1 .bee-col-1 .bee-block-1 {
+			width: 100%
+		}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3,
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			color: #514d5a;
+			direction: ltr;
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: 700;
+			letter-spacing: normal;
+			line-height: 120%
+		}
+
+		.bee-icon {
+			display: inline-block;
+			vertical-align: middle
+		}
+
+			.bee-icon .bee-content {
+				display: flex;
+				align-items: center
+			}
+
+		.bee-image img {
+			display: block;
+			width: 100%
+		}
+
+		.bee-paragraph {
+			overflow-wrap: anywhere
+		}
+
+		.bee-table table {
+			border-collapse: collapse;
+			width: 100%
+		}
+
+			.bee-table table tbody,
+			.bee-table table thead {
+				vertical-align: top
+			}
+
+			.bee-table table td,
+			.bee-table table th {
+				padding: 10px;
+				word-break: break-word
+			}
+
+		.bee-row-1,
+		.bee-row-2,
+		.bee-row-3,
+		.bee-row-4,
+		.bee-row-5 {
+			background-repeat: no-repeat
+		}
+
+			.bee-row-1 .bee-row-content,
+			.bee-row-6 .bee-row-content {
+				background-repeat: no-repeat;
+				color: #000000
+			}
+
+			.bee-row-1 .bee-col-1,
+			.bee-row-2 .bee-col-1,
+			.bee-row-3 .bee-col-1,
+			.bee-row-3 .bee-col-2,
+			.bee-row-4 .bee-col-1,
+			.bee-row-4 .bee-col-2,
+			.bee-row-5 .bee-col-1,
+			.bee-row-6 .bee-col-1 {
+				padding-bottom: 5px;
+				padding-top: 5px
+			}
+
+			.bee-row-2 .bee-row-content,
+			.bee-row-3 .bee-row-content,
+			.bee-row-4 .bee-row-content,
+			.bee-row-5 .bee-row-content {
+				background-repeat: no-repeat;
+				border-radius: 0;
+				color: #000000
+			}
+
+			.bee-row-2 .bee-col-1 .bee-block-1,
+			.bee-row-5 .bee-col-1 .bee-block-1 {
+				padding: 10px;
+				text-align: center;
+				width: 100%
+			}
+
+			.bee-row-3 .bee-col-1 .bee-block-1,
+			.bee-row-3 .bee-col-2 .bee-block-1,
+			.bee-row-4 .bee-col-1 .bee-block-1,
+			.bee-row-4 .bee-col-2 .bee-block-1,
+			.bee-row-5 .bee-col-1 .bee-block-2 {
+				padding: 10px
+			}
+
+		.bee-row-6 {
+			background-repeat: no-repeat
+		}
+
+			.bee-row-6 .bee-col-1 .bee-block-1 {
+				color: #1e0e4b;
+				font-family: Inter, sans-serif;
+				font-size: 15px;
+				padding-bottom: 5px;
+				padding-top: 5px;
+				text-align: center
+			}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3 {
+			font-size: 24px;
+			text-align: center
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1,
+		.bee-row-3 .bee-col-2 .bee-block-1,
+		.bee-row-4 .bee-col-1 .bee-block-1,
+		.bee-row-4 .bee-col-2 .bee-block-1 {
+			color: #101112;
+			direction: ltr;
+			font-size: 16px;
+			font-weight: 400;
+			letter-spacing: 0;
+			line-height: 120%;
+			text-align: left
+		}
+
+			.bee-row-3 .bee-col-1 .bee-block-1 p:not(:last-child),
+			.bee-row-3 .bee-col-2 .bee-block-1 p:not(:last-child),
+			.bee-row-4 .bee-col-1 .bee-block-1 p:not(:last-child),
+			.bee-row-4 .bee-col-2 .bee-block-1 p:not(:last-child) {
+				margin-bottom: 16px
+			}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			font-size: 16px;
+			text-align: left
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon-image {
+			padding: 5px 6px 5px 5px
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon:not(.bee-icon-first) .bee-content {
+			margin-left: 0
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon::not(.bee-icon-last) .bee-content {
+			margin-right: 0
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bee-page-container">
+		<div class="bee-row bee-row-1">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-image">
+						<img alt="" class="bee-center bee-autowidth" src="@CompanySettings.CompanyLogoUrl" style="max-width:333px;" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-2">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-heading">
+						<h3><span class="tinyMce-placeholder">Project Schedule Report</span> </h3>
+						<strong><span class="tinyMce-placeholder">@currentDate</span> </strong>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-3">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-2 bee-col-w6">
+					<div class="bee-block bee-block-1 bee-paragraph">
+						<p>
+							<span style="color: #514d5a;"><strong>Project Name</strong></span>: <span style="color: #7a8085;">@Model.ProjectDetails.Name</span><br />
+							<span style="color: #514d5a;"><strong>Status</strong></span>: <span style="color: #7a8085;">@Model.Status</span><br />
+							<span style="color: #514d5a;"><strong>Estimated Start Date</strong></span>: <span style="color: #7a8085;">@Model.StartDate</span><br />
+							<span style="color: #514d5a;"><strong>Estimated Completion Date</strong>:</span><span style="color: #7a8085;"> @Model.EstimatedCompletionDate</span>
+						</p>
+					</div>
+				</div>
+				<div style="clear:both">&nbsp;</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-5">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-2 bee-table">
+
+						<h3 class="fw-bolder mb-3">Tasks</h3>
+						<table style="table-layout:fixed;direction:ltr;background-color:transparent;font-family:Arial, Helvetica, sans-serif;font-weight:400;color:#101112;text-align:left;letter-spacing:0px;">
+							<thead style="background-color:#f2f2f2;color:#101112;font-size:14px;line-height:120%;text-align:center;">
+								@{
+									var headerStyle = "border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;";
+									var cellStyle = "border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;";
+									var textRight = "text-align:right;"; 
+									var textCenter = "text-align:center;";
+								}
+								<tr>
+									<th style="@headerStyle;width:75px;"><span class="tinyMce-placeholder" style="color: #514d5a;">#</span></th>
+									<th style="@headerStyle;width:250px;"><span class="tinyMce-placeholder" style="color: #514d5a;">Task Name</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">DURATION (DAYS)</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">START DATE</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">END DATE</span></th>
+								</tr>
+							</thead>
+							<tbody style="font-size:16px;line-height:120%;">
+								@if (Model.Tasks != null && Model.Tasks.Any())
+								{
+									int taskIndex = 1;
+									foreach (var task in Model.Tasks)
+									{
+										<tr>
+											<td style="@cellStyle;@textCenter">@(taskIndex++)</td>
+											<td class="task-name" style="@cellStyle">@task.Name</td>
+											<td style="@cellStyle;@textCenter">@task.Duration</td>
+											<td style="@cellStyle;@textCenter">@task.StartDateFormatted</td>
+											<td style="@cellStyle;@textCenter">@task.EndDateFormatted</td>
+										</tr>
+									}
+								}
+								else
+								{
+									<tr>
+										<td colspan="5" style="@cellStyle">No tasks available.</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-5">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-2 bee-table">
+						<h3 class="fw-bolder mb-3">Delays</h3>
+						<table style="table-layout:fixed;direction:ltr;background-color:transparent;font-family:Arial, Helvetica, sans-serif;font-weight:400;color:#101112;text-align:left;letter-spacing:0px;">
+							<thead style="background-color:#f2f2f2;color:#101112;font-size:14px;line-height:120%;text-align:center;">
+								<tr>
+									<th style="@headerStyle;width:75px;"><span class="tinyMce-placeholder" style="color: #514d5a;">#</span></th>
+									<th style="@headerStyle;width:250px;"><span class="tinyMce-placeholder" style="color: #514d5a;">Reason</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">DURATION (DAYS)</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">START DATE</span></th>
+								</tr>
+							</thead>
+							<tbody style="font-size:16px;line-height:120%;">
+								@if (Model.Delays != null && Model.Delays.Any())
+								{
+									int delayIndex = 1;
+									foreach (var delay in Model.Delays)
+									{
+										<tr>
+											<td style="@cellStyle;@textCenter">@(delayIndex++)</td>
+											<td style="@cellStyle;@textRight">@delay.Reason</td>
+											<td style="@cellStyle;@textCenter">@delay.Days</td>
+											<td style="@cellStyle;@textCenter">@delay.Start.ToString("yyyy-MM-dd")</td>
+										</tr>
+									}
+								}
+								else
+								{
+									<tr>
+										<td colspan="4">No delays reported.</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

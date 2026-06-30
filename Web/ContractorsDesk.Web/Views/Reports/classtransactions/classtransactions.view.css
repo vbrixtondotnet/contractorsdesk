@@ -1,0 +1,28 @@
+﻿/* For Chrome, Edge, Safari */
+.table-responsive::-webkit-scrollbar {
+    height: 16px; /* horizontal scrollbar height */
+    width: 16px; /* vertical scrollbar width */
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #e0e0e0; /* lighter track */
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background-color: #555; /* darker gray thumb */
+    border-radius: 8px;
+    border: 3px solid #e0e0e0; /* adds spacing around thumb */
+}
+
+/* For Firefox */
+.table-responsive {
+    scrollbar-width: thick; /* makes scrollbar wider */
+    scrollbar-color: #555 #e0e0e0; /* thumb color + track color */
+}
+
+.sticky-header-active th {
+    position: sticky;
+    top: 0; /* stick to the top of the scrollable container */
+    background: #fff; /* ensure header background covers table rows */
+    z-index: 2; /* keep header above table body cells */
+}

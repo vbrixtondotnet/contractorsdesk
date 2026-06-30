@@ -1,0 +1,50 @@
+﻿<div class="d-none">
+	<button id="btnToggleBackgroundProcessMessages"></button>
+</div>
+<div id="background-process-messagenotifications" class="bg-body" 
+	data-kt-drawer="true" 
+	data-kt-drawer-name="activities" 
+	data-kt-drawer-activate="true" 
+	data-kt-drawer-overlay="true" 
+	data-kt-drawer-width="{default:'300px', 'lg': '450px'}" 
+	data-kt-drawer-direction="end"
+	 data-kt-drawer-toggle="#btnToggleBackgroundProcessMessages"
+	 data-kt-drawer-close="#background-process-messageclose">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+		<!--begin::Header-->
+		<div class="card-header" id="background-process-messageheader">
+				<h3 class="card-title fw-bolder text-dark" id="background-process-message-title">Background Job Monitor</h3>
+			<div class="card-toolbar">
+				<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="background-process-messageclose">
+					<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+					<span class="svg-icon svg-icon-1">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+							<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</button>
+			</div>
+		</div>
+		<!--end::Header-->
+		<!--begin::Body-->
+		<div class="card-body position-relative p-3" id="background-process-messagebody">
+			<!--begin::Content-->
+				<div id="background-process-messagescroll" class="position-relative scroll-y me-n5" data-kt-scroll="true" data-kt-scroll-height="auto" data-kt-scroll-wrappers="#background-process-messagebody" data-kt-scroll-dependencies="#background-process-messageheader, #background-process-messagefooter" data-kt-scroll-offset="5px">
+					<div class="w-100 highlight progress-content" style="color:white;border-radius:0;" >
+						<span style="font-size:12px;" id="background-process-title">QuickBooks Data Sync</span>
+						<pre style="margin-top:10px;font-size:10px;"></pre>
+					</div>
+			</div>
+			<!--end::Content-->
+		</div>
+		<!--end::Body-->
+		<!--begin::Footer-->
+		<div class="card-footer py-5 text-center" id="background-process-messagefooter">
+		</div>
+		<!--end::Footer-->
+	</div>
+	</div>
+</div>

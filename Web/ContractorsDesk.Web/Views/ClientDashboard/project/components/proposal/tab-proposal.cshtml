@@ -1,0 +1,28 @@
+﻿@using ContractorsDesk.WebPortal.Helpers;
+@{
+	var Tab = ViewBag.Tab as string;
+	Tab = string.IsNullOrEmpty(Tab) ? "action-items" : Tab;
+}
+<div class="col-md-12 tabcontrol-item mt-3 active" id="tab-proposal">
+	<div id="dv-tab-line-items" class="loading">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+		<div class="bg-white pt-3 pb-3 mb-2">
+			<div class="justify-self-right">
+				
+				<button class="btn btn-sm btn-secondary me-1" data-action="print-proposal" evt-click="print">
+					<span class="indicator-label">
+						<i class="bi bi-printer me-1"></i>
+						Print
+					</span>
+					<span class="indicator-progress">
+						Please wait...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+		</div>
+		<div id="dv-proposal-categories"></div>
+	</div>
+</div>
+
+@await Html.PartialAsync("sticky-action-bar.cshtml")

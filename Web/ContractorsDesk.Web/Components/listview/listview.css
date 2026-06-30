@@ -1,0 +1,49 @@
+﻿/* Preloader container */
+.preloader {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: white; /* background color */
+    padding: 10px;
+}
+
+/* Each loading line */
+.loading-line {
+    width: 100%; /* full width */
+    height: 10px; /* height of each line */
+    background-color: #ccc; /* light gray color */
+    margin-bottom: 10px; /* spacing between lines */
+    border-radius: 5px; /* optional for rounded edges */
+    animation: pulse 1.5s infinite ease-in-out;
+}
+div.listview-content table th.sortable{
+    cursor:pointer;
+}
+div.listview-content table th.sortable::after {
+    font-size: 0.8em; /* Adjust the size as needed */
+    margin-left: 5px; /* Space between the text and the arrow */
+    color: #333; /* Change color as needed */
+    position:relative;
+    top: -1px;
+}
+div.listview-content table th.sortable.desc::after {
+    content: "▼"; /* Unicode character for up arrow */
+}
+div.listview-content table th.sortable.asc::after {
+    content: "▲"; /* Unicode character for up arrow */
+}
+
+/* Animation for loading effect */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,94 @@
+﻿@using ContractorsDesk.Core.Dto
+@using ContractorsDesk.WebPortal.Helpers
+@using ContractorsDesk.WebPortal.Models
+
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions",
+	"sticky-header"
+})
+@{
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+}
+<div class="card mb-2 mb-xl-2" id="proposal-header">
+	<div class="card-body pb-0 pt-0">
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+			
+			<div class="flex-grow-1">
+				<div class="flex-shrink-0 bg-white mt-10" style="justify-self:right;">
+					<button type="button" class="btn bg-primary me-2  text-inverse-primary" evt-click="print" id="btnPrint" disabled>
+						<span class="indicator-label">Print</span>
+						<span class="indicator-progress">
+							Please wait...
+							<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+						</span>
+					</button>
+					
+				</div>
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;margin-top:-50px;">
+					<img class="mw-100px mw-lg-250px" src="@CompanySettings.CompanyLogoUrl" alt="image" />
+				</div>
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;">
+					<h1 class="text-center">Transactions Report</h1>
+					<div class="d-flex justify-content-center gap-4 mt-4">
+						<!-- Start Date -->
+						<div class="d-flex align-items-center" style="width:200px;">
+							<label for="startDate" class="me-2 mb-0 w-125px text-right">Start Date:</label>
+							<input type="text" class="form-control form-control-sm" id="startDate" name="startDate" evt-change="onFilterReport" />
+						</div>
+
+						<!-- End Date -->
+						<div class="d-flex align-items-center" style="width:200px;">
+							<label for="endDate" class="me-2 mb-0 w-125px text-right">End Date:</label>
+							<input type="text" class="form-control form-control-sm" id="endDate" name="endDate" evt-change="onFilterReport" />
+						</div>
+
+						<div class="d-flex align-items-center" style="width:450px;">
+							<label for="endDate" class="me-2 mb-0 w-125px text-right">Class:</label>
+							<select class="form-control form-control-sm" id="txtClasses" name="classes"></select>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			<!--end::Wrapper-->
+		</div>
+	</div>
+</div>
+
+<div id="jobs-summary-row" class="">
+	<div class="row mb-2 g-6 g-xl-9">
+		<div class="col-lg-12">
+			<div class="card card-flush h-lg-100">
+				<div class="card-body pt-5 pb-1" >
+					<div class="row loaded" id="active-jobs-container">
+						@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+						<div class="table-responsive" style="overflow-x:auto; overflow-y:auto; max-height:55vh;">
+							<table class="table table-bordered table-cell-bordered cell-bottom-border-2px" style="width: auto; min-width: max-content;">
+								<thead class="sticky-header-active">
+									<tr class="fw-bolder fs-6 text-gray-800 bg-light  border-3">
+										<th class="ps-2">Date</th>
+										<th>Type</th>
+										<th>Num</th>
+										<th>Clear Status</th>
+										<th>Amount</th>
+										<th style="width:200px;">Class</th>
+										<th>Division</th>
+										<th>Category</th>
+										<th style="width:300px;">Memo</th>
+										<th style="width:150px;">Customer Payee</th>
+										<th class="pe-2">Balance</th>
+									</tr>
+								</thead>
+								<tbody id="body-active-jobs">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

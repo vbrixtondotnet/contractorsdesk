@@ -1,0 +1,133 @@
+﻿<div class="bg-body"
+	 id="send-contract-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'750px', 'lg': '750px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#send-contract-drawer-close">
+
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="send-contract-drawer-header">
+				<h3 class="card-title fw-bolder text-dark">Create Contract and Send to Client</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="send-contract-drawer-close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative pt-2" id="send-contract-drawer-body">
+				<div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#send-contract-drawer-body"
+					 data-kt-scroll-dependencies="#send-contract-drawer-header, #send-contract-drawer-footer"
+					 data-kt-scroll-offset="5px"> 
+						<form class="form-binder" id="form-contract-details">
+							<div class="row mb-3 card-mini">
+								<strong class="fs-6 mb-2">Client Details</strong>
+								<div class="col-md-6">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Client Name</span>
+										<input type="text" class="form-control" id="txtClientName" name="clientName" value="Brixton Ray Villanueva">
+									</div>
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Client Email</span>
+										<input type="text" class="form-control" id="txtClientEmail" name="clientEmail" value="">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Client Address</span>
+										<input type="text" class="form-control" id="txtClientAddress" name="clientAddress" value="">
+									</div>
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Client City</span>
+										<input type="text" class="form-control" id="txtClientCity" name="clientCity" value="">
+									</div>
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Client State</span>
+										<input type="text" class="form-control" id="txtClientState" name="clientState" value="">
+									</div>
+									
+								</div>
+							</div>
+							<div class="row mb-3 card-mini">
+								<strong class="fs-6 mb-2">Project Details</strong>
+								<div class="col-md-6">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Est. Start Date</span>
+										<input type="text" class="form-control" id="txtestStartDate" name="estStartDate" value="">
+									</div>
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Est. Completion Date</span>
+										<input type="text" class="form-control" id="txtestCompletionDate" name="estCompletionDate" value="">
+									</div>
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Project Cost</span>
+										<input type="text" class="form-control" id="txtprojectCost" value="1500000" disabled>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">GC Fee (%)</span>
+										<input type="text" class="form-control" id="txtgenContractorsFeePercentage" value="10" disabled>
+									</div>
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">GC Fee ($)</span>
+										<input type="text" class="form-control" id="txtgenContractorsFeeAmount" value="5000" disabled>
+									</div>
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Initial Deposit (%)</span>
+										<input type="text" class="form-control" id="txtinitialDepositPercentage" name="initialDeposit" value="10">
+									</div>
+								</div>
+							</div>
+							<div class="row card-mini">
+								<strong class="fs-6 mb-2">Contractor Details</strong>
+								<div class="col-md-6">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Name</span>
+										<input type="text" class="form-control" id="txtcontractor" value="" disabled>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="input-group input-group-sm mb-2">
+										<span class="input-group-text" id="basic-addon1">Email</span>
+										<input type="text" class="form-control" id="txtcontractorEmail" name="contractorEmail" value="" disabled>
+									</div>
+								</div>
+							</div>
+
+						</form>	
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="send-contract-drawer-footer">
+				<button type="button" class="btn btn-sm btn-primary always-enabled w-200px" evt-click="onSendContract">
+					<span class="indicator-label">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+							<path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
+						</svg>&nbsp;&nbsp;Create and Send
+					</span>
+					<span class="indicator-progress">
+						Sending Contract...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

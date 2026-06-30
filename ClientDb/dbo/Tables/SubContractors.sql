@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[SubContractors]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [Name] NVARCHAR(100) NOT NULL, 
+    [Address] NVARCHAR(200) NULL, 
+    [City] NVARCHAR(50) NULL, 
+    [State] NVARCHAR(50) NULL, 
+    [Company] NVARCHAR(100) NULL, 
+    [Email] NVARCHAR(100) NOT NULL, 
+    [Phone] NVARCHAR(100) NULL, 
+    [LicenseNo] NVARCHAR(100) NULL, 
+    [LicenseExp] DATE NULL, 
+    [LiabilityInsurancePolicyNo] NVARCHAR(100) NULL, 
+    [LiabilityInsuranceExpiry] DATE NULL, 
+    [CompInsurancePolicyNo] NVARCHAR(100) NULL, 
+    [CompInsuranceExpiry] DATE NULL, 
+    [BondInsurancePolicyNo] NVARCHAR(100) NULL, 
+    [BondInsuranceExpiry] DATE NULL, 
+    [Category] NVARCHAR(150) NULL, 
+    [CreatedBy] INT NOT NULL, 
+    [UpdatedBy] INT NULL, 
+    [DateCreated] DATETIME NOT NULL, 
+    [DateUpdated] DATETIME NULL,
+    [IsActive] bit  NULL, 
+    [Zip] NVARCHAR(20) NULL
+)

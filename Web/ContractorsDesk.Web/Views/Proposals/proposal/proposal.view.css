@@ -1,0 +1,90 @@
+﻿td.subtotal {
+    text-align: right !important;
+    padding-top: 20px !important;
+    padding-right: 20px !important;
+    padding-bottom: 10px !important;
+}
+
+.error {
+    border: 1px solid #ed0707;
+}
+
+textarea.textarea-dynamic {
+    width: 100%; /* Adjust width as needed */
+    height: 37px; /* Initial height */
+    overflow: hidden; /* Prevent scrollbar until dynamically resized */
+    resize: none; /* Prevent manual resizing */
+    padding: 8px; /* Add padding for user comfort */
+    font-size: 14px; /* Adjust font size as needed */
+    box-sizing: border-box; /* Ensures padding is included in height/width */
+    border: 1px solid #ccc; /* Optional: Add border for visibility */
+    border-radius: 4px; /* Optional: Rounded corners */
+}
+
+.h-37px{
+    height:37px !important;
+}
+
+table.proposal-items tr td{
+    vertical-align:top !important;
+    padding-top:5px !important;
+}
+
+
+#form-contract-details div .input-group-text{
+    width: 148px !important;
+}
+
+.card-mini {
+    background: #f5f8fa;
+    padding: 15px 15px 5px 15px;
+}
+
+.select2-container .select2-results__option {
+    color: #181c32 !important;
+}
+
+/* Target the selected option */
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #181c32 !important;
+    opacity : 1;
+}
+
+#select2-slcCustomerState-container, #select2-slcProjectState-container {
+    color: #181c32 !important;
+    opacity: 1;
+}
+
+a[disabled] {
+    pointer-events: none;
+    color: gray;
+    text-decoration: none;
+}
+
+.disabled-select-bg {
+    background-color: #eff2f5;
+    cursor: not-allowed; /* Show not-allowed cursor */
+    pointer-events: none; /* Prevent interaction */
+}
+
+.border-gray-1 {
+    border-top-width: thin;
+    border-top-color: #f5f8fa;
+    border-top-style: solid;
+}
+
+.table.bottom-border-0 tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.table.row-hoverable tbody tr{
+    cursor:pointer;
+}
+
+.form-check.form-check-solid .form-check-input.border-primary-1 {
+    border: 2px solid #009ef7;
+}
+
+input.sqFootLocked {
+    background: lavender !important;
+}

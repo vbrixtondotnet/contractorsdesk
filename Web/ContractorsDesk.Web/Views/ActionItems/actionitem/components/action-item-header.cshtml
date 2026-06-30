@@ -1,0 +1,34 @@
+﻿<div class="d-flex flex-wrap mb-6">
+    <!-- Title and Description Section -->
+    <div class="content-section flex-60">
+        <!-- Title and Badge -->
+        <div class="d-flex align-items-center mb-1">
+            <a href="javascript:" class="text-gray-800 text-hover-primary fs-1 fw-bolder me-3" id="txt-action-item-title" data-bookmark-title="true">Test</a>
+            <span class="badge badge-light-primary me-auto actionitem-status" data-status="active">Active</span>
+            <span class="badge badge-warning me-auto actionitem-status" data-status="pending approval">Pending Approval</span>
+            <span class="badge badge-light-success me-auto actionitem-status" data-status="client approved">Client Approved</span>
+            <span class="badge badge-primary me-auto actionitem-status" data-status="accepted">Accepted</span>
+        </div>
+        <!-- Description -->
+        <div class="d-flex flex-wrap fw-bold mb-2 fs-5 text-dark customized-description" id="txt-action-item-description">
+        </div>
+    </div>
+
+    <!-- Button Section -->
+    <div class="action-section d-flex align-items-start justify-content-end flex-40">
+        <button type="button" class="btn btn-sm btn-light-primary d-none" id="btnAccept" evt-click="onAcceptActionItem">
+            <span class="indicator-label">
+                <span class="svg-icon svg-icon-success svg-icon-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M9.89557 13.4982L7.79487 11.2651C7.26967 10.7068 6.38251 10.7068 5.85731 11.2651C5.37559 11.7772 5.37559 12.5757 5.85731 13.0878L9.74989 17.2257C10.1448 17.6455 10.8118 17.6455 11.2066 17.2257L18.1427 9.85252C18.6244 9.34044 18.6244 8.54191 18.1427 8.02984C17.6175 7.47154 16.7303 7.47154 16.2051 8.02984L11.061 13.4982C10.7451 13.834 10.2115 13.834 9.89557 13.4982Z" fill="black"></path>
+                    </svg>
+                </span>
+                <!--end::Svg Icon-->
+                Accept
+            </span>
+            <span class="indicator-progress">
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+        </button>
+    </div>
+</div>

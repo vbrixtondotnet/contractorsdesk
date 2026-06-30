@@ -1,0 +1,71 @@
+﻿.table tbody tr:last-child td {
+    border-bottom: 3px solid #eff2f5 !important;
+}
+
+.table thead tr th {
+    border: 3px solid #eff2f5 !important;
+}
+
+table th.sortable {
+    cursor: pointer;
+}
+
+table th.sortable::after {
+    font-size: 0.8em; /* Adjust the size as needed */
+    margin-left: 5px; /* Space between the text and the arrow */
+    color: #333; /* Change color as needed */
+    position: relative;
+    top: -1px;
+}
+
+table th.sortable.desc::after {
+    content: "▼"; /* Unicode character for up arrow */
+}
+
+table th.sortable.asc::after {
+    content: "▲"; /* Unicode character for up arrow */
+}
+
+/* Animation for loading effect */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.virtual-select {
+    display: flex; /* Makes the content and the arrow align horizontally */
+    justify-content: space-between; /* Pushes the arrow to the far right */
+    align-items: center; /* Centers the content vertically */
+    width: 100%; /* Makes the link span the entire width of the container */
+    padding: 10px; /* Adds some padding for better appearance */
+    text-decoration: none; /* Removes the underline from the link */
+    /*background-color: #f8f9fa;*/ /* Optional: Add a background color */
+    /*border: 1px solid #ccc;*/ /* Optional: Add a border */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    color: #000; /* Link text color */
+    /*font-size: 16px;*/ /* Adjust the font size */
+    position: relative; /* Required for the arrow positioning */
+}
+
+    .virtual-select:hover {
+        background-color: #009ef70d; /* Change background color on hover */
+    }
+
+    .virtual-select .arrow {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-left: 10px; /* Spacing between text and arrow */
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #a1a1a1; /* The arrow color */
+    }

@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Companies]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [SubDomain] NVARCHAR(100) NULL, 
+    [Name] NVARCHAR(150) NULL
+)

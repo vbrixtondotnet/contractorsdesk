@@ -1,0 +1,49 @@
+﻿/* Truncate email body initially */
+.truncate-multiline-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word; /* Break long words */
+    overflow-wrap: break-word; /* Ensure wrapping at any point */
+}
+
+/* Smooth transition for email body */
+.email-body {
+    transition: all 0.3s ease;
+    word-break: break-word; /* Break long words */
+    overflow-wrap: break-word; /* Ensure wrapping at any point */
+}
+
+/* Hide email details initially */
+.email-details {
+    display: none;
+    word-break: break-word; /* Break long words */
+    overflow-wrap: break-word; /* Ensure wrapping at any point */
+}
+
+/* Change cursor to pointer on hover */
+.email-row {
+    cursor: pointer;
+}
+
+    /* Hover effect for row to highlight it */
+    .email-row:hover {
+        background-color: #f0f8ff; /* Light blue background on hover */
+        transition: background-color 0.3s ease; /* Smooth transition */
+    }
+
+    .email-row:hover {
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+.email-preview {
+    word-break: break-word; /* Break long words */
+    overflow-wrap: break-word; /* Ensure wrapping at any point */
+}
+.scrollable-card-body {
+    flex-grow: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 320px);
+}

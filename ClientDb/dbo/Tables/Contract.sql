@@ -1,0 +1,14 @@
+﻿CREATE TABLE [dbo].[Contract]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL,
+	[Name] NVARCHAR(300) NOT NULL,
+    [BodyTemplate] NVARCHAR(MAX) NOT NULL,
+    [DefaultFolderName] NVARCHAR(300) NOT NULL,
+    [DateCreated] DATETIME NOT NULL DEFAULT GETDATE(),
+    [CreatedById] INT NOT NULL,
+    [DateModified] DATETIME NOT NULL DEFAULT GETDATE(),
+    [ModifiedById] INT NOT NULL,
+    CONSTRAINT [PK_Contract] PRIMARY KEY CLUSTERED ([Id] ASC),
+
+    CONSTRAINT [UQ_Contract_Name] UNIQUE ([Name])
+)

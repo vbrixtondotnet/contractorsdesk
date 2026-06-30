@@ -1,0 +1,92 @@
+﻿@using ContractorsDesk.WebPortal.Helpers;
+@{
+	var Tab = ViewBag.Tab as string;
+	Tab = string.IsNullOrEmpty(Tab) ? "action-items" : Tab;
+}
+<div class="col-md-12 tabcontrol-item mt-3 @PageHelper.IsActiveTab(Tab, "estimate-to-actual")" id="tab-budget-to-actual">
+
+	<div class="card mb-2 mb-xl-2 d-none " id="div-quickbooks-account">
+		<div class="card-body pb-0">
+			<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+				<div class="alert bg-light-danger border border-danger border-dashed d-flex flex-column flex-sm-row w-100 p-5 ">
+					<span class="svg-icon svg-icon-2hx svg-icon-danger me-4 mb-5 mb-sm-0">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+							<path opacity="0.3" d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z" fill="black"></path>
+							<rect x="9" y="13.0283" width="7.3536" height="1.2256" rx="0.6128" transform="rotate(-45 9 13.0283)" fill="black"></rect>
+							<rect x="9.86664" y="7.93359" width="7.3536" height="1.2256" rx="0.6128" transform="rotate(45 9.86664 7.93359)" fill="black"></rect>
+						</svg>
+					</span>
+					<div class="d-flex flex-column pe-0 pe-sm-10">
+						<h5 class="mb-1">Missing Quickbooks Integration</h5>
+						<span class="text-dark">Quickbooks account is not currently linked to the ContractorsDesk System. In order to synch your quickbooks data to the system, please link your quickbooks account by clicking <a href=" /quickbooks/connect">here</a>.</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="dv-budget-to-actual" class="loading">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 20, Header = false, CardBody = false })
+		<div class="row mb-2 g-6 g-xl-9">
+			<div class="col-lg-12">
+				<div class="card card-flush h-lg-100">
+					<div class="card-body pt-5">
+						<div class="d-flex">
+							<div style="display: inline-flex;">
+								<div class="d-flex d-none" id="div-unmapped-items">
+									<div class="alert bg-light-danger border border-danger border-dashed d-flex flex-column flex-sm-row w-100 p-5 ">
+										<span class="svg-icon svg-icon-2hx svg-icon-danger me-4 mb-5 mb-sm-0">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+												<path opacity="0.3" d="M20.5543 4.37824L12.1798 2.02473C12.0626 1.99176 11.9376 1.99176 11.8203 2.02473L3.44572 4.37824C3.18118 4.45258 3 4.6807 3 4.93945V13.569C3 14.6914 3.48509 15.8404 4.4417 16.984C5.17231 17.8575 6.18314 18.7345 7.446 19.5909C9.56752 21.0295 11.6566 21.912 11.7445 21.9488C11.8258 21.9829 11.9129 22 12.0001 22C12.0872 22 12.1744 21.983 12.2557 21.9488C12.3435 21.912 14.4326 21.0295 16.5541 19.5909C17.8169 18.7345 18.8277 17.8575 19.5584 16.984C20.515 15.8404 21 14.6914 21 13.569V4.93945C21 4.6807 20.8189 4.45258 20.5543 4.37824Z" fill="black"></path>
+												<rect x="9" y="13.0283" width="7.3536" height="1.2256" rx="0.6128" transform="rotate(-45 9 13.0283)" fill="black"></rect>
+												<rect x="9.86664" y="7.93359" width="7.3536" height="1.2256" rx="0.6128" transform="rotate(45 9.86664 7.93359)" fill="black"></rect>
+											</svg>
+										</span>
+										<div class="d-flex flex-column pe-0 pe-sm-10">
+											<h5 class="mb-1">Missing QuickBooks Transactions</h5>
+											<span class="text-dark">This estimate to actual form contain missing transactions. Click <a href="javascript:" evt-click="toggleMappingDrawer">here</a> to fix this problem.</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="ms-auto mb-4">
+								<button class="btn btn-sm btn-secondary me-1" data-action="print-budget" evt-click="printEstimateToActual">
+									<span class="indicator-label">
+										<i class="bi bi-printer me-1"></i>
+										Print
+									</span>
+									<span class="indicator-progress">
+										Please wait...
+										<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+									</span>
+								</button>
+							</div>
+						</div>
+
+						
+						
+						<table class="table table-cell-bordered proposal-items estimate-to-actual">
+							<thead class="sticky-header">
+								<tr class="fw-bolder fs-6 text-gray-800 bg-light">
+									<th class="w-300px ps-2">Item</th>
+									<th class="w-200px text-center">Original Estimate</th>
+									<th class="w-200px text-center">Revised Estimate</th>
+									<th class="w-200px text-center">Cost To Date</th>
+									<th class="text-center">Balance</th>
+									<th class="text-center">%</th>
+									<th class="text-center">&nbsp;</th>
+								</tr>
+							</thead>
+							<tbody id="body-budget-to-actual">
+							</tbody>
+						</table>
+					</div>
+					<!--end::Card body-->
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+@await Html.PartialAsync("sticky-action-bar.cshtml")

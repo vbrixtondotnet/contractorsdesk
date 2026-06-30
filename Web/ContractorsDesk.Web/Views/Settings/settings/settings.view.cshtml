@@ -1,0 +1,18 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+
+
+<div class="row mb-2 g-6 g-xl-9 category-row">
+	<div class="col-lg-12">
+		<div class="card card-flush h-lg-100">	
+            <div class="card-body pt-5 pb-5">
+                <div class="form-group">
+                    <label for="imageUpload">Company Logo:</label>
+                    <input type="file" id="imageUpload" name="imageUpload" accept="image/*" evt-change="uploadCompanyLogo">
+                </div>
+                <!-- Add more fields here if needed -->
+            </div>
+			<!--end::Card body-->
+		</div>
+	</div>
+</div>

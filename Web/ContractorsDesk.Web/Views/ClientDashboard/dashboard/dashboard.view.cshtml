@@ -1,0 +1,12 @@
+﻿<div class="row g-6 g-xl-9" id="dv-client-dashboard">
+	<!--begin::Col-->
+	<div class="col-md-6 col-xl-4 loading">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+	</div>
+	<div class="col-md-6 col-xl-4 loading">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+	</div>
+	<div class="col-md-6 col-xl-4 loading">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+	</div>
+</div>

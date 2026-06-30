@@ -1,0 +1,54 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions",
+	"virtual-select",
+	"tagify-select",
+	"sticky-header"
+})
+<div class="px-10 pb-2 pt-5">
+	<div class="input-group input-group-sm mb-5">
+		<span class="input-group-text">Search</span>
+		<input type="text" class="form-control" evt-input="filterRows">
+		<span class="input-group-text p-0">
+			<button type="button" class="btn btn-sm bg-light text-inverse-light" evt-click="clearFilter">
+				CLEAR
+			</button>
+		</span>
+
+		<button type="button" class="btn btn-sm bg-primary ms-2 text-inverse-primary" id="btnAddNewJob">
+			+ ADD NEW
+		</button>
+	</div>
+</div>
+<div class="row mb-2 g-6 g-xl-9 category-row">
+	<div class="col-lg-12">
+		<div class="card card-flush h-lg-100">
+			<div class="px-10 pb-2 pt-5">
+				<div class="input-group input-group-sm mb-5">
+					
+				</div>
+			</div>
+			<!--end::Card header-->
+			<!--begin::Card body-->
+			<div class="card-body pt-0 loading" id="dv-sysbackgroundjobs-tasks">
+				@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 30, Header = false, CardBody = false })
+				<table class="table table-cell-bordered schedule-table">
+					<thead class="sticky-header">
+						<tr class="fw-bolder fs-6 text-gray-800 bg-light border-3">
+							<th class="text-center min-w-250px mw-250px">Job Name</th>
+							<th class="text-center">Date Of Execution</th>
+							<th class="text-center min-w-150px mw-150px">Last Status</th>
+							<th class="text-center min-w-150px mw-150px">Action</th>
+						</tr>
+					</thead>
+					<tbody id="sysbackgroundjobs-tasks-body">
+					</tbody>
+				</table>
+			</div>
+			<!--end::Card body-->
+		</div>
+	</div>
+</div>
+
+@await Html.PartialAsync("components/add-sysbackgroundjobs-drawer.cshtml")

@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[JobBalances]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [JobId] UNIQUEIDENTIFIER NULL, 
+    [Balance] DECIMAL(18, 2) NULL, 
+	[DateUpdated] DATETIME NULL, 
+    CONSTRAINT [FK_JobBalances_QbClass] FOREIGN KEY ([JobId]) REFERENCES [QbClasses]([Id])
+)

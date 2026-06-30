@@ -1,0 +1,50 @@
+﻿@using ContractorsDesk.WebPortal.Helpers;
+@{
+	var Tab = ViewBag.Tab as string;
+	Tab = string.IsNullOrEmpty(Tab) ? "action-items" : Tab;
+}
+<div class="col-md-12 tabcontrol-item mt-3 @PageHelper.IsActiveTab(Tab, "proposal")" id="tab-proposal">
+	<div id="dv-tab-line-items" class="loading">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+		<div class="bg-white pt-3 pb-3 mb-2">
+			<div class="justify-self-right">
+				<button class="btn btn-sm btn-outline btn-outline-dashed btn-outline-primary btn-active-light-primary d-none me-1" data-action="add-category" evt-click="onAddCategoryClick">
+					<i class="bi bi-plus"></i>
+					Add Category
+				</button>
+				<button type="button" class="btn btn-sm btn-primary text-inverse-primary me-1 min-w-lg-100px d-none"
+						data-action="save-proposal" evt-click="saveProposal">
+					<span class="indicator-label">
+						Save
+					</span>
+					<span class="indicator-progress">
+						Please wait...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+				<button class="btn btn-sm btn-primary me-1 min-w-lg-100px always-enabled" data-action="edit-proposal" evt-click="onEditProposal">
+					<i class="bi bi-pencil"></i>
+					Edit
+				</button>
+				
+				<button class="btn btn-sm btn-secondary me-1" data-action="print-proposal" evt-click="print">
+					<span class="indicator-label">
+						<i class="bi bi-printer me-1"></i>
+						Print
+					</span>
+					<span class="indicator-progress">
+						Please wait...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+				<button class="btn btn-sm btn-info me-1 min-w-lg-100px always-enabled" data-action="email-proposal" evt-click="sendProposal">
+					<i class="bi bi-envelope"></i>
+					Email to Client
+				</button>
+			</div>
+		</div>
+		<div id="dv-proposal-categories"></div>
+	</div>
+</div>
+
+@await Html.PartialAsync("sticky-action-bar.cshtml")

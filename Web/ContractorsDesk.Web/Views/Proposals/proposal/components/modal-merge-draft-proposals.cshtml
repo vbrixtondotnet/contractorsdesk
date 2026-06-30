@@ -1,0 +1,56 @@
+﻿<div class="modal fade" tabindex="-1" id="mdl-overwrite-proposal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header pt-2 pb-2">
+                <h5 class="modal-title">Existing Draft Proposals(s) Found</h5>
+                <!--begin::Close-->
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                    <span class="svg-icon svg-icon-2x"></span>
+                </div>
+                <!--end::Close-->
+            </div>
+
+            <div class="modal-body">
+                <p>We've found one or more draft proposals that match the project name you've entered. Would you like to overwrite one of the existing drafts from the list below?</p>
+                <div id="content-matching-projects">
+                    <table class="table bottom-border-0 row-hoverable">
+                        <thead>
+                            <tr class="fw-bolder fs-6 text-gray-800">
+                                <th>Project Name</th>
+                                <th>&nbsp</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody-matching-proposals">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-info btn-overwrite-action" disabled evt-click="onOverwriteProposal">
+                    <span class="indicator-label">
+                        Overwrite Existing
+                    </span>
+                    <span class="indicator-progress">
+                        Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+                <button type="button" class="btn btn-sm btn-success btn-overwrite-action" disabled evt-click="onSaveAsNewProposal">
+                    <span class="indicator-label">
+                        Save as New Proposal
+                    </span>
+                    <span class="indicator-progress">
+                        Please wait...
+                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
+                    <span class="indicator-label">
+                        No, Cancel it
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

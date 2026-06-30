@@ -1,0 +1,63 @@
+﻿
+<div class="bg-body"
+	 id="drawer-delay-list"
+	 data-kt-drawer="true"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'700px', 'lg': '700px'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#kt_show_delay_close">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<!--begin::Header-->
+			<div class="card-header" id="kt_show_delay_header">
+				<h3 class="card-title fw-bolder text-dark"><span id="lblDelayListProjectName">109 Panorama</span>&nbsp;:&nbsp; List of Delays</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="kt_show_delay_close">
+						<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+						<!--end::Svg Icon-->
+					</button>
+				</div>
+			</div>
+			<!--end::Header-->
+			<!--begin::Body-->
+			<div class="card-body position-relative" id="kt_show_delay_body">
+				<div id="kt_activities_scroll" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#kt_show_delay_body"
+					 data-kt-scroll-dependencies="#kt_show_delay_header, #kt_show_delay_footer"
+					 data-kt-scroll-offset="5px">
+					<table class="table table-cell-bordered">
+						<thead>
+							<tr class="fw-bolder fs-6 text-gray-800 bg-light border-3">
+								<th class="ps-2 w-100px">Date</th>
+								<th>Name</th>
+								<th>Reason</th>
+								<th>Description</th>
+								<th class="ps-2 w-100px text-center">Days</th>
+								<th class="ps-2 w-100px text-center">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody id="tbody-delays">
+							<tr>
+								<td colspan="5" class="text-center fs-8 text-muted">No record found.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--end::Body-->
+			<!--begin::Footer-->
+			<div class="card-footer py-3 text-center" id="kt_show_delay_footer">
+
+			</div>
+			<!--end::Footer-->
+		</div>
+	</div>
+</div>

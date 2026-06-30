@@ -1,0 +1,62 @@
+﻿@using ContractorsDesk.Core.Dto
+@using ContractorsDesk.WebPortal.Helpers
+@using ContractorsDesk.WebPortal.Models
+@model ProfitAndLossReportViewModel;
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions",
+	"sticky-header"
+})
+@{
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+}
+<div class="card mb-2 mb-xl-2 proposal-form">
+	<div class="card-body pt-5 pb-0">
+		
+		<!--begin::Details-->
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+			<div class="flex-grow-1">
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;">
+					<img class="mw-100px mw-lg-250px" src="@CompanySettings.CompanyLogoUrl" alt="image" />
+				</div>
+				<!--begin::Head-->
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;">
+					<h1 style="">Profit and Loss Report</h1>
+					<h3 class="text-center">@currentDate</h3>
+				</div>
+				<div style="justify-self:center;">
+					<div class="me-2">
+						<select class="form-select" data-control="select2" multiple="" data-placeholder="Select Projects" id="slcActiveJobs">
+							@foreach (var project in Model.ClassList)
+							{
+								<option value="@project.ListId">@project.Name</option>
+							}
+						</select>
+					</div>
+					@* <button type="button" class="btn btn-sm btn-bg-secondary text-inverse-secondary me-1 always-enabled" evt-click="onPrintDrawer" id="btnPrint">
+						<span class="indicator-label">Print</span>
+						<span class="indicator-progress">
+							Please wait...
+							<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+						</span>
+					</button> *@
+				</div>
+			</div>
+			<!--end::Wrapper-->
+		</div>
+	</div>
+</div>
+
+<div class="row mb-2 g-6 g-xl-9">
+	<div class="col-lg-12">
+		<div class="card card-flush h-lg-100">
+
+			<div class="card-body pt-5 loaded report-container">
+				@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+				<div class="hover-scroll px-5 w-100" id="report-table-wrapper">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

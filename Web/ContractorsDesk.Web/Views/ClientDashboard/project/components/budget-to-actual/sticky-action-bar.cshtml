@@ -1,0 +1,18 @@
+﻿<div id="budget-sticky-action-bar" class="action-menu-bar notice bg-light-primary rounded border-primary border border-dashed sticky-action-bar">
+    <div style="display: flex; gap: 5px;">
+		
+		<button class="btn btn-sm btn-secondary me-1" data-action="print-budget" evt-click="printEstimateToActual"
+				onmouseover="this.style.transform='scale(1.1)'"
+				onmouseout="this.style.transform='scale(1)'"
+				style="transition: transform 0.3s ease;">
+			<span class="indicator-label">
+				<i class="bi bi-printer me-1"></i>
+				Print
+			</span>
+			<span class="indicator-progress">
+				Please wait...
+				<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+			</span>
+		</button>
+    </div>
+</div>

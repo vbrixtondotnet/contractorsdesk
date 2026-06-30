@@ -1,0 +1,10 @@
+﻿<div class="col-md-12 tabcontrol-item mt-3 loaded" id="tab-notes">
+    @await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 7, Header = false, CardBody = false })
+    <div class="row">
+
+        <div class="col-md-12 px-5">
+            <div id="kt_docs_ckeditor_notes_toolbar" style="background:white;"></div>
+            <div id="kt_docs_ckeditor_notes" style="background:white;color:black !important;"></div>
+        </div>
+    </div>
+</div>

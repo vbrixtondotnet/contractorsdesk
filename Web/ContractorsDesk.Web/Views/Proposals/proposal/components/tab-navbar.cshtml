@@ -1,0 +1,33 @@
+﻿<div class="flex-grow-1 px-10 pb-2 pt-2 bg-white mb-2">
+    <div id="dv-sub-header" class="d-flex align-items-center justify-content-between loading">
+        <div class="d-flex h-55px">
+            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6 active tabcontrol-link" id="lineItemsTab" href="javascript:" data-tab-item="tab-proposal-lines">Line Items</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6 tabcontrol-link" id="projectInformationTab" href="javascript:" data-tab-item="tab-project-details">Project Information</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6 tabcontrol-link" id="clientInformationTab" href="javascript:" data-tab-item="tab-client-details">Client Information</a>
+                </li>
+                <li class="nav-item">
+                    <button id="toggleDetails" class="btn btn-sm btn-light-primary" evt-click="toggleProjectAndClient">Toggle Project and Client Details</button>
+                </li>
+                <li class="nav-item d-flex align-items-center ms-4" id="zero-amount-checkbox">
+                    <!--begin::Checkbox-->
+                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                        <input class="form-check-input" type="checkbox" data-kt-check="true" value="1" id="include-zero-amount" evt-change="updateProposalIncludeZeroAmount" />
+                        <label class="form-check-label text-active-primary me-6 text-gray-600 fs-7" for="include-zero-amount">Include All Lines with Descriptions</label>
+                    </div>
+                    <!--end::Checkbox-->
+                </li>
+            </ul>
+        </div>
+        <div id="addCategoryDiv" class="justify-self-right">
+            <button type="button" class="btn btn-sm btn-light-primary" evt-click="onAddCategoryClick" id="btnAddNewCategory">
+                <span class="indicator-label">+ Add Category</span>
+            </button>
+        </div>
+    </div>
+</div>

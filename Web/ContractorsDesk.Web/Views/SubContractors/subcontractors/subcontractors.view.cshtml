@@ -1,0 +1,16 @@
+﻿@using ContractorsDesk.Core.Dto
+@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions",
+	"sticky-header",
+	"subcontractor-list"
+})
+
+@{
+	var Permissions = (PermissionViewModel)ViewBag.Permissions;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+@await Html.PartialAsync("Components/SubContractorList/subcontractor-list")
+@await Html.PartialAsync("components/subcontractor-projects-drawer.cshtml")

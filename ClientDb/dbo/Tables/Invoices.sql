@@ -1,0 +1,15 @@
+﻿CREATE TABLE [dbo].[Invoices]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[InvoiceNumber] NVARCHAR(5) NOT NULL,
+	[ClientId] UNIQUEIDENTIFIER NOT NULL,
+	[InvoiceDate] DATETIME NOT NULL,
+	[DueDate] DATETIME NOT NULL,
+	[TotalAmount] DECIMAL(18, 2) NOT NULL,
+	[Status] NVARCHAR(20) NOT NULL,
+	[DateCreated] DATETIME NOT NULL DEFAULT GETDATE(),
+	[DateUpdated] DATETIME NULL,
+	[CreatedBy] INT NOT NULL,
+	[UpdatedBy] INT NULL, 
+    CONSTRAINT [FK_Invoices_QbClasses] FOREIGN KEY (ClientId) REFERENCES [QbClasses]([Id])
+)

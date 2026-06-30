@@ -1,0 +1,19 @@
+﻿@using ContractorsDesk.WebPortal.Helpers  
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")  
+
+<div class="col-md-12 tabcontrol-item mt-3" id="tab-sub-contractors">  
+	<div class="card">  
+		<!--begin::Tab Content-->  
+		<div class="tab-content">  
+			<!--begin::Tab panel-->  
+			<div class="card-body p-0 tab-pane fade show active" role="tabpanel">  
+				<div class="table-responsive">
+					@await Html.PartialAsync("Components/SubContractorList/subcontractor-list")
+				</div>  
+			</div>  
+			<!--end::Tab panel-->  
+		</div>  
+		<!--end::Tab Content-->  
+	</div>  
+</div>
+<!--end::Tab Content-->

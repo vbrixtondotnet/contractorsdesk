@@ -1,0 +1,187 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@using ContractorsDesk.Core.Enums;
+@{
+	var CurrentRole = (Roles?)ViewBag.Role;
+}
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"table", 
+	"tabcontrol", 
+	"tagify-select",
+	"virtual-select",
+	"file-system",
+	"invoice",
+	"action-item-list",
+	"subcontractor-list",
+	"sticky-header",
+	"autocomplete",
+	"sticky-actions"
+})
+
+<div class="d-none">
+	<button id="btnAddSubContractorToggle"></button>
+</div>
+<div class="d-none">
+	<button id="btnEditSubContractorToggle"></button>
+</div>
+<div class="card mb-3 mb-xl-3">
+	<div class="card-body pt-9 pb-0 loading" id="project-view-header">
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 7, Header = false, CardBody = false })
+		<!--begin::Details-->
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-3">
+			<!--begin::Image-->
+			<div data-model="action-type-icon" class="d-flex flex-column justify-content-center align-items-center flex-shrink-0 w-125px h-125px w-lg-125px h-lg-125px me-7 mb-4 mt-2">
+				<div class="symbol symbol-125px w-125px photo-wrapper" evt-click="onChangePhoto">
+					<img src="/assets/media/logos/project-logo.png" data-model="photo-url" alt="Project Logo">
+					<div class="overlay-text fs-7">Change Photo</div>
+					<input type="file" data-model="photo" style="display:none;" evt-change="onPhotoFileSelected" />
+				</div>
+
+			</div>
+			<!--end::Image-->
+			<!--begin::Wrapper-->
+			<div class="flex-grow-1">
+				<!--begin::Head-->
+				<div class="d-flex justify-content-between align-items-start flex-wrap">
+					<!--begin::Details-->
+					<div class="d-flex flex-column">
+						<!--begin::Status-->
+						<div class="d-flex align-items-center mb-1">
+							<a href="javascript:" class="text-gray-800 text-hover-primary fs-2 fw-bolder me-3" data-model="name"></a>
+							<span class="badge me-auto" data-model="status">Not Started</span>
+							<span class="badge badge-danger ms-1 me-auto d-none" data-model="has-schedule">No Schedule Created</span>
+						</div>
+						<!--end::Status-->
+						<!--begin::Description-->
+						<div class="d-flex flex-wrap fw-bold mb-2 fs-5 text-gray-400" data-model="address"></div>
+						<!--end::Description-->
+					</div>
+					<div class="d-flex flex-column align-items-start mb-4">
+						<a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+							Actions <i class="fas fa-chevron-down"></i>
+						</a>
+						<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-200px py-4" data-kt-menu="true">
+							<div class="menu-item px-3">
+								<a href="javascript:" class="menu-link px-3 archive proposal-action" evt-click="sendClientEmail">Email to Client</a>
+							</div>
+							<div class="menu-item px-3">
+								<a href="javascript:" class="menu-link px-3 archive proposal-action" evt-click="sendStatusReport">Send Status Report</a>
+							</div>
+							<div class="menu-item px-3">
+								<a href="javascript:" class="menu-link px-3 archive proposal-action" evt-click="sendProposal" id="sendProposalMenuItem">Send Proposal</a>
+							</div>
+							<div class="menu-item px-3">
+							</div>
+							<div class="menu-item px-3">
+								<a href="javascript:" class="menu-link px-3 archive proposal-action" evt-click="sendBudgetToActualReport" id="sendBudgetToActualReportMenuItem">Send Budget to Actual Report</a>
+							</div>
+							<div class="menu-item px-3">
+								<a href="javascript:" class="menu-link px-3 archive proposal-action" evt-click="onCreateInvoiceClick">Create Invoice</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--end::Head-->
+				<!--begin::Info-->
+				<div class="d-flex flex-wrap justify-content-start" style="margin-top:-3px;">
+					<!--begin::Stats-->
+					<div class="d-flex flex-wrap">
+						<!--begin::Stat-->
+						<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 d-flex flex-column justify-content-center">
+							<!--begin::Number-->
+							<div class="fs-4 fw-bolder text-center mt-2" data-model="startdate"></div>
+							<!--end::Number-->
+							<!--begin::Label-->
+							<div class="fw-bold fs-6 text-gray-400 text-center ">Start Date</div>
+							<!--end::Label-->
+						</div>
+						<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 d-flex flex-column justify-content-center">
+							<!--begin::Number-->
+							<div class="fs-4 fw-bolder text-center mt-2" data-model="endDate"></div>
+							<!--end::Number-->
+							<!--begin::Label-->
+							<div class="fw-bold fs-6 text-gray-400 text-center ">Est. Completion Date</div>
+							<!--end::Label-->
+						</div>
+						<div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 d-flex flex-column justify-content-center">
+							<!--begin::Number-->
+							<div class="fs-4 fw-bolder text-center mt-2" data-model="budget">$1,800,850</div>
+							<!--end::Number-->
+							<!--begin::Label-->
+							<div class="fw-bold fs-6 text-gray-400 text-center">Budget</div>
+							<!--end::Label-->
+						</div>
+						<!--end::Stat-->
+						
+						<div class="border border-gray-300 border-dashed rounded min-w-125px py-0 px-4 me-6 ">
+							<!--begin::Number-->
+							<div class="d-flex align-items-center justify-content-center">
+								<div class="symbol-group symbol-hover" data-model="supervisors">
+									
+								</div>
+							</div>
+							<!--end::Number-->
+							<!--begin::Label-->
+							<div class="fw-bold fs-6 text-gray-400 text-center">
+								Project Managers
+							</div>
+							<div class="modal fade" tabindex="-1" id="kt_modal_1">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header pb-4 pt-4">
+											<h5 class="modal-title">Assign Action Item</h5>
+										</div>
+
+										<div class="modal-body">
+											<label>Select Supervisor(s):</label>
+											<select class="form-select select2-hidden-accessible" id="slc-action-item-details-assignedto" multiple="" data-select2-id="select2-data-slc-action-item-details-assignedto" tabindex="-1" aria-hidden="true"><option value="38" selected="" data-select2-id="select2-data-120-sguh">Stephen Plotz</option></select><span class="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-20-beul" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple form-select" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered" id="select2-slc-action-item-details-assignedto-container"><li class="select2-selection__choice" title="Stephen Plotz" data-select2-id="select2-data-121-3qc2"><button type="button" class="select2-selection__choice__remove" tabindex="-1" title="Remove item" aria-label="Remove item" aria-describedby="select2-slc-action-item-details-assignedto-container-choice-v2jk-38"><span aria-hidden="true">×</span></button><span class="select2-selection__choice__display" id="select2-slc-action-item-details-assignedto-container-choice-v2jk-38">Stephen Plotz</span></li></ul><span class="select2-search select2-search--inline"><textarea class="select2-search__field" type="search" tabindex="0" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" autocomplete="off" aria-label="Search" aria-describedby="select2-slc-action-item-details-assignedto-container" placeholder="" style="width: 0.75em;"></textarea></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-sm btn-primary" evt-click="onSaveAssignedTo">
+												<span class="indicator-label">Save Changes</span>
+												<span class="indicator-progress">
+													Please wait...
+													<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+												</span>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--end::Label-->
+						</div>
+						<!--end::Stat-->
+					</div>
+					<!--end::Stats-->
+				</div>
+				<!--end::Info-->
+			</div>
+			<!--end::Wrapper-->
+		</div>
+		<!--end::Details-->
+		<div class="separator"></div>
+		@await Html.PartialAsync("components/project-navbar.cshtml")
+	</div>
+</div>
+<div id="dv-project-main-container">
+	@await Html.PartialAsync("components/tab-loading.cshtml")
+	@await Html.PartialAsync("components/tab-action-items.cshtml")
+	@await Html.PartialAsync("components/proposal/tab-proposal.cshtml")
+	@await Html.PartialAsync("components/budget-to-actual/tab-budget-to-actual.cshtml")
+	@await Html.PartialAsync("components/schedule/tab-schedule.cshtml")
+	@await Html.PartialAsync("components/tab-client-documents.cshtml")
+	@await Html.PartialAsync("components/tab-reports.cshtml")
+	@await Html.PartialAsync("components/tab-change-orders.cshtml")
+	@await Html.PartialAsync("components/tab-journal.cshtml")
+	@await Html.PartialAsync("components/tab-sub-contractors.cshtml")
+	@await Html.PartialAsync("components/tab-notes.cshtml")
+	@await Html.PartialAsync("components/tab-settings.cshtml")
+</div>
+
+@await Html.PartialAsync("Components/Invoice/Invoice")
+@await Html.PartialAsync("Components/FileSystem/FileUploadModal")
+@await Html.PartialAsync("Components/SubContractorSearch/SubContractorSearch")
+@await Html.PartialAsync("Components/ClientDocumentsViewer/ClientDocumentsViewer")
+@await Html.PartialAsync("components/subcontractor-projects-drawer.cshtml")

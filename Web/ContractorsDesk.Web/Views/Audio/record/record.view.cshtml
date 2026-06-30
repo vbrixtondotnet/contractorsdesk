@@ -1,0 +1,51 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@using ContractorsDesk.Core.Enums;
+@Html.LoadComponents(new string[]{
+    "timer",
+    "audiorecorder"
+})
+
+<div id="dv-project-main-container">
+    <input type="hidden" id="webHookUrl" value="@ViewBag.WebHookUrl" />
+	<div class="card mb-6 mb-xl-9">
+        <div class="card-header">
+            <!--begin::Card title-->
+            <div class="card-title flex-column">
+                <h3 class="fw-bolder mb-1">Record a Voice Instruction</h3>
+                <div class="fw-bold text-gray-400 fs-7">Record a voice instruction and send to AI for processing</div>
+            </div>
+
+        </div>
+		<div class="card-body pt-9 pb-10">
+            <div class="app">
+                <div class="mic-container">
+                    <div class="circle">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                </div>
+                <div class="audio-controls d-none">
+                    <audio id="audio" controls></audio>
+                </div>
+                <div class="preloader mt-10 d-none">
+                    <div class="spinner mb-3" style="margin:auto;"></div>
+                    <p class="text">Uploading...</p>
+                </div>
+                <div class="upload-status mt-10 d-none">
+                    <p class="fs-1"><i class="fas fs-5x upload-status-symbol"></i></p>
+                    <p class="text upload-status-text"></p>
+                </div>
+                <div class="progress-container mt-10">
+                    <div class="fw-bold text-gray-400 fs-1 mb-5" id="timer-display">00:00:00</div>
+                    <a href="javascript:" class="btn btn-primary" evt-click="start" id="btnStart">Start Recording</a>
+                    <a href="javascript:" class="btn btn-primary d-none" evt-click="start" id="btnReStart">Restart</a>
+                    <a href="javascript:" class="btn btn-danger d-none" id="btnEnd" evt-click="end">End Recording</a>
+                    <a href="javascript:" class="btn btn-success d-none" id="btnSubmit" evt-click="onUpload">Submit Recording</a>
+                </div>
+            <div>
+		</div>
+	</div>
+        </div>
+    </div>
+</div>
+
+

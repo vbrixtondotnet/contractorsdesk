@@ -1,0 +1,60 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+
+@* YOUR VIEW HTML CODE STARTS HERE *@
+
+<div class="row g-6 g-xl-9">
+    <div class="card card-custom card-flush h-lg-100 has-shadow loading">
+        @await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 7, Header = false, CardBody = false })
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div id="actionIcons">
+                <a href="javascript:"
+                   evt-click="markedAsRead"
+                   class="btn btn-sm btn-icon btn-light-primary"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="top"
+                   title="Mark as Read">
+                    <span class="svg-icon svg-icon-muted svg-icon-2">
+                        <i class="bi bi-envelope-open fs-3"></i>
+                    </span>
+                </a>
+                <a href="javascript:"
+                   evt-click="unSelectAll"
+                   class="btn btn-sm btn-icon btn-light-secondary d-none"
+                   data-bs-toggle="tooltip"
+                   id="btnUnSelectAll"
+                   data-bs-placement="top"
+                   title="Unselect All">
+                    <span class="svg-icon svg-icon-muted svg-icon-2">
+                        <i class="bi bi-dash-square fs-3"></i>
+                    </span>
+                </a>
+                <a href="javascript:"
+                   evt-click="selectAll"
+                   class="btn btn-sm btn-icon btn-light-secondary"
+                   id="btnSelectAll"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="top"
+                   title="Select All">
+                    <span class="svg-icon svg-icon-muted svg-icon-2">
+                        <i class="bi bi-check-square fs-3"></i>
+                    </span>
+                </a>
+                <a href="javascript:"
+                   evt-click="refresh"
+                   class="btn btn-sm btn-icon btn-light-secondary"
+                   data-bs-toggle="tooltip"
+                   data-bs-placement="top"
+                   title="Refresh">
+                    <span class="svg-icon svg-icon-muted svg-icon-2">
+                        <i class="bi bi-arrow-clockwise fs-3"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div class="card-body deduct-padding-top-40">
+            <div id="notificationList" class="accordion accordion-toggle-arrow notification-container">
+            </div>
+        </div>
+    </div>
+</div>

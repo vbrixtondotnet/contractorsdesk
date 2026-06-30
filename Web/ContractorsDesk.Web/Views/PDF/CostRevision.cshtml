@@ -1,0 +1,425 @@
+﻿@using ContractorsDesk.WebPortal.Helpers;
+@using ContractorsDesk.Core.Dto;
+@using ContractorsDesk.Core.Utilities;
+
+@model CostRevisionViewModel
+@{
+	Layout = null;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+}
+
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+	<title></title>
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="website" property="og:type" />
+	<meta content="" property="og:description" />
+	<meta content="https://gdx8f9i99q.preview-beefreedesign.com/ZFyty" property="og:url" />
+	<meta content="" property="og:title" />
+	<meta content="" name="description" />
+	<meta charset="utf-8" />
+	<meta content="width=device-width" name="viewport" />
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+
+		th, td {
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+		.bee-row,
+		.bee-row-content {
+			position: relative
+		}
+
+		.bee-row-6,
+		body {
+			background-color: #ffffff
+		}
+
+		body {
+			color: #000000;
+			font-family: Arial, Helvetica, sans-serif
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1 a,
+		.bee-row-3 .bee-col-2 .bee-block-1 a,
+		.bee-row-4 .bee-col-1 .bee-block-1 a,
+		.bee-row-4 .bee-col-2 .bee-block-1 a,
+		a {
+			color: #7747FF
+		}
+
+		* {
+			box-sizing: border-box
+		}
+
+		body,
+		h3,
+		p {
+			margin: 0
+		}
+
+		.bee-row-content {
+			max-width: 1280px;
+			margin: 0 auto;
+			display: flex
+		}
+
+			.bee-row-content .bee-col-w6 {
+				flex-basis: 50%
+			}
+
+			.bee-row-content .bee-col-w12 {
+				flex-basis: 100%
+			}
+
+		.bee-icon .bee-icon-label-right a {
+			text-decoration: none
+		}
+
+		.bee-image {
+			overflow: auto
+		}
+
+			.bee-image .bee-center {
+				margin: 0 auto
+			}
+
+		.bee-row-1 .bee-col-1 .bee-block-1 {
+			width: 100%
+		}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3,
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			color: #514d5a;
+			direction: ltr;
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: 700;
+			letter-spacing: normal;
+			line-height: 120%
+		}
+
+		.bee-icon {
+			display: inline-block;
+			vertical-align: middle
+		}
+
+			.bee-icon .bee-content {
+				display: flex;
+				align-items: center
+			}
+
+		.bee-image img {
+			display: block;
+			width: 100%
+		}
+
+		.bee-paragraph {
+			overflow-wrap: anywhere
+		}
+
+		.bee-table table {
+			border-collapse: collapse;
+			width: 100%
+		}
+
+			.bee-table table tbody,
+			.bee-table table thead {
+				vertical-align: top
+			}
+
+			.bee-table table td,
+			.bee-table table th {
+				padding: 10px;
+				word-break: break-word
+			}
+
+		.bee-row-1,
+		.bee-row-2,
+		.bee-row-3,
+		.bee-row-4,
+		.bee-row-5 {
+			background-repeat: no-repeat
+		}
+
+			.bee-row-1 .bee-row-content,
+			.bee-row-6 .bee-row-content {
+				background-repeat: no-repeat;
+				color: #000000
+			}
+
+			.bee-row-1 .bee-col-1,
+			.bee-row-2 .bee-col-1,
+			.bee-row-3 .bee-col-1,
+			.bee-row-3 .bee-col-2,
+			.bee-row-4 .bee-col-1,
+			.bee-row-4 .bee-col-2,
+			.bee-row-5 .bee-col-1,
+			.bee-row-6 .bee-col-1 {
+				padding-bottom: 5px;
+				padding-top: 5px
+			}
+
+			.bee-row-2 .bee-row-content,
+			.bee-row-3 .bee-row-content,
+			.bee-row-4 .bee-row-content,
+			.bee-row-5 .bee-row-content {
+				background-repeat: no-repeat;
+				border-radius: 0;
+				color: #000000
+			}
+
+			.bee-row-2 .bee-col-1 .bee-block-1,
+			.bee-row-5 .bee-col-1 .bee-block-1 {
+				padding: 10px;
+				text-align: center;
+				width: 100%
+			}
+
+			.bee-row-3 .bee-col-1 .bee-block-1,
+			.bee-row-3 .bee-col-2 .bee-block-1,
+			.bee-row-4 .bee-col-1 .bee-block-1,
+			.bee-row-4 .bee-col-2 .bee-block-1,
+			.bee-row-5 .bee-col-1 .bee-block-2 {
+				padding: 10px
+			}
+
+		.bee-row-6 {
+			background-repeat: no-repeat
+		}
+
+			.bee-row-6 .bee-col-1 .bee-block-1 {
+				color: #1e0e4b;
+				font-family: Inter, sans-serif;
+				font-size: 15px;
+				padding-bottom: 5px;
+				padding-top: 5px;
+				text-align: center
+			}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3 {
+			font-size: 24px;
+			text-align: center
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1,
+		.bee-row-3 .bee-col-2 .bee-block-1,
+		.bee-row-4 .bee-col-1 .bee-block-1,
+		.bee-row-4 .bee-col-2 .bee-block-1 {
+			color: #101112;
+			direction: ltr;
+			font-size: 16px;
+			font-weight: 400;
+			letter-spacing: 0;
+			line-height: 120%;
+			text-align: left
+		}
+
+			.bee-row-3 .bee-col-1 .bee-block-1 p:not(:last-child),
+			.bee-row-3 .bee-col-2 .bee-block-1 p:not(:last-child),
+			.bee-row-4 .bee-col-1 .bee-block-1 p:not(:last-child),
+			.bee-row-4 .bee-col-2 .bee-block-1 p:not(:last-child) {
+				margin-bottom: 16px
+			}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			font-size: 16px;
+			text-align: left
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon-image {
+			padding: 5px 6px 5px 5px
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon:not(.bee-icon-first) .bee-content {
+			margin-left: 0
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon::not(.bee-icon-last) .bee-content {
+			margin-right: 0
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bee-page-container">
+		<div class="bee-row bee-row-1">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-image">
+						<img alt="" class="bee-center bee-autowidth" src="@CompanySettings.CompanyLogoUrl" style="max-width:333px;" />
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		
+		<div class="bee-row bee-row-5">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-2 bee-table">
+						<style type="text/css">
+						   .tg  {border-collapse:collapse;border-spacing:0;}
+						   .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+						   overflow:hidden;padding:10px 5px;word-break:normal;}
+						   .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+						   font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+						   .tg .tg-km2t{border-color:#ffffff;font-weight:bold;text-align:left;vertical-align:top;}
+						   .tg .tg-zv4m{border-color:#ffffff;text-align:left;vertical-align:top;}
+						   .tg .tg-feti{background-color:#f5f8fa;border-color:#eff2f5;font-size:28px;text-align:left;vertical-align:top;}
+						   .tg .tg-r00n{background-color:#f5f8fa;border-color:#eff2f5;text-align:left;vertical-align:top;}
+						   .tg .tg-jwmb{background-color:#f5f8fa;border-color:#eff2f5;font-size:18px;text-align:left;vertical-align:bottom;}
+						   .tg .tg-ysfy{border-color:#ffffff;font-size:14px;text-align:left;vertical-align:top;}
+						   .tg .tg-ofj5{border-color:#ffffff;text-align:left;vertical-align:top;padding-top:0;}
+						</style>
+						<table class="tg" style="table-layout: fixed; width: 1002px">
+						   <colgroup>
+							  <col style="width: 118.2px">
+							  <col style="width: 204.2px">
+							  <col style="width: 106.2px">
+							  <col style="width: 175.2px">
+							  <col style="width: 156.2px">
+							  <col style="width: 20.2px">
+							  <col style="width: 222.2px">
+						   </colgroup>
+						   <thead>
+							  <tr>
+								<th class="tg-feti" colspan="2" style="border-right:none !important;"><span style="font-weight:bold">Cost Revision</span></th>
+								 <th class="tg-feti" style="border-right:none !important;border-left:none !important;">#@(Model.CostRevisionDto.RevisionNumber.ToString().PadLeft(5, '0'))</th>
+									<th class="tg-feti" style="border-right:none !important;border-left:none !important;"></th>
+									<th class="tg-r00n" style="border-right:none !important;border-left:none !important;"></th>
+									<th class="tg-r00n" style="border-right:none !important;border-left:none !important;"></th>
+									<th class="tg-jwmb" style="border-left:none !important;"><span style="font-weight:bold"></span></th>
+							  </tr>
+						   </thead>
+						   <tbody>
+							  <tr>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+							  </tr>
+							  <tr>
+								 <td class="tg-zv4m" colspan="7" style="border-top:3px solid black;">
+									 <span style="font-weight:bold">PROJECT:</span>
+								 </td>
+							  </tr>
+							  <tr>
+								 <td class="tg-zv4m" colspan="2">@Model.ProjectName</td>
+								 <td class="tg-zv4m"></td>
+									<td class="tg-zv4m" colspan="2">@Model.ProjectAddress</td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m">@Model.StartDate</td>
+							  </tr>
+							  <tr>
+								<td class="tg-zv4m" colspan="2" style="border-top:2px solid black;">
+									 <span style="font-weight:bold">Name</span>
+								 </td>
+								 <td class="tg-zv4m"></td>
+								<td class="tg-zv4m" colspan="2" style="border-top:2px solid black;">
+									 <span style="font-weight:bold">Address</span>
+								 </td>
+								 <td class="tg-zv4m"></td>
+									<td class="tg-km2t" style="border-top:2px solid black;">Date of Commencement</td>
+							  </tr>
+							  <tr>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+							  </tr>
+							 <tr>
+									<td class="tg-zv4m" colspan="7">
+										<table>
+											<thead>
+												<tr>
+													<th class="tg-ysfy" style="width: 300px;"><b>ITEM</b></th>
+													<th class="tg-ysfy" style="width: 100px;"><b>AMOUNT</b></th>
+													<th class="tg-ysfy" style="width: 100px;"><b>CURRENT AMOUNT</b></th>
+													<th class="tg-ysfy" style="width: 100px;"><b>NEW AMOUNT</b></th>
+												</tr>
+											</thead>
+											<tbody>
+												@foreach(var item in Model.CostRevisionDto.CostRevisionItems)
+												{
+													<tr>
+														<td class="tg-ysfy">@item.EstimateCategory</td>
+														<td class="tg-ysfy">@item.Amount</td>
+														<td class="tg-ysfy">@item.CurrentAmount</td>
+														<td class="tg-ysfy">@item.NewAmount</td>
+													</tr>
+												}
+											</tbody>
+										</table>
+									</td>
+								</tr>
+							<tr>
+								<td class="tg-zv4m" colspan="7">&nbsp;</td>
+							</tr>
+							  <tr>
+								 <td class="tg-zv4m" colspan="2">APPROVED BY:</td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+							  </tr>
+							  <tr>
+									<td class="tg-zv4m" colspan="3">@CompanySettings.GeneralContractorName</td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m">@currentDate</td>
+							  </tr>
+							  <tr>
+								 <td class="tg-km2t" colspan="3" style="border-top:2px solid black;">GENERAL CONTRACTOR:</td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+									<td class="tg-km2t" style="border-top:2px solid black;">DATE</td>
+							  </tr>
+							  <tr>
+								 <td class="tg-zv4m" colspan="3">@Model.ClientName</td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m">@currentDate</td>
+							  </tr>
+							  <tr>
+									<td class="tg-km2t" colspan="3" style="border-top:2px solid black;">OWNER:</td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+									<td class="tg-km2t" style="border-top:2px solid black;">DATE</td>
+							  </tr>
+							  <tr>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+								 <td class="tg-zv4m"></td>
+							  </tr>
+						   </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

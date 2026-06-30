@@ -1,0 +1,7 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+<div class="col-md-12 tabcontrol-item active" id="tab-proposal-lines">
+	<div id="dv-tab-line-items" class="loading">		
+		<div id="dv-proposal-categories"></div>
+		@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+	</div>
+</div>

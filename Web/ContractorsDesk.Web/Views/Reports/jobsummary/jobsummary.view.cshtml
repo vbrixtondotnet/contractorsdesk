@@ -1,0 +1,88 @@
+﻿@using ContractorsDesk.Core.Dto
+@using ContractorsDesk.WebPortal.Helpers
+@using ContractorsDesk.WebPortal.Models
+
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@Html.LoadComponents(new string[]{
+	"sticky-actions",
+	"sticky-header"
+})
+@{
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+}
+<div class="card mb-2 mb-xl-2" id="proposal-header">
+	<div class="card-body pb-0 pt-0">
+		<div class="d-flex flex-wrap flex-sm-nowrap mb-2">
+			
+			<div class="flex-grow-1">
+				<div class="flex-shrink-0 bg-white mt-10" style="justify-self:right;">
+					<a href="javascript:"  class="btn bg-primary me-2  text-inverse-primary" id="btnPrint">
+						<i class="bi bi-printer-fill text-white"></i>
+						Print
+					</a>
+				</div>
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;margin-top:-50px;">
+					<img class="mw-100px mw-lg-250px" src="@CompanySettings.CompanyLogoUrl" alt="image" />
+				</div>
+				<div class="flex-shrink-0 bg-white" style="justify-self:center;">
+					<h1 style="">Jobs Summary Report</h1>
+					<h3 class="text-center">@currentDate</h3>
+				</div>
+				
+			</div>
+			<!--end::Wrapper-->
+		</div>
+	</div>
+</div>
+
+<div id="jobs-summary-row" class="">
+	<div class="row mb-2 g-6 g-xl-9">
+		<div class="col-lg-12">
+			<div class="card card-flush h-lg-100">
+				<div class="card-body pt-5" >
+					
+					<h3>Active Jobs</h3>
+					<div class="row loading" id="active-jobs-container">
+						@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+						<table class="table table-cell-bordered cell-bottom-border-2px proposal-items">
+							<thead class="sticky-header-active">
+								<tr class="fw-bolder fs-6 text-gray-800 bg-light  border-3">
+									<th class="w-300px ps-2">Job Address</th>
+									<th class="text-center">Start Date</th>
+									<th class="text-center">Est. Const. Price</th>
+									<th class="text-center">Onsite Supervisor</th>
+									<th class="text-center">Pending Overhead</th>
+									<th class="text-center">Balance Onsite</th>
+									<th class="text-center">Balance Project</th>
+								</tr>
+							</thead>
+							<tbody id="body-active-jobs">
+							</tbody>
+						</table>
+					</div>
+					<h3>Pending Jobs</h3>
+					<div class="row loading" id="pending-jobs-container">
+						@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 15, Header = false, CardBody = false })
+						<table class="table table-cell-bordered cell-bottom-border-2px proposal-items">
+							<thead class="sticky-header-pending">
+								<tr class="fw-bolder fs-6 text-gray-800 bg-light border-3">
+									<th class="w-300px ps-2">Job Address</th>
+									<th class="text-center">Start Date</th>
+									<th class="text-center">Est. Const. Price</th>
+									<th class="text-center">Onsite Supervisor</th>
+									<th class="text-center">Pending Overhead</th>
+									<th class="text-center">Balance Onsite</th>
+									<th class="text-center">Balance Project</th>
+								</tr>
+							</thead>
+							<tbody id="body-pending-jobs">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>

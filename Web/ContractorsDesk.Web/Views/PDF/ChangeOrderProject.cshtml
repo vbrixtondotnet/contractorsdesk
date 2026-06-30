@@ -1,0 +1,409 @@
+﻿@using ContractorsDesk.WebPortal.Helpers;
+@using ContractorsDesk.Core.Dto;
+
+@model PrintRevisedEstimateModel
+@{
+	Layout = null;
+	var CompanySettings = (CompanySettingDto)ViewBag.CompanySettings;
+	var currentDate = DateTime.UtcNow.ToString("MMMM dd, yyyy");
+}
+
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+	<title></title>
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="website" property="og:type" />
+	<meta content="" property="og:description" />
+	<meta content="https://gdx8f9i99q.preview-beefreedesign.com/ZFyty" property="og:url" />
+	<meta content="https://pro-bee-beepro-thumbnail.getbee.io/messages/1331205/1317537/2331702/12227207_large.jpg" property="og:image" />
+	<meta content="" property="og:title" />
+	<meta content="" name="description" />
+	<meta charset="utf-8" />
+	<meta content="width=device-width" name="viewport" />
+	<style>
+		.bee-row,
+		.bee-row-content {
+			position: relative
+		}
+
+		.bee-row-6,
+		body {
+			background-color: #ffffff
+		}
+
+		body {
+			color: #000000;
+			font-family: Arial, Helvetica, sans-serif
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1 a,
+		.bee-row-3 .bee-col-2 .bee-block-1 a,
+		.bee-row-4 .bee-col-1 .bee-block-1 a,
+		.bee-row-4 .bee-col-2 .bee-block-1 a,
+		a {
+			color: #7747FF
+		}
+
+		* {
+			box-sizing: border-box
+		}
+
+		body,
+		h3,
+		p {
+			margin: 0
+		}
+
+		.bee-row-content {
+			max-width: 1280px;
+			margin: 0 auto;
+			display: flex
+		}
+
+			.bee-row-content .bee-col-w6 {
+				flex-basis: 50%
+			}
+
+			.bee-row-content .bee-col-w12 {
+				flex-basis: 100%
+			}
+
+		.bee-icon .bee-icon-label-right a {
+			text-decoration: none
+		}
+
+		.bee-image {
+			overflow: auto
+		}
+
+			.bee-image .bee-center {
+				margin: 0 auto
+			}
+
+		.bee-row-1 .bee-col-1 .bee-block-1 {
+			width: 100%
+		}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3,
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			color: #514d5a;
+			direction: ltr;
+			font-family: Arial, Helvetica, sans-serif;
+			font-weight: 700;
+			letter-spacing: normal;
+			line-height: 120%
+		}
+
+		.bee-icon {
+			display: inline-block;
+			vertical-align: middle
+		}
+
+			.bee-icon .bee-content {
+				display: flex;
+				align-items: center
+			}
+
+		.bee-image img {
+			display: block;
+			width: 100%
+		}
+
+		.bee-paragraph {
+			overflow-wrap: anywhere
+		}
+
+		.bee-table table {
+			border-collapse: collapse;
+			width: 100%
+		}
+
+			.bee-table table tbody,
+			.bee-table table thead {
+				vertical-align: top
+			}
+
+			.bee-table table td,
+			.bee-table table th {
+				padding: 10px;
+				word-break: break-word
+			}
+
+		.bee-row-1,
+		.bee-row-2,
+		.bee-row-3,
+		.bee-row-4,
+		.bee-row-5 {
+			background-repeat: no-repeat
+		}
+
+			.bee-row-1 .bee-row-content,
+			.bee-row-6 .bee-row-content {
+				background-repeat: no-repeat;
+				color: #000000
+			}
+
+			.bee-row-1 .bee-col-1,
+			.bee-row-2 .bee-col-1,
+			.bee-row-3 .bee-col-1,
+			.bee-row-3 .bee-col-2,
+			.bee-row-4 .bee-col-1,
+			.bee-row-4 .bee-col-2,
+			.bee-row-5 .bee-col-1,
+			.bee-row-6 .bee-col-1 {
+				padding-bottom: 5px;
+				padding-top: 5px
+			}
+
+			.bee-row-2 .bee-row-content,
+			.bee-row-3 .bee-row-content,
+			.bee-row-4 .bee-row-content,
+			.bee-row-5 .bee-row-content {
+				background-repeat: no-repeat;
+				border-radius: 0;
+				color: #000000
+			}
+
+			.bee-row-2 .bee-col-1 .bee-block-1,
+			.bee-row-5 .bee-col-1 .bee-block-1 {
+				padding: 10px;
+				text-align: center;
+				width: 100%
+			}
+
+			.bee-row-3 .bee-col-1 .bee-block-1,
+			.bee-row-3 .bee-col-2 .bee-block-1,
+			.bee-row-4 .bee-col-1 .bee-block-1,
+			.bee-row-4 .bee-col-2 .bee-block-1,
+			.bee-row-5 .bee-col-1 .bee-block-2 {
+				padding: 10px
+			}
+
+		.bee-row-6 {
+			background-repeat: no-repeat
+		}
+
+			.bee-row-6 .bee-col-1 .bee-block-1 {
+				color: #1e0e4b;
+				font-family: Inter, sans-serif;
+				font-size: 15px;
+				padding-bottom: 5px;
+				padding-top: 5px;
+				text-align: center
+			}
+
+		.bee-row-2 .bee-col-1 .bee-block-1 h3 {
+			font-size: 24px;
+			text-align: center
+		}
+
+		.bee-row-3 .bee-col-1 .bee-block-1,
+		.bee-row-3 .bee-col-2 .bee-block-1,
+		.bee-row-4 .bee-col-1 .bee-block-1,
+		.bee-row-4 .bee-col-2 .bee-block-1 {
+			color: #101112;
+			direction: ltr;
+			font-size: 16px;
+			font-weight: 400;
+			letter-spacing: 0;
+			line-height: 120%;
+			text-align: left
+		}
+
+			.bee-row-3 .bee-col-1 .bee-block-1 p:not(:last-child),
+			.bee-row-3 .bee-col-2 .bee-block-1 p:not(:last-child),
+			.bee-row-4 .bee-col-1 .bee-block-1 p:not(:last-child),
+			.bee-row-4 .bee-col-2 .bee-block-1 p:not(:last-child) {
+				margin-bottom: 16px
+			}
+
+		.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+			font-size: 16px;
+			text-align: left
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon-image {
+			padding: 5px 6px 5px 5px
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon:not(.bee-icon-first) .bee-content {
+			margin-left: 0
+		}
+
+		.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon::not(.bee-icon-last) .bee-content {
+			margin-right: 0
+		}
+	</style>
+</head>
+
+<body>
+	<div class="bee-page-container">
+		<div class="bee-row bee-row-1">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-image">
+						<img alt="" class="bee-center bee-autowidth" src="@CompanySettings.CompanyLogoUrl" style="max-width:333px;" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-2">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-1 bee-heading">
+						<h3><span class="tinyMce-placeholder">Updated Budget Report</span> </h3>
+						<strong><span class="tinyMce-placeholder">@currentDate</span> </strong>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-3">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-2 bee-col-w6">
+					<div class="bee-block bee-block-1 bee-paragraph">
+						<p>
+							<span style="color: #514d5a;"><strong>Project Name</strong></span>: <span style="color: #7a8085;">@Model.ProjectName</span><br />
+							<span style="color: #514d5a;"><strong>Start Date</strong></span>: <span style="color: #7a8085;">@Model.StartDate</span><br />
+							<span style="color: #514d5a;"><strong>Estimated Completion Date</strong>:</span><span style="color: #7a8085;"> @Model.EstimatedCompletionDate</span>
+						</p>
+					</div>
+				</div>
+				<div style="clear:both">&nbsp;</div>
+			</div>
+		</div>
+		<div class="bee-row bee-row-5">
+			<div class="bee-row-content">
+				<div class="bee-col bee-col-1 bee-col-w12">
+					<div class="bee-block bee-block-2 bee-table">
+						<table style="table-layout:fixed;direction:ltr;background-color:transparent;font-family:Arial, Helvetica, sans-serif;font-weight:400;color:#101112;text-align:left;letter-spacing:0px;">
+							<thead style="background-color:#f2f2f2;color:#101112;font-size:14px;line-height:120%;text-align:center;">
+								@{
+									var headerStyle = "border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;";
+									var cellStyle = "border-top:1px solid #dddddd;border-right:1px solid #dddddd;border-bottom:1px solid #dddddd;border-left:1px solid #dddddd;";
+									var textRight = "text-align:right;";
+								}
+								<tr>
+									<th style="@headerStyle;width:250px;"><span class="tinyMce-placeholder" style="color: #514d5a;">ITEM</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">ORIGINAL ESTIMATE</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">TOTAL ADJUSTMENT</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">REVISED ESTIMATE</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">COST TO DATE</span></th>
+									<th style="@headerStyle"><span class="tinyMce-placeholder" style="color: #514d5a;">BALANCE</span></th>
+								</tr>
+							</thead>
+							<tbody style="font-size:16px;line-height:120%;">
+								@foreach (var category in Model.Categories)
+								{
+									if (category.Name != "OWNER DEPOSITS" && category.Name != "JOB BALANCE" && category.Name != "MINIMUM REQUESTED AMOUNT")
+									{
+										<tr class="" style="text-transform:uppercase;padding:5px 0px 5px 0px">
+											<td class="fw-bolder py-2 ps-2" style="@cellStyle">@category.Name</td>
+											<td style="@cellStyle">&nbsp;</td>
+											<td style="@cellStyle">&nbsp;</td>
+											<td style="@cellStyle">&nbsp;</td>
+											<td style="@cellStyle">&nbsp;</td>
+											<td style="@cellStyle">&nbsp;</td>
+										</tr>
+										@foreach (var lineItem in category.LineItems)
+										{
+											var balanceStyle = lineItem.Balance < 0 ? "color:red;" : "";
+											var percentStyle = lineItem.Percentage < 0 ? "color:red;" : "";
+											var estimate = lineItem.Revised ?? lineItem.Original;
+											var percentage = estimate == null || estimate == 0 ? "N/A" : $"{lineItem.Percentage}%";
+
+											<tr class="" style="">
+												<td class="ps-10 py-2" style="@cellStyle">@lineItem.Name</td>
+												<td style="@cellStyle @textRight">@Html.FormatAsMoney(lineItem.Original)</td>
+												<td style="@cellStyle @textRight">@Html.FormatAsMoney(lineItem.Revised - lineItem.Original)</td>
+												<td class="revised-amount" style="@cellStyle @textRight">
+													<span>@Html.FormatAsMoney(lineItem.Revised)</span>
+												</td>
+												<td class="" style="@cellStyle @textRight">@Html.FormatAsMoney(lineItem.CostToDate)</td>
+												<td class="item-balance" style="@balanceStyle @cellStyle @textRight">@Html.FormatAsMoney(lineItem.Balance)</td>
+											</tr>
+										}
+										//let totalPercentage = parseFloat(((totalCostToDate / totalRevised) * 100));
+										var totalBalanceStyle = category.TotalBalance < 0 ? "color:red;" : "";
+										var totalPercentStyle = category.TotalPercentage < 0 ? "color:red;" : "";
+										//var totalPercentage = ((category.TotalCostToDate / category.TotalRevised) * 100);
+										//totalPercentage = Math.Round(totalPercentage);
+
+										<tr class="" style="">
+											<td class="fw-bolder py-2 ps-2" style="text-transform:uppercase;border-top: 2px solid black !important;border-bottom: 5px double black !important; @cellStyle">
+												Total @category.Name
+											</td>
+											<td class="fw-bold py-2" style="border-top: 2px solid black !important;border-bottom: 5px double black !important; @cellStyle;@textRight">
+												@Html.FormatAsMoney(category.TotalOriginal)
+											</td>
+											<td class="fw-bold py-2" style="border-top: 2px solid black !important;border-bottom: 5px double black !important; @cellStyle;@textRight">
+												@Html.FormatAsMoney(category.TotalRevised - category.TotalOriginal)
+											</td>
+											<td class="fw-bold total-revised py-2" style="border-top: 2px solid black !important;border-bottom: 5px double black !important; @cellStyle;@textRight">
+												@Html.FormatAsMoney(category.TotalRevised)
+											</td>
+											<td class="fw-bold py-2" style="border-top: 2px solid black !important;border-bottom: 5px double black !important;@cellStyle;@textRight">
+												@Html.FormatAsMoney(category.TotalCostToDate)
+											</td>
+											<td class="fw-bold total-balance py-2" style="border-top: 2px solid black !important;border-bottom: 5px double black !important;@totalBalanceStyle;@cellStyle;@textRight">
+												@Html.FormatAsMoney(category.TotalBalance)
+											</td>
+										</tr>
+									}
+								}
+								@{
+									var overallBalanceStyle = Model.ProjectTotalBalance < 0 ? "color:red;" : "";
+									var overallPercentStyle = Model.ProjectTotalPercent < 0 ? "color:red;" : "";
+								}
+								<tr class="project-totals" style="">
+									<td class="fw-bolder py-2 ps-2" style="@cellStyle;text-transform:uppercase;border-top: 2px solid black !important;border-bottom: 5px double black !important;">PROJECT TOTALS</td>
+									<td class="fw-bold py-3 total-original" style="@cellStyle; border-top: 2px solid black !important;border-bottom: 5px double black !important;@textRight">
+										@Html.FormatAsMoney(Model.ProjectTotalOriginal)
+									</td>
+									<td class="fw-bold py-3 total-original" style="@cellStyle; border-top: 2px solid black !important;border-bottom: 5px double black !important;@textRight">
+										@Html.FormatAsMoney(Model.ProjectTotalRevised - Model.ProjectTotalOriginal)
+									</td>
+									<td class="fw-bold total-revised py-3" style="@cellStyle; border-top: 2px solid black !important;border-bottom: 5px double black !important;@textRight">
+										@Html.FormatAsMoney(Model.ProjectTotalRevised)
+									</td>
+									<td class="fw-bold py-3 total-costtodate" style="@cellStyle; border-top: 2px solid black !important;border-bottom: 5px double black !important;@textRight">
+										@Html.FormatAsMoney(Model.ProjectTotalCostToDate)
+									</td>
+									<td class="fw-bold total-balance py-3" style="@cellStyle; border-top: 2px solid black !important;border-bottom: 5px double black !important;@overallBalanceStyle;@textRight">
+										@Html.FormatAsMoney(Model.ProjectTotalBalance)
+									</td>
+								</tr>
+								<tr class="" style="">
+									<td class="fw-bolder py-2 ps-2" style="@cellStyle;text-transform:uppercase;border-top: 2px solid black !important;border-bottom: 5px double black !important;">OWNER DEPOSITS</td>
+									<td class="fw-bold py-3 total-original" style="@cellStyle;@textRight"></td>
+									<td class="text-center fw-bold py-3 total-adjustment" style="@cellStyle"></td>
+									<td class="text-center fw-bold total-revised py-3" style="@cellStyle"></td>
+									<td class="fw-bold py-3 total-costtodate" style="@cellStyle;border-top: 2px solid black !important;border-bottom: 5px double black !important;@textRight">
+										@Html.FormatAsMoney(Model.Summary.OwnerDeposits)
+									</td>
+									<td class="fw-bold total-balance py-3" style="@cellStyle;@textRight"></td>
+								</tr>
+								<tr class="" style="">
+									@{
+										var totalJobBalanceStyle = Model.Summary.JobBalance < 0 ? "color:red;" : string.Empty;
+									}
+									<td class="fw-bolder py-2 ps-2" style="@cellStyle;text-transform:uppercase;border-top: 2px solid black !important;border-bottom: 5px double black !important;">JOB BALANCE</td>
+									<td class="text-center fw-bold py-3 total-original" style="@cellStyle"></td>
+									<td class="text-center fw-bold py-3 total-adjustment" style="@cellStyle"></td>
+									<td class="text-center fw-bold total-revised py-3" style="@cellStyle"></td>
+									<td class="fw-bold py-3 total-costtodate" style="@cellStyle; border-top: 2px solid black !important;border-bottom: 5px double black !important;@totalJobBalanceStyle;@textRight">
+										@Html.FormatAsMoney(Model.Summary.JobBalance)
+									</td>
+									<td class="text-center fw-bold total-balance py-3" style="@cellStyle"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

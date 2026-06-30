@@ -1,0 +1,195 @@
+﻿.bee-row,
+.bee-row-content {
+    position: relative
+}
+
+.bee-row-6 {
+    background-color: #ffffff
+}
+
+.bee-row-3 .bee-col-1 .bee-block-1 a,
+.bee-row-3 .bee-col-2 .bee-block-1 a,
+.bee-row-4 .bee-col-1 .bee-block-1 a,
+.bee-row-4 .bee-col-2 .bee-block-1 a {
+    color: #7747FF
+}
+
+.bee-row-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex
+}
+
+    .bee-row-content .bee-col-w6 {
+        flex-basis: 50%
+    }
+
+    .bee-row-content .bee-col-w12 {
+        flex-basis: 100%
+    }
+
+.bee-icon .bee-icon-label-right a {
+    text-decoration: none
+}
+
+.bee-image {
+    overflow: auto
+}
+
+    .bee-image .bee-center {
+        margin: 0 auto
+    }
+
+.bee-row-1 .bee-col-1 .bee-block-1 {
+    width: 100%
+}
+
+.bee-row-2 .bee-col-1 .bee-block-1 h3,
+.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+    color: #514d5a;
+    direction: ltr;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    letter-spacing: normal;
+    line-height: 120%
+}
+
+.bee-icon {
+    display: inline-block;
+    vertical-align: middle
+}
+
+    .bee-icon .bee-content {
+        display: flex;
+        align-items: center
+    }
+
+.bee-image img {
+    display: block;
+    width: 100%
+}
+
+.bee-paragraph {
+    overflow-wrap: anywhere
+}
+
+.bee-table table {
+    border-collapse: collapse;
+    width: 100%
+}
+
+    .bee-table table tbody,
+    .bee-table table thead {
+        vertical-align: top
+    }
+
+    .bee-table table td,
+    .bee-table table th {
+        padding: 10px;
+        word-break: break-word
+    }
+
+.bee-row-1,
+.bee-row-2,
+.bee-row-3,
+.bee-row-4,
+.bee-row-5 {
+    background-repeat: no-repeat
+}
+
+    .bee-row-1 .bee-row-content,
+    .bee-row-6 .bee-row-content {
+        background-repeat: no-repeat;
+        color: #000000
+    }
+
+    .bee-row-1 .bee-col-1,
+    .bee-row-2 .bee-col-1,
+    .bee-row-3 .bee-col-1,
+    .bee-row-3 .bee-col-2,
+    .bee-row-4 .bee-col-1,
+    .bee-row-4 .bee-col-2,
+    .bee-row-5 .bee-col-1,
+    .bee-row-6 .bee-col-1 {
+        padding-bottom: 5px;
+        padding-top: 5px
+    }
+
+    .bee-row-2 .bee-row-content,
+    .bee-row-3 .bee-row-content,
+    .bee-row-4 .bee-row-content,
+    .bee-row-5 .bee-row-content {
+        background-repeat: no-repeat;
+        border-radius: 0;
+        color: #000000
+    }
+
+    .bee-row-2 .bee-col-1 .bee-block-1,
+    .bee-row-5 .bee-col-1 .bee-block-1 {
+        padding: 10px;
+        text-align: center;
+        width: 100%
+    }
+
+    .bee-row-3 .bee-col-1 .bee-block-1,
+    .bee-row-3 .bee-col-2 .bee-block-1,
+    .bee-row-4 .bee-col-1 .bee-block-1,
+    .bee-row-4 .bee-col-2 .bee-block-1,
+    .bee-row-5 .bee-col-1 .bee-block-2 {
+        padding: 10px
+    }
+
+.bee-row-6 {
+    background-repeat: no-repeat
+}
+
+    .bee-row-6 .bee-col-1 .bee-block-1 {
+        color: #1e0e4b;
+        font-family: Inter, sans-serif;
+        font-size: 15px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        text-align: center
+    }
+
+.bee-row-2 .bee-col-1 .bee-block-1 h3 {
+    font-size: 24px;
+    text-align: center
+}
+
+.bee-row-3 .bee-col-1 .bee-block-1,
+.bee-row-3 .bee-col-2 .bee-block-1,
+.bee-row-4 .bee-col-1 .bee-block-1,
+.bee-row-4 .bee-col-2 .bee-block-1 {
+    color: #101112;
+    direction: ltr;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 120%;
+    text-align: left
+}
+
+    .bee-row-3 .bee-col-1 .bee-block-1 p:not(:last-child),
+    .bee-row-3 .bee-col-2 .bee-block-1 p:not(:last-child),
+    .bee-row-4 .bee-col-1 .bee-block-1 p:not(:last-child),
+    .bee-row-4 .bee-col-2 .bee-block-1 p:not(:last-child) {
+        margin-bottom: 16px
+    }
+
+.bee-row-5 .bee-col-1 .bee-block-1 h3 {
+    font-size: 16px;
+    text-align: left
+}
+
+.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon-image {
+    padding: 5px 6px 5px 5px
+}
+
+.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon:not(.bee-icon-first) .bee-content {
+    margin-left: 0
+}
+
+.bee-row-6 .bee-col-1 .bee-block-1 .bee-icon::not(.bee-icon-last) .bee-content {
+    margin-right: 0
+}

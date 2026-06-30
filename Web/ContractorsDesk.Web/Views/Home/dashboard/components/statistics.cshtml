@@ -1,0 +1,109 @@
+﻿<div class="row g-6 g-xl-9" id="dv-dashboard-statistics">
+	<div class="col-lg-6 col-xxl-4 mt-0">
+		<!--begin::Card-->
+		<div class="card h-100">
+			<!--begin::Card body-->
+			<div class="card-body p-9" data-stat-id="projectStats">
+				<!--begin::Heading-->
+				<div class="fs-2hx fw-bolder" data-preload="true" data-stat-id="projectStats-total"></div>
+				<div class="fs-4 fw-bold text-gray-400 mb-7">Managed Projects</div>
+				<!--end::Heading-->
+				<!--begin::Wrapper-->
+				<div class="d-flex flex-wrap">
+					<!--begin::Chart-->
+					<div class="d-flex flex-center h-100px w-100px me-9 mb-5">
+						<canvas id="kt_project_list_chart"></canvas>
+					</div>
+					<!--end::Chart-->
+					<!--begin::Labels-->
+					<div class="d-flex flex-column justify-content-center flex-row-fluid pe-11 mb-5">
+						<!--begin::Label-->
+						<div class="d-flex fs-6 fw-bold align-items-center mb-3">
+							<div class="bullet bg-primary me-3"></div>
+							<div class="text-gray-400">Active</div>
+							<div class="ms-auto fw-bolder text-gray-700" data-preload="true" data-stat-id="projectStats-active-count"></div>
+						</div>
+						<!--end::Label-->
+						<!--begin::Label-->
+						<div class="d-flex fs-6 fw-bold align-items-center mb-3">
+							<div class="bullet bg-success me-3"></div>
+							<div class="text-gray-400">Completed</div>
+							<div class="ms-auto fw-bolder text-gray-700" data-preload="true" data-stat-id="projectStats-completed-count"></div>
+						</div>
+						<!--end::Label-->
+						<!--begin::Label-->
+						<div class="d-flex fs-6 fw-bold align-items-center">
+							<div class="bullet bg-gray-300 me-3"></div>
+							<div class="text-gray-400">Archived</div>
+							<div class="ms-auto fw-bolder text-gray-700" data-preload="true" data-stat-id="projectStats-archived-count"></div>
+						</div>
+						<!--end::Label-->
+					</div>
+					<!--end::Labels-->
+				</div>
+				<!--end::Wrapper-->
+			</div>
+			<!--end::Card body-->
+		</div>
+		<!--end::Card-->
+	</div>
+	<div class="col-lg-6 col-xxl-4 mt-0">
+		<!--begin::Budget-->
+		<div class="card h-100">
+			<div class="card-body bg-dark hoverable p-9 text-white" data-stat-id="activeprojects">
+				<div class="fs-2hx fw-bolder" data-preload="true" data-stat-id="active-projects-total"></div>
+				<div class="fs-4 fw-bold mb-7">Active Project Stats</div>
+				<div class="fs-6 d-flex justify-content-between mb-4">
+					<div class="fw-bold text-success">Above Threshold</div>
+					<div class="d-flex fw-bolder text-success" data-preload="true" data-stat-id="active-projects-aboveth">
+					</div>
+				</div>
+				<div class="separator separator-dashed"></div>
+				<div class="fs-6 d-flex justify-content-between my-4">
+					<div class="fw-bold text-warning">Below Threshold</div>
+					<div class="d-flex fw-bolder text-warning" data-preload="true" data-stat-id="active-projects-belowth">
+					</div>
+				</div>
+				<div class="separator separator-dashed"></div>
+				<div class="fs-6 d-flex justify-content-between mt-4">
+					<div class="fw-bold text-danger">Negative Balance</div>
+					<div class="d-flex fw-bolder text-danger" data-preload="true" data-stat-id="active-projects-negative">
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--end::Budget-->
+	</div>
+	<div class="col-lg-6 col-xxl-4 mt-0">
+		<!--begin::Clients-->
+		<div class="card h-100">
+			<div class="card-body bg-info p-9 text-white" data-stat-id="recentclients">
+				<!--begin::Heading-->
+				<div class="fs-2hx fw-bolder" data-preload="true" data-stat-id="recentclients-list-total"></div>
+				<div class="fs-4 fw-bold mb-7">Recent Clients</div>
+				<!--end::Heading-->
+				<!--begin::Users group-->
+				<div class="symbol-group symbol-hover mb-9" data-stat-id="recentclients-list">
+					<a href="#" class="symbol symbol-35px symbol-circle">
+						<span class="symbol-label bg-dark text-gray-300 fs-8 fw-bolder" data-preload="true" data-stat-id="recentclients-list-count"></span>
+					</a>
+				</div>
+				<!--end::Users group-->
+				<!--begin::Actions-->
+				<div class="d-flex">
+					<a href="#" class="btn btn-primary btn-sm me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users">All Clients</a>
+				</div>
+				<!--end::Actions-->
+			</div>
+		</div>
+		<!--end::Clients-->
+	</div>
+</div>
+
+<div class="d-flex flex-wrap flex-stack my-1 justify-content-center" data-select2-id="select2-data-124-a2y5">
+	<a href="javascript:" evt-click="onToggleStatistics" class="btn btn-outline btn-sm btn-outline-dashed btn-outline-default btn-active-light-primary me-2 mb-2 btn-toggle-stats shown">
+		<i class="bi bi-chevron-double-up"></i>&nbsp;
+		<i class="bi bi-chevron-double-down"></i>&nbsp;
+		Hide Statistics
+	</a>
+</div>

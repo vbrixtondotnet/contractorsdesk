@@ -1,0 +1,86 @@
+﻿@model dynamic;
+@using ContractorsDesk.WebPortal.Helpers
+
+@{
+	string width;
+
+	var modelType = Model?.GetType();
+	var hasWidth = modelType?.GetProperty("Width") != null;
+
+	width = hasWidth ? (string)Model.Width : "800px";
+
+	var emailTypes = new List<DropdownOptionModel>{
+			new DropdownOptionModel{ Text = "Select an email type", Value = "" },
+			new DropdownOptionModel{ Text = "Status Report", Value = "1" },
+			new DropdownOptionModel{ Text = "Email To Client", Value = "2" },
+			new DropdownOptionModel{ Text = "Schedule Report", Value = "3" },
+			new DropdownOptionModel{ Text = "Proposal Report", Value = "4" },
+			new DropdownOptionModel{ Text = "Budget To Actual Report", Value = "4" }
+	};
+}
+
+<div class="bg-body"
+	 id="email-template-form-drawer"
+	 data-kt-drawer="true"
+	 data-kt-drawer-name="email-template-form-drawer"
+	 data-kt-drawer-activate="true"
+	 data-kt-drawer-overlay="true"
+	 data-kt-drawer-width="{default:'@width', 'lg': '@width'}"
+	 data-kt-drawer-direction="end"
+	 data-kt-drawer-close="#btn-email-template-form-drawer-close">
+	<div class="col-md-12">
+		<div class="card shadow-none rounded-0">
+			<div class="card-header" id="email-template-drawer-form-header">
+				<h3 class="card-title fw-bolder text-dark" id="email-template-drawer-form-title">email templates</h3>
+				<div class="card-toolbar">
+					<button type="button" class="btn btn-sm btn-icon btn-active-light-primary me-n5" id="btn-email-template-form-drawer-close" evt-click="resetActionItemForm">
+						<span class="svg-icon svg-icon-1">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+								<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+								<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+							</svg>
+						</span>
+					</button>
+				</div>
+			</div>
+			
+			<div class="card-body position-relative" id="email-template-drawer-form-body">
+				<div id="kt_activities_scroll_edit" class="position-relative scroll-y me-n5 pe-5"
+					 data-kt-scroll="true" data-kt-scroll-height="auto"
+					 data-kt-scroll-wrappers="#email-template-drawer-form-body"
+					 data-kt-scroll-dependencies="#email-template-drawer-form-header, #email-template-drawer-form-footer"
+					 data-kt-scroll-offset="5px">
+					<form id="email-template-form-drawer-form">
+						<div class="d-block">
+							<div class="col-md-12">
+								@Html.InputGroupTextbox(new InputGroupModel { Id = "txt-email-template-name", Label = "Email Template Name", LabelCssClass = "mn-w-134px", Required = true })
+								@* Hide for now *@
+								@* @Html.InputGroupDropdown(new InputGroupModel { Id = "slc-email-template-type", Label = "Email Template Type", LabelCssClass = "mn-w-134px", Required = true, DropdownOptions = emailTypes }) *@
+							</div>
+							<div class="fv-row">
+								<div class="d-flex align-items-center border-bottom px-0 min-h-50px">
+									<span class="text-dark fw-bolder w-150px">Email Template Body:</span>
+								</div>
+								<div id="txt-email-template-body-component-editor-toolbar" style="background:white;"></div>
+								<div id="txt-email-template-body-component-editor-document" style="background:white;height:400px;border:1px solid #0000003b;"></div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="card-footer py-3 text-center" id="email-template-drawer-form-footer">
+				<button type="button" class="btn btn-sm btn-light-primary btn-email-template-save" evt-click="onEmailTemplateFormSave">
+					<span class="indicator-label">
+						<i class="bi bi-save"></i>Save
+					</span>
+					<span class="indicator-progress">
+						Saving...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+
+			</div>
+		</div>
+	</div>
+</div>

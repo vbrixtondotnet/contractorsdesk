@@ -1,0 +1,9 @@
+﻿@using ContractorsDesk.WebPortal.Helpers
+@Html.RenderSharedComponentStyle("listloader", "listloader.css")
+@{
+	var Tab = ViewBag.Tab as string;
+	Tab = string.IsNullOrEmpty(Tab) ? "action-items" : Tab;
+}
+<div class="col-md-12 tabcontrol-item mt-3 loading @PageHelper.IsActiveTab(Tab, "action-items")" " id="tab-loading">
+    @await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 10, Header = false, CardBody = false })
+</div>
