@@ -176,6 +176,7 @@ namespace ContractorsDesk.Services
 			await PopulateProposalLinesAsync(model, proposal);
 
 			await ClientDbContext.SaveChangesAsync();
+			await EnsureUniqueProposalLinesAsync(proposal.Id);
 
 			if (merge)
 			{
@@ -626,7 +627,7 @@ namespace ContractorsDesk.Services
 				parentCategory.Id = parentCategory.EstimateCategoryId.Value;
 
 				var lineItems = proposalLines.Where(pl => pl.ParentEstimateCategoryId == parentCategory.EstimateCategoryId).OrderBy(pl => pl.Sequence).ToList();
-				parentCategory.LineItems = mapper.Map<List<ProposalTemplateLineItemDto>>(lineItems);
+				parentCategory.LineItems = DeduplicateLineItemsByName(mapper.Map<List<ProposalTemplateLineItemDto>>(lineItems));
 
 				retval.Add(parentCategory);
 			}
@@ -897,7 +898,7 @@ namespace ContractorsDesk.Services
 
 				proposalLines.Add(parentProposalLine);
 
-				var lineItems = category.LineItems;
+				var lineItems = DeduplicateLineItemsByName(category.LineItems);
 				if(lineItems != null && lineItems.Any())
 				{
 					foreach (var lineItem in lineItems)
@@ -931,17 +932,24 @@ namespace ContractorsDesk.Services
 		private async Task<ProposalLine> MapProposalLineItemToEstimateCategory(Guid proposalId, ProposalTemplateLineItemModel category, ProposalTemplateLineItemModel proposalTemplateLineItemDto)
 		{
 			var newProposalLine = mapper.Map<ProposalLine>(proposalTemplateLineItemDto);
-			var estimateCategory = ClientDbContext.EstimateCategories.Where(e => e.Name.ToLower() == newProposalLine.Name.ToLower()).FirstOrDefault();
+			var parentCategoryId = category.EstimateCategoryId.Value;
+			var itemName = (newProposalLine.Name ?? string.Empty).Trim().ToLower();
+			var estimateCategory = ClientDbContext.EstimateCategories.Local
+				.FirstOrDefault(e => e.ParentEstimateCategoryId == parentCategoryId
+					&& (e.Name ?? string.Empty).Trim().ToLower() == itemName)
+				?? ClientDbContext.EstimateCategories
+					.FirstOrDefault(e => e.ParentEstimateCategoryId == parentCategoryId
+						&& e.Name.ToLower().Trim() == itemName);
 			
 			if (estimateCategory == null)
 			{
-				estimateCategory = await AddCategory(newProposalLine.Name, newProposalLine.Description, newProposalLine.Sequence.Value, category.EstimateCategoryId.Value);
+				estimateCategory = await AddCategory(newProposalLine.Name, newProposalLine.Description, newProposalLine.Sequence.Value, parentCategoryId);
 			}
 
 			newProposalLine.Id = Guid.NewGuid();
 			newProposalLine.ProposalId = proposalId;
 			newProposalLine.EstimateCategoryId = estimateCategory.Id;
-			newProposalLine.ParentEstimateCategoryId = category.EstimateCategoryId.Value;
+			newProposalLine.ParentEstimateCategoryId = parentCategoryId;
 			newProposalLine.Sequence = proposalTemplateLineItemDto.Sequence;
 			newProposalLine.Percentage = Convert.ToDouble(proposalTemplateLineItemDto.Percentage.Value);
 			newProposalLine.SqFoot = proposalTemplateLineItemDto.SqFoot;
@@ -949,6 +957,75 @@ namespace ContractorsDesk.Services
 			newProposalLine.SqFootLocked = proposalTemplateLineItemDto.SqFootLocked;
 			newProposalLine.Updated = TimezoneUtils.GetDefaultCaliforniaTimezoneUtc();
 			return newProposalLine;
+		}
+
+		/// <summary>
+		/// Keeps a single line item per Item Name within a category (case-insensitive, trimmed).
+		/// When duplicates exist, prefers the highest amount, then lowest sequence.
+		/// </summary>
+		private static List<T> DeduplicateLineItemsByName<T>(IEnumerable<T>? lineItems) where T : class
+		{
+			if (lineItems == null)
+			{
+				return new List<T>();
+			}
+
+			var items = lineItems.ToList();
+			if (!items.Any())
+			{
+				return items;
+			}
+
+			string GetName(T item) => item switch
+			{
+				ProposalTemplateLineItemDto dto => dto.Name,
+				ProposalTemplateLineItemModel model => model.Name,
+				_ => string.Empty
+			};
+
+			decimal GetAmount(T item) => item switch
+			{
+				ProposalTemplateLineItemDto dto => dto.Amount ?? 0,
+				ProposalTemplateLineItemModel model => model.Amount ?? 0,
+				_ => 0
+			};
+
+			int GetSequence(T item) => item switch
+			{
+				ProposalTemplateLineItemDto dto => dto.Sequence,
+				ProposalTemplateLineItemModel model => model.Sequence,
+				_ => 0
+			};
+
+			void SetSequence(T item, int sequence)
+			{
+				switch (item)
+				{
+					case ProposalTemplateLineItemDto dto:
+						dto.Sequence = sequence;
+						break;
+					case ProposalTemplateLineItemModel model:
+						model.Sequence = sequence;
+						break;
+				}
+			}
+
+			var uniqueItems = items
+				.Where(item => !string.IsNullOrWhiteSpace(GetName(item)))
+				.GroupBy(item => GetName(item).Trim().ToLowerInvariant())
+				.Select(group => group
+					.OrderByDescending(GetAmount)
+					.ThenBy(GetSequence)
+					.First())
+				.OrderBy(GetSequence)
+				.ToList();
+
+			for (var i = 0; i < uniqueItems.Count; i++)
+			{
+				SetSequence(uniqueItems[i], i + 1);
+			}
+
+			return uniqueItems;
 		}
 		private async Task<EstimateCategory> AddCategory(string name, string description, int sequence, Guid? parentCategoryId)
 		{

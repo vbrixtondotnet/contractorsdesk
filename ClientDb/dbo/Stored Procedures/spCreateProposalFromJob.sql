@@ -135,6 +135,15 @@ ELSE
 			(
 				select EstimateCategoryId from ProposalLines where ProposalID = @ProposalId
 			)
+			-- Also skip template items whose Item Name already exists under the same parent category
+			and not exists
+			(
+				select 1
+				from ProposalLines pl
+				where pl.ProposalID = @ProposalId
+					and pl.ParentEstimateCategoryID = ptli.ParentId
+					and LOWER(LTRIM(RTRIM(pl.Name))) = LOWER(LTRIM(RTRIM(ptli.Name)))
+			)
 			order by ptli.Sequence
     
             IF NOT EXISTS (SELECT TOP 1 * FROM ProposalLines WHERE ProposalID = @ProposalId and EstimateCategoryID = 'a5da1985-1858-49e8-abb8-558efc382aac')

@@ -14,7 +14,7 @@ FETCH NEXT FROM proposal_cursor INTO @ProposalId;
 WHILE @@FETCH_STATUS = 0
 BEGIN
     -- Call the stored procedure for each row
-    EXEC spCleanUpDuplicateProposalLinesAndEstimateCategories @ProposalId;
+    EXEC spEnsureUniqueProposalLines @ProposalId;
 
     -- Fetch the next row
     FETCH NEXT FROM proposal_cursor INTO @ProposalId;

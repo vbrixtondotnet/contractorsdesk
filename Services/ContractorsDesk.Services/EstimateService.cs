@@ -186,24 +186,52 @@ namespace ContractorsDesk.Services
 					await ClientDbContext.EstimateMappings.AddAsync(estimateMapping);
 					await ClientDbContext.SaveChangesAsync();
 
-					// add new proposal line
-					var proposalLine = new ProposalLine();
-					proposalLine.Id = Guid.NewGuid();
-					proposalLine.ProposalId = payload.ProposalId;
-					proposalLine.Amount = mapping.Amount;
-					proposalLine.EstimateCategoryId = estimateCategory.Id;
-					proposalLine.Name = estimateCategoryName;
-					proposalLine.ParentEstimateCategoryId = parentCategory.Id;
-					proposalLine.Sequence = estimateCategory.Sequence;
-					ClientDbContext.ProposalLines.Add(proposalLine);
-					await ClientDbContext.SaveChangesAsync();
+					// Only one proposal line per Item Name is allowed within a category
+					var existingLineWithSameName = await ClientDbContext.ProposalLines
+						.FirstOrDefaultAsync(pl =>
+							pl.ProposalId == payload.ProposalId
+							&& pl.ParentEstimateCategoryId == parentCategory.Id
+							&& pl.Name.Trim().ToLower() == estimateCategoryName.Trim().ToLower());
+
+					if (existingLineWithSameName == null)
+					{
+						var proposalLine = new ProposalLine();
+						proposalLine.Id = Guid.NewGuid();
+						proposalLine.ProposalId = payload.ProposalId;
+						proposalLine.Amount = mapping.Amount;
+						proposalLine.EstimateCategoryId = estimateCategory.Id;
+						proposalLine.Name = estimateCategoryName;
+						proposalLine.ParentEstimateCategoryId = parentCategory.Id;
+						proposalLine.Sequence = estimateCategory.Sequence;
+						ClientDbContext.ProposalLines.Add(proposalLine);
+						await ClientDbContext.SaveChangesAsync();
+					}
 				}
 				else
 				{
+					// Prefer an existing proposal line with the same Item Name under the same parent
+					var selectedCategory = await ClientDbContext.EstimateCategories
+						.FirstOrDefaultAsync(e => e.Id == mapping.EstimateCategoryId);
+
+					var targetCategoryId = mapping.EstimateCategoryId;
+					if (selectedCategory != null)
+					{
+						var existingLineWithSameName = await ClientDbContext.ProposalLines
+							.FirstOrDefaultAsync(pl =>
+								pl.ProposalId == payload.ProposalId
+								&& pl.ParentEstimateCategoryId == selectedCategory.ParentEstimateCategoryId
+								&& pl.Name.Trim().ToLower() == selectedCategory.Name.Trim().ToLower());
+
+						if (existingLineWithSameName != null)
+						{
+							targetCategoryId = existingLineWithSameName.EstimateCategoryId;
+						}
+					}
+
 					// add new mapping
 					var estimateMapping = new EstimateMapping();
 					estimateMapping.Id = Guid.NewGuid();
-					estimateMapping.EstimateSubCategoryId = mapping.EstimateCategoryId;
+					estimateMapping.EstimateSubCategoryId = targetCategoryId;
 					estimateMapping.AccountType = "Expenses";
 					estimateMapping.QbaccountId = mapping.AccountId;
 					estimateMapping.Created = DateTime.UtcNow;
@@ -403,6 +431,13 @@ namespace ContractorsDesk.Services
 
 			}
 			var childCategories = ClientDbContext.EstimateCategories.Where(e => e.ParentEstimateCategoryId == parentCategory.Id);
+			var existingChild = await childCategories
+				.FirstOrDefaultAsync(e => e.Name.Trim().ToLower() == name.Trim().ToLower());
+
+			if (existingChild != null)
+			{
+				return (existingChild, parentCategory);
+			}
 
 			var maxChildSequence = childCategories.Any() ? await childCategories.MaxAsync(e => e.Sequence) : 1;
 			var estimateCategory = new EstimateCategory();
@@ -422,7 +457,8 @@ namespace ContractorsDesk.Services
 		{
 			await Task.Run(() =>
 			{
-				foreach (var estimateLineItem in lineItems)
+				var uniqueLineItems = DeduplicateRevisedEstimateLineItemsByName(lineItems);
+				foreach (var estimateLineItem in uniqueLineItems)
 				{
 					var lineItem = new RevisedEstimateCategoryLineDto();
 					lineItem.Id = estimateLineItem.EstimateCategoryId;
@@ -440,6 +476,50 @@ namespace ContractorsDesk.Services
 					category.LineItems.Add(lineItem);
 				}
 			});
+		}
+
+		/// <summary>
+		/// Keeps a single ETA line item per Item Name within a category (case-insensitive, trimmed).
+		/// Prefers the highest revised/original amount, then lowest sequence. Cost-to-date is summed across duplicates.
+		/// </summary>
+		private static List<RevisedEstimateSpResult> DeduplicateRevisedEstimateLineItemsByName(IEnumerable<RevisedEstimateSpResult> lineItems)
+		{
+			if (lineItems == null)
+			{
+				return new List<RevisedEstimateSpResult>();
+			}
+
+			var uniqueItems = lineItems
+				.Where(item => !string.IsNullOrWhiteSpace(item.Name))
+				.GroupBy(item => item.Name.Trim().ToLowerInvariant())
+				.Select(group =>
+				{
+					var preferred = group
+						.OrderByDescending(item => item.RevisedAmount ?? 0)
+						.ThenByDescending(item => item.OriginalAmount ?? 0)
+						.ThenBy(item => item.Sequence ?? int.MaxValue)
+						.First();
+
+					var costToDate = group.Sum(item => item.CostToDate ?? 0);
+					var revised = preferred.RevisedAmount ?? 0;
+
+					preferred.CostToDate = costToDate;
+					preferred.Balance = revised - costToDate;
+					preferred.Percentage = revised == 0
+						? null
+						: Math.Round(costToDate == revised ? 100 : (costToDate / revised) * 100);
+
+					return preferred;
+				})
+				.OrderBy(item => item.Sequence ?? int.MaxValue)
+				.ToList();
+
+			for (var i = 0; i < uniqueItems.Count; i++)
+			{
+				uniqueItems[i].Sequence = i + 1;
+			}
+
+			return uniqueItems;
 		}
 		private async Task<List<RevisedEstimateSpResult>> GetRevisedEstimateSpResult(Guid proposalId)
 		{

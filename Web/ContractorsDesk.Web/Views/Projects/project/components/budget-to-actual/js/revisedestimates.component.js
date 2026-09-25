@@ -358,7 +358,10 @@
 
 		this.service.loadRevisedEstimate(id)
 			.then((data) => {
-				this.categories = data.estimateCategories;
+				this.categories = (data.estimateCategories || []).map(category => ({
+					...category,
+					lineItems: this.#deduplicateLineItemsByName(category.lineItems || [])
+				}));
 				this.summary = data.summary;
 				this.unmappedTransactions = data.unmappedTransactions;
 				this.projectDetails = data.projectDetails;
@@ -404,6 +407,11 @@
 				const categoryName = $("#txtCategoryName").val();
 				const parentCategory = $("#txtParentCategory").val();
 
+				if (this.#isDuplicateItemNameInCategory(categoryName, parentCategory)) {
+					this.swal.error(`Duplicate line item found on ${parentCategory}! Please use a different item name.`);
+					return;
+				}
+
 				this.mappings = this.mappings.filter(mapping => mapping.accountId !== accountId);
 				this.mappings.push({ accountId: accountId, estimateCategoryId: Guid.empty, name: categoryName, parent: parentCategory, amount: 0 });
 
@@ -414,6 +422,57 @@
 			}
 		});
 		
+	}
+
+	#isDuplicateItemNameInCategory(itemName, parentCategoryName) {
+		const nameKey = (itemName || '').trim().toLowerCase();
+		const parentKey = (parentCategoryName || '').trim().toLowerCase();
+		if (!nameKey || !parentKey) {
+			return false;
+		}
+
+		const category = (this.categories || []).find(c => (c.name || '').trim().toLowerCase() === parentKey);
+		if (category && (category.lineItems || []).some(line => (line.name || '').trim().toLowerCase() === nameKey)) {
+			return true;
+		}
+
+		return (this.mappings || []).some(mapping =>
+			(mapping.parent || '').trim().toLowerCase() === parentKey
+			&& (mapping.name || '').trim().toLowerCase() === nameKey
+			&& mapping.estimateCategoryId === Guid.empty
+		);
+	}
+
+	#deduplicateLineItemsByName(lineItems) {
+		const uniqueByName = new Map();
+		(lineItems || []).forEach(line => {
+			const nameKey = (line.name || '').trim().toLowerCase();
+			if (!nameKey) {
+				uniqueByName.set(line.id, line);
+				return;
+			}
+
+			const existing = uniqueByName.get(nameKey);
+			if (!existing) {
+				uniqueByName.set(nameKey, { ...line });
+				return;
+			}
+
+			const preferred = ((line.revised || 0) > (existing.revised || 0)
+				|| ((line.revised || 0) === (existing.revised || 0) && (line.original || 0) > (existing.original || 0)))
+				? line
+				: existing;
+
+			uniqueByName.set(nameKey, {
+				...preferred,
+				costToDate: (existing.costToDate || 0) + (line.costToDate || 0)
+			});
+		});
+
+		return Array.from(uniqueByName.values()).map((line, index) => {
+			line.sequence = index + 1;
+			return line;
+		});
 	}
 
 	onSaveMapping(b) {

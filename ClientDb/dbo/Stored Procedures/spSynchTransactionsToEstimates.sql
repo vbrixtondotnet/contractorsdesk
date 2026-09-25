@@ -67,6 +67,15 @@ and EstimateCategoryId NOT IN
 	SELECT EstimateCategoryId FROM ProposalLines
 	WHERE ProposalID = @ProposalID
 )
+-- Do not insert when the same Item Name already exists under the same parent category
+and not exists
+(
+	SELECT 1
+	FROM ProposalLines pl
+	WHERE pl.ProposalID = @ProposalID
+		AND pl.ParentEstimateCategoryID = ParentEstimateCategoryId
+		AND LOWER(LTRIM(RTRIM(pl.Name))) = LOWER(LTRIM(RTRIM(Name)))
+)
 GROUP BY EstimateCategoryId, Name, ParentEstimateCategoryId, AccountType
 ORDER BY Name
 

@@ -207,11 +207,15 @@
 		const categoryId = input.parents('tr').parents('tbody').data("category-id");
 		const currentCategory = this.proposalLinesByGroup.find(line => line.id === categoryId);
 		const categoryName = currentCategory.name;
-		const lineItem = currentCategory.lineItems.find(line => line.name.trim().toLowerCase() === name.trim().toLowerCase());
+		const lineItem = currentCategory.lineItems.find(line =>
+			line.id !== currentItemId
+			&& (line.name || '').trim().toLowerCase() === (name || '').trim().toLowerCase()
+		);
 
 		if (lineItem != null) {
 			input.addClass('error');
 			this.swal.error(`Duplicate line item found on ${categoryName}! Please select a different line item.`);
+			this.lineItemsUniqueNamesValidation = this.lineItemsUniqueNamesValidation.filter(li => li.id != currentItemId);
 			this.lineItemsUniqueNamesValidation.push({ id: currentItemId, desc: `${categoryName} has duplicate line items.` });
 		}
 		else {
@@ -1423,11 +1427,15 @@
 			const categoryId = elem.parents('tr').parents('tbody').data("category-id");
 			const currentCategory = instance.proposalLinesByGroup.find(line => line.id === categoryId);
 			const categoryName = currentCategory.name;
-			const lineItem = currentCategory.lineItems.find(line => line.name.trim().toLowerCase() === selectedItem.name.trim().toLowerCase());
+			const lineItem = currentCategory.lineItems.find(line =>
+				line.id !== currentItemId
+				&& (line.name || '').trim().toLowerCase() === (selectedItem.name || '').trim().toLowerCase()
+			);
 
 			if (lineItem != null) {
 				elem.addClass('error');
 				instance.swal.error(`Duplicate line item found on ${categoryName}! Please select a different line item.`);
+				instance.lineItemsUniqueNamesValidation = instance.lineItemsUniqueNamesValidation.filter(li => li.id != currentItemId);
 				instance.lineItemsUniqueNamesValidation.push({ id: currentItemId, desc: `${categoryName} has duplicate line items.` });
 			}
 			else {
@@ -1619,7 +1627,10 @@
 		proposal.client = this.clientModel;
 		proposal.project = this.projectModel;
 		proposal.template = { ...this.template };
-		proposal.template.categories = this.proposalLinesByGroup;
+		proposal.template.categories = this.proposalLinesByGroup.map(category => ({
+			...category,
+			lineItems: this.#deduplicateLineItemsByName(category.lineItems || [])
+		}));
 		proposal.supervisors = this.supervisorsDropdown.getSelectedValues();
 		
 		proposal.id = this.proposalId;
@@ -1958,6 +1969,7 @@
 
 		this.proposalLinesByGroup.forEach((item, groupIndex) => {
 			item.sequence = groupIndex + 1; // Set sequence to index + 1
+			item.lineItems = this.#deduplicateLineItemsByName(item.lineItems || []);
 			item.lineItems.forEach((lineItem, index) => {
 				lineItem.sequence = index + 1; // Set sequence to index + 1
 			});
@@ -1979,6 +1991,31 @@
 		this.#renderStates();
 		this.#initSupervisorControl();
 		this.#initUi();
+	}
+
+	#deduplicateLineItemsByName(lineItems) {
+		const uniqueByName = new Map();
+		lineItems.forEach(line => {
+			const nameKey = (line.name || '').trim().toLowerCase();
+			if (!nameKey) {
+				uniqueByName.set(line.id, line);
+				return;
+			}
+
+			const existing = uniqueByName.get(nameKey);
+			if (!existing) {
+				uniqueByName.set(nameKey, line);
+				return;
+			}
+
+			const existingAmount = existing.amount || 0;
+			const currentAmount = line.amount || 0;
+			if (currentAmount > existingAmount) {
+				uniqueByName.set(nameKey, line);
+			}
+		});
+
+		return Array.from(uniqueByName.values());
 	}
 
 	#initForms() {
