@@ -7,8 +7,8 @@ namespace ContractorsDesk.Services.Interfaces
 	{
 		Task<List<EstimateCategoryShortDetailsDto>> GetEstimateCategoriesAsync();
 		Task<List<EstimateCategoryShortDetailsDto>> GetParentEstimateCategoriesAsync();
-		Task<List<EstimateDataMappingDto>> GetEstimateDataMappingsAsync();
-		Task<List<EstimateDataMappingDto>> SaveEstimateDataMappingsAsync(List<EstimateDataMappingDto> estimateDataMappings);
+		Task<EstimateDataMappingPageDto> GetEstimateDataMappingsAsync();
+		Task<EstimateDataMappingPageDto> SaveEstimateDataMappingsAsync(List<EstimateAccountMappingDto> estimateDataMappings);
 		Task<List<EstimateCategoryShortDetailsDto>> SaveEstimateCategoriesAsync(List<EstimateCategoryShortDetailsDto> estimateCategories);
 	}
 }

@@ -1,9 +1,7 @@
 ﻿@using ContractorsDesk.WebPortal.Helpers
 @Html.RenderSharedComponentStyle("listloader", "listloader.css")
 @Html.LoadComponents(new string[]{
-	"sticky-actions",
-	"sticky-header",
-	"virtual-select"
+	"sticky-actions"
 })
 
 <div class="row mb-2 g-6 g-xl-9 category-row">
@@ -39,7 +37,7 @@
 			<div class="px-10 pb-2 pt-5">
 				<div class="input-group input-group-sm mb-5">
 					<span class="input-group-text">Search</span>
-					<input type="text" class="form-control" evt-input="filterRows">
+					<input type="text" class="form-control" evt-keyup="filterRows">
 					<span class="input-group-text p-0">
 						<button type="button" class="btn btn-sm bg-light text-inverse-light" evt-click="clearFilter">
 							CLEAR
@@ -51,13 +49,11 @@
 			<!--begin::Card body-->
 			<div class="card-body pt-0 loading" id="dv-datamappings">
 				@await Html.PartialAsync("Components/listloader/listloader", new { LinesCount = 30, Header = false, CardBody = false })
-                <table class="table table-cell-bordered proposal-items">
-					<thead class="sticky-header">
-                        <tr class="fw-bolder fs-6 text-gray-800 bg-light">
-							<th class="w-200px ps-2 sortable asc" data-sort-index=0 evt-click="onSort"> Account Name</th>
-							<th class="w-200px text-center sortable asc" data-sort-index=1 evt-click="onSort">Estimate Category</th>
-                        </tr>
-                    </thead>
+                <table class="table table-cell-bordered proposal-items estimate-data-mapping-table">
+                    <colgroup>
+                        <col style="width:40%">
+                        <col style="width:60%">
+                    </colgroup>
                     <tbody id="body-data-mappings">
                             
                     </tbody>

@@ -71,6 +71,7 @@ class SearchableDropdown2 {
 		this.disabled = false;
 		this.iconText = null;
 		this.width = '100%';
+		this.placeholder = null;
 		this.onSelect = null;
 		this.onDeselect = null;
 	}
@@ -94,7 +95,7 @@ class SearchableDropdown2 {
 				$(elementId).attr('disabled', true);
 			}
 
-			$(elementId).html(options).select2({
+			const selectOptions = {
 				templateResult: function (item) {
 					if (!item.id) {
 						return item.text;
@@ -114,17 +115,22 @@ class SearchableDropdown2 {
 					return span;
 				},
 				width: this.width,
-			});
+			};
+			if (this.placeholder) {
+				selectOptions.placeholder = this.placeholder;
+			}
+
+			$(elementId).html(options).select2(selectOptions);
+
+			const findOption = (id) => this.data.find(o => String(o.id).toLowerCase() === String(id).toLowerCase());
 
 			$(elementId).on('select2:select', function (e) {
-				const selectedId = e.params.data.id;
-				const selectedItem = this.data.find(o => o.id === selectedId);
+				const selectedItem = findOption(e.params.data.id);
 				if (onselect) onselect(selectedItem);
 			}.bind(this));
 
 			$(elementId).on('select2:unselect', function (e) {
-				const deselectedId = e.params.data.id;
-				const deselectedItem = this.data.find(o => o.id === deselectedId);
+				const deselectedItem = findOption(e.params.data.id);
 				if (ondeselect) ondeselect(deselectedItem);
 			}.bind(this));
 		}

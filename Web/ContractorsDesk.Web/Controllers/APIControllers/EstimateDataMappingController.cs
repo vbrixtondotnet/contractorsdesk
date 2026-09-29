@@ -34,7 +34,7 @@ namespace ContractorsDesk.WebPortal.Controllers.APIControllers
 		public async Task<IActionResult> GetEstimateDataMappings()
 		{
 			var response = await estimateDataMappingService.GetEstimateDataMappingsAsync();
-			return Ok(ApiResponse<List<EstimateDataMappingDto>>.SuccessResponse(response));
+			return Ok(ApiResponse<EstimateDataMappingPageDto>.SuccessResponse(response));
 		}
 
 		[HttpGet("estimate-data-mappings/estimate-categories")]
@@ -58,10 +58,10 @@ namespace ContractorsDesk.WebPortal.Controllers.APIControllers
 
 		[HttpPost("estimate-data-mappings")]
 		[ProducesResponseType(StatusCodes.Status200OK)]
-		public async Task<IActionResult> SaveEstimateDataMappings([FromBody] List<EstimateDataMappingDto> mappings)
+		public async Task<IActionResult> SaveEstimateDataMappings([FromBody] List<EstimateAccountMappingDto> mappings)
 		{
 			var response = await estimateDataMappingService.SaveEstimateDataMappingsAsync(mappings);
-			return Ok(ApiResponse<List<EstimateDataMappingDto>>.SuccessResponse(response));
+			return Ok(ApiResponse<EstimateDataMappingPageDto>.SuccessResponse(response));
 		}
 
 

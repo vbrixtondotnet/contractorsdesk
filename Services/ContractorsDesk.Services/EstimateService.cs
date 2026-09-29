@@ -229,13 +229,16 @@ namespace ContractorsDesk.Services
 					}
 
 					var existingMapping = await ClientDbContext.EstimateMappings
-						.FirstOrDefaultAsync(m => m.EstimateSubCategoryId == targetCategoryId);
+						.FirstOrDefaultAsync(m => m.QbaccountId == mapping.AccountId);
 
 					if (existingMapping != null)
 					{
-						existingMapping.QbaccountId = mapping.AccountId;
-						existingMapping.Updated = DateTime.UtcNow;
-						existingMapping.UpdatedBy = this.UserId.ToString();
+						if (existingMapping.EstimateSubCategoryId != targetCategoryId)
+						{
+							existingMapping.EstimateSubCategoryId = targetCategoryId;
+							existingMapping.Updated = DateTime.UtcNow;
+							existingMapping.UpdatedBy = this.UserId.ToString();
+						}
 					}
 					else
 					{

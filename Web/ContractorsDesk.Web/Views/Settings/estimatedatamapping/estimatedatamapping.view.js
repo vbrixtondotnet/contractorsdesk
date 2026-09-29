@@ -1,122 +1,265 @@
-﻿class TemplateView extends DomEventComponent {
+﻿class EstimateDataMappingView extends DomEventComponent {
 	constructor() {
 		super();
 		this.service = new EstimateDataMappingService();
-		this.estimateDataMappings = [];
-		this.estimateCategories = [];
+		this.groups = [];
+		this.accounts = [];
 		this.swal = new SwalUtil();
-	}
-
-	#renderMappingRow(data) {
-		const renderestimateCategorySelectField = (item) => {
-			return `<a href="javascript:" class="virtual-select" data-account-id="${item.accountId}">${item.estimateCategory == '' ? '&nbsp;' : item.parentCategory + ' > ' + item.estimateCategory}<span class="arrow"></span></a>`;
-		};
-
-		return `<tr class="" style="text-transform:uppercase;padding:5px 0px 5px 0px" data-account-id="${data.accountId}">
-                                <td class="fw-bolder ps-2" style="">${data.fullyQualifiedName}</td>
-                                <td class="w-300px" style="width:300px !important;">
-									${renderestimateCategorySelectField(data)}
-								</td>
-                            </tr>`;
+		this.filterRowsTimeout = null;
+		this.filterRowsDelayMs = 300;
 	}
 
 	async #loadEstimateDataMappings() {
-		await this.service.loadEstimateDataMappings()
-			.then((estimateDataMappings) => {
-				this.estimateDataMappings = estimateDataMappings;
-			});
+		const page = await this.service.loadEstimateDataMappings();
+		this.groups = page?.groups || [];
+		this.accounts = page?.accounts || [];
 	}
 
-	async #loadEstimateCategories() {
-		await this.service.loadEstimateCategories()
-			.then((estimateCategories) => {
-				this.estimateCategories = estimateCategories;
-			});
+	#sameId(a, b) {
+		return String(a || '').toLowerCase() === String(b || '').toLowerCase();
 	}
 
-	#sortEstimateDataMapping(col, direction) {
-		const estimateDataMappings = this.estimateDataMappings;
+	#escapeHtml(value) {
+		return String(value ?? '')
+			.replace(/&/g, '&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+			.replace(/"/g, '&quot;');
+	}
 
-		const sortByField = (field) => {
-			estimateDataMappings.sort((a, b) => {
-				if (a[field] === b[field]) return 0;
-				return direction === 'desc'
-					? (a[field] < b[field] ? 1 : -1)
-					: (a[field] > b[field] ? 1 : -1);
-			});
-		};
+	#activeAccounts(item) {
+		return (item.accounts || []).filter(account => !account.removed);
+	}
 
-		switch (col) {
-			case 'ACCOUNT NAME':
-				sortByField('fullyQualifiedName');
-				break;
-			case 'ESTIMATE CATEGORY':
-				sortByField('estimateCategory');
-				break;
-			case 'PARENT CATEGORY':
-				sortByField('parentCategory');
-				break;
+	#itemMatches(item, query) {
+		return (item.name || '').toLowerCase().includes(query);
+	}
+
+	#filterGroups(filter) {
+		if (!filter) {
+			return this.groups;
 		}
 
-		this.#renderEstimateDataMappings();
+		const query = filter.toLowerCase();
+		return this.groups
+			.map(group => {
+				const parentMatches = (group.name || '').toLowerCase().includes(query);
+				const items = parentMatches
+					? (group.items || [])
+					: (group.items || []).filter(item => this.#itemMatches(item, query));
+
+				if (!parentMatches && items.length === 0) {
+					return null;
+				}
+
+				return {
+					id: group.id,
+					name: group.name,
+					sequence: group.sequence,
+					items
+				};
+			})
+			.filter(group => group != null);
 	}
 
-	onSort = (c) => {
-		const sortingIndex = c.getAttribute('data-sort-index');
-		const colName = $(c).text().trim().toUpperCase();
-		const sortDir = $(c).hasClass('asc') ? 'desc' : 'asc';
+	#renderGroup(group) {
+		if (!(group.items || []).length) {
+			return '';
+		}
 
-		this.#sortEstimateDataMapping(colName, sortDir);
+		const header = `<tr class="estimate-mapping-category">
+							<td colspan="2" class="fw-bolder ps-2 text-uppercase">${this.#escapeHtml(group.name)}</td>
+						</tr>`;
+		const rows = (group.items || []).map(item => this.#renderMappingRow(item)).join('');
+		return header + rows;
+	}
 
-		$(`th.sortable[data-sort-index="${sortingIndex}"]`)
-			.removeClass('asc desc')
-			.addClass(sortDir);
-	};
+	#renderMappingRow(item) {
+		const dirty = (item.accounts || []).some(account => account.added || account.removed);
+		const rowClass = dirty ? 'row-changed' : '';
+		return `<tr class="estimate-mapping-item ${rowClass}" data-category-id="${item.id}">
+					<td class="fw-bolder ps-8 text-uppercase">${this.#escapeHtml(item.name)}</td>
+					<td>
+						<div class="input-group input-group-sm">
+							<select class="form-select" data-control="select2" multiple="multiple" data-placeholder="Select QuickBooks accounts" id="qb-map-${item.id}"></select>
+						</div>
+					</td>
+				</tr>`;
+	}
 
-	#renderEstimateDataMappings() {
-		$("#dv-datamappings").removeClass("loading").addClass("loaded");
-		const rows = this.estimateDataMappings.map(item => { return this.#renderMappingRow(item); }).join('');
-		$("#body-data-mappings").html(rows);
-		
-		const estimateCategories = [];
-		this.estimateCategories.map(e => {
-			if (e.parent != null) {
-				estimateCategories.push({ id: e.id, text: `${e.parent.name} > ${e.name}` });
+	#findItem(categoryId) {
+		for (const group of this.groups) {
+			const item = (group.items || []).find(candidate => this.#sameId(candidate.id, categoryId));
+			if (item) {
+				return item;
+			}
+		}
+		return null;
+	}
+
+	#markRow(categoryId) {
+		const item = this.#findItem(categoryId);
+		const dirty = !!item && (item.accounts || []).some(account => account.added || account.removed);
+		$(`tr[data-category-id="${categoryId}"]`).toggleClass('row-changed', dirty);
+	}
+
+	#releaseAccount(currentCategoryId, accountId) {
+		this.groups.forEach(group => {
+			(group.items || []).forEach(item => {
+				if (this.#sameId(item.id, currentCategoryId)) {
+					return;
+				}
+
+				const existing = (item.accounts || []).find(account =>
+					this.#sameId(account.accountId, accountId) && !account.removed);
+				if (!existing) {
+					return;
+				}
+
+				if (existing.mappingId) {
+					existing.removed = true;
+					existing.added = false;
+				} else {
+					item.accounts = item.accounts.filter(account => !this.#sameId(account.accountId, accountId));
+				}
+
+				const $select = $(`#qb-map-${item.id}`);
+				if ($select.length && $select.hasClass('select2-hidden-accessible')) {
+					const values = ($select.val() || []).filter(id => !this.#sameId(id, accountId));
+					$select.val(values).trigger('change');
+				}
+
+				this.#markRow(item.id);
+			});
+		});
+	}
+
+	#onAccountSelected(item, account) {
+		if (!account) {
+			return;
+		}
+
+		this.#releaseAccount(item.id, account.id);
+		item.accounts = item.accounts || [];
+		const existing = item.accounts.find(mapped => this.#sameId(mapped.accountId, account.id));
+		if (existing) {
+			existing.removed = false;
+			existing.added = !existing.mappingId;
+			existing.fullyQualifiedName = account.fullyQualifiedName || existing.fullyQualifiedName;
+		} else {
+			item.accounts.push({
+				mappingId: null,
+				accountId: account.id,
+				estimateCategoryId: item.id,
+				fullyQualifiedName: account.fullyQualifiedName || '',
+				added: true,
+				removed: false
+			});
+		}
+
+		this.#markRow(item.id);
+	}
+
+	#onAccountDeselected(item, account) {
+		if (!account) {
+			return;
+		}
+
+		const existing = (item.accounts || []).find(mapped => this.#sameId(mapped.accountId, account.id));
+		if (!existing || existing.removed) {
+			return;
+		}
+
+		if (existing.mappingId) {
+			existing.removed = true;
+			existing.added = false;
+		} else {
+			item.accounts = item.accounts.filter(mapped => !this.#sameId(mapped.accountId, account.id));
+		}
+
+		this.#markRow(item.id);
+	}
+
+	#initAccountDropdown(item) {
+		const elementId = `#qb-map-${item.id}`;
+		if ($(elementId).length === 0) {
+			return;
+		}
+
+		const dropdown = new SearchableDropdown2();
+		dropdown.data = this.accounts;
+		dropdown.placeholder = 'Select QuickBooks accounts';
+		dropdown.width = '100%';
+		dropdown.optionText = (account) => this.#escapeHtml(account.fullyQualifiedName || '');
+		dropdown.iconText = (account) => {
+			const name = (account.fullyQualifiedName || '').trim();
+			const initial = name.charAt(0);
+			return /[a-z0-9]/i.test(initial) ? initial.toUpperCase() : '';
+		};
+		dropdown.optionSelected = (account) =>
+			this.#activeAccounts(item).some(mapped => this.#sameId(mapped.accountId, account.id));
+		dropdown.onSelect = (account) => this.#onAccountSelected(item, account);
+		dropdown.onDeselect = (account) => this.#onAccountDeselected(item, account);
+		dropdown.init(elementId);
+	}
+
+	#destroyAccountDropdowns() {
+		$('#body-data-mappings select[data-control="select2"]').each(function () {
+			if ($(this).hasClass('select2-hidden-accessible')) {
+				$(this).select2('destroy');
 			}
 		});
+	}
 
-		$('.virtual-select').each((ind, obj) => {
-			var virtualSelectOptions = {
-				options: estimateCategories,
-				element: $(obj),
-				onselect: (item) => {
-					let accountId = $(obj).attr("data-account-id");
-					const estimateDataMapping = this.estimateDataMappings.find(e => e.accountId == accountId);
-					const estimateData = this.estimateCategories.find(e => e.id == item.id);
-					const estimateDataParent = this.estimateCategories.find(e => e.id == estimateData.parentEstimateCategoryId);
-					
-					estimateDataMapping.updated = estimateDataMapping.estimateCategoryId != null;
-					estimateDataMapping.added = estimateDataMapping.estimateCategoryId == null;
-					estimateDataMapping.estimateCategoryId = item.id;
-					
-					$(`tr[data-account-id='${accountId}']`).find('td').addClass('bg-light-warning');
-					$(`tr[data-account-id='${accountId}']`).find('td.parent').html(estimateDataParent.name);
-					//console.log(`CATEGORYID: ${datamappingId}, ESTIMATECATEGORYID: ${item.id}`);
-				}
-			};
-			const virtualSelect = new VirtualSelect(virtualSelectOptions);
-			virtualSelect.init();
+	#renderGroups(filter) {
+		this.#destroyAccountDropdowns();
+		$("#dv-datamappings").removeClass("loading").addClass("loaded");
+
+		const groups = this.#filterGroups(filter);
+		const rows = groups.map(group => this.#renderGroup(group)).join('');
+		$("#body-data-mappings").html(rows || `<tr><td colspan="2" class="text-muted ps-2">No estimate categories found.</td></tr>`);
+
+		groups.forEach(group => {
+			(group.items || []).forEach(item => this.#initAccountDropdown(item));
 		});
+	}
+
+	#renderEstimateDataMappings() {
+		const filter = ($(`input[evt-keyup="filterRows"]`).val() || '').toLowerCase().trim();
+		this.#renderGroups(filter);
+	}
+
+	#mappingChanges() {
+		const changes = [];
+		this.groups.forEach(group => {
+			(group.items || []).forEach(item => {
+				(item.accounts || []).forEach(account => {
+					if (!account.added && !account.removed) {
+						return;
+					}
+
+					changes.push({
+						mappingId: account.mappingId,
+						accountId: account.accountId,
+						estimateCategoryId: item.id,
+						fullyQualifiedName: account.fullyQualifiedName || '',
+						added: !!account.added,
+						removed: !!account.removed
+					});
+				});
+			});
+		});
+		return changes;
 	}
 
 	saveEstimateMappings(b) {
-
 		b.setAttribute('data-kt-indicator', 'on');
 		b.disabled = true;
 
-		this.service.saveEstimateDataMappings(this.estimateDataMappings)
-			.then((estimateDataMappings) => {
-				this.estimateDataMappings = estimateDataMappings;
+		this.service.saveEstimateDataMappings(this.#mappingChanges())
+			.then((page) => {
+				this.groups = page?.groups || [];
+				this.accounts = page?.accounts || [];
 				this.#renderEstimateDataMappings();
 			})
 			.finally(() => {
@@ -134,21 +277,26 @@
 	}
 
 	clearFilter() {
-		var input = $(`input[evt-input="filterRows"]`);
+		if (this.filterRowsTimeout) {
+			clearTimeout(this.filterRowsTimeout);
+			this.filterRowsTimeout = null;
+		}
+
+		const input = $(`input[evt-keyup="filterRows"]`);
 		input.val('');
-		this.filterRows(input);
+		this.#renderGroups('');
 	}
 
 	filterRows(i) {
-		const filter = $(i).val().toLowerCase().trim(); // Get the search value
-		$('tbody#body-data-mappings tr').each(function () {
-			const rowText = $(this).text().toLowerCase(); // Get all text in the row
-			if (rowText.includes(filter)) {
-				$(this).show(); // Show rows that match the filter
-			} else {
-				$(this).hide(); // Hide rows that don't match
-			}
-		});
+		if (this.filterRowsTimeout) {
+			clearTimeout(this.filterRowsTimeout);
+		}
+
+		this.filterRowsTimeout = setTimeout(() => {
+			const filter = $(i).val().toLowerCase().trim();
+			this.#renderGroups(filter);
+			this.filterRowsTimeout = null;
+		}, this.filterRowsDelayMs);
 	}
 
 	#buildStickyActions() {
@@ -168,31 +316,16 @@
 		this.stickyActions.init();
 	}
 
-	#buildStickyHeader() {
-		const options = {
-			selector: ".sticky-header",
-			top: '74px',
-			showOnScrollTop: 200
-		}
-		const stickyHeader = new StickyHeader(options);
-		stickyHeader.init();
-	}
-
 	init() {
-		this.#loadEstimateCategories()
+		this.#loadEstimateDataMappings()
 			.then(() => {
-				this.#loadEstimateDataMappings()
-					.then(() => {
-						this.#renderEstimateDataMappings();
-						this.#buildStickyActions();
-						this.#buildStickyHeader();
-					});
+				this.#renderEstimateDataMappings();
+				this.#buildStickyActions();
 			});
-		
-    }
+	}
 }
 
 $(document).ready(() => {
-	const view = new TemplateView();
-    view.init();
+	const view = new EstimateDataMappingView();
+	view.init();
 });

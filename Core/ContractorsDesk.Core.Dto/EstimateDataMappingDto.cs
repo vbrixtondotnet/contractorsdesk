@@ -1,41 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ContractorsDesk.Core.Dto
+﻿namespace ContractorsDesk.Core.Dto
 {
-	public class EstimateDataMappingDto
+	public class EstimateDataMappingPageDto
+	{
+		public List<EstimateDataMappingGroupDto> Groups { get; set; } = new();
+
+		public List<EstimateMappingAccountOptionDto> Accounts { get; set; } = new();
+	}
+
+	public class EstimateDataMappingGroupDto
+	{
+		public Guid Id { get; set; }
+
+		public string Name { get; set; } = string.Empty;
+
+		public int Sequence { get; set; }
+
+		public List<EstimateDataMappingItemDto> Items { get; set; } = new();
+	}
+
+	public class EstimateDataMappingItemDto
+	{
+		public Guid Id { get; set; }
+
+		public string Name { get; set; } = string.Empty;
+
+		public int Sequence { get; set; }
+
+		public Guid ParentEstimateCategoryId { get; set; }
+
+		public List<EstimateAccountMappingDto> Accounts { get; set; } = new();
+	}
+
+	public class EstimateAccountMappingDto
 	{
 		public Guid? MappingId { get; set; }
 
 		public Guid AccountId { get; set; }
 
-		private string? _fullyQualifiedName;
-		public string FullyQualifiedName
-		{
-			get => _fullyQualifiedName ?? string.Empty;
-			set => _fullyQualifiedName = value;
-		}
+		public Guid EstimateCategoryId { get; set; }
 
-		public Guid? EstimateCategoryId { get; set; }
+		public string FullyQualifiedName { get; set; } = string.Empty;
 
-		private string? _estimateCategory;
-		public string EstimateCategory
-		{
-			get => _estimateCategory ?? string.Empty;
-			set => _estimateCategory = value;
-		}
+		public bool Added { get; set; }
 
-		private string? _parentCategory;
-		public string ParentCategory
-		{
-			get => _parentCategory ?? string.Empty;
-			set => _parentCategory = value;
-		}
+		public bool Removed { get; set; }
+	}
 
-		public bool Updated { get;set; }
-		public bool Added { get;set; }
+	public class EstimateMappingAccountOptionDto
+	{
+		public Guid Id { get; set; }
+
+		public string FullyQualifiedName { get; set; } = string.Empty;
 	}
 }
