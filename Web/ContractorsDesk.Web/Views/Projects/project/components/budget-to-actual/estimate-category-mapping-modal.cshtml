@@ -1,0 +1,33 @@
+<div class="modal fade" tabindex="-1" id="estimate-category-mapping-modal">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header pb-4 pt-4">
+				<h5 class="modal-title">Map Estimate Category to QuickBooks Account</h5>
+				<button type="button" class="btn btn-sm btn-icon btn-active-light-primary" data-bs-dismiss="modal" aria-label="Close">
+					<span class="svg-icon svg-icon-1">×</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="text-gray-700 mb-4">
+					Map <span class="fw-bold" id="estimate-category-mapping-item-name"></span> to a QuickBooks expense account so cost-to-date can be calculated.
+				</p>
+				<div class="fv-row">
+					<label class="form-label required">QuickBooks Account</label>
+					<select class="form-select form-select-sm" id="estimate-category-mapping-qb-account" data-placeholder="Search QuickBooks accounts...">
+						<option value=""></option>
+					</select>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-sm btn-primary" id="btn-save-estimate-category-mapping" evt-click="onSaveEstimateCategoryMapping">
+					<span class="indicator-label">Save</span>
+					<span class="indicator-progress">
+						Please wait...
+						<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+					</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

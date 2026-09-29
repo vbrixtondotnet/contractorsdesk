@@ -112,6 +112,8 @@
 			}
 		}
 
+		public bool HasEstimateMapping { get; set; } = true;
+
 	}
 
 	public class Summary

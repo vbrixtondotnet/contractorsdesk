@@ -19,6 +19,9 @@
 		this.estimateCategories = [];
 		this.mappings = [];
 		this.currentMappingAccountId = null;
+		this.currentEstimateCategoryMappingId = null;
+		this.estimateCategoryMappingModal = null;
+		this.qbAccounts = [];
 		this.virtualSelects = [];
 		this.companySettings = Auth.getCompanySettings();
 		this.stickyHeaderCreated = false;
@@ -364,9 +367,15 @@
 				? line
 				: existing;
 
+			const hasEstimateMapping = preferred.hasEstimateMapping !== false && existing.hasEstimateMapping !== false;
+			const mergedCostToDate = hasEstimateMapping
+				? (existing.costToDate || 0) + (line.costToDate || 0)
+				: null;
+
 			uniqueByName.set(nameKey, {
 				...preferred,
-				costToDate: (existing.costToDate || 0) + (line.costToDate || 0)
+				hasEstimateMapping,
+				costToDate: mergedCostToDate
 			});
 		});
 
@@ -399,7 +408,130 @@
 	toggleMappingDrawer() {
 		this.estimateMappingDrawer.toggle();
 	}
-	
+
+	#ensureEstimateCategoryMappingModal() {
+		const modalElement = document.getElementById('estimate-category-mapping-modal');
+		if (!modalElement) {
+			return null;
+		}
+
+		if (!this.estimateCategoryMappingModal) {
+			this.estimateCategoryMappingModal = bootstrap.Modal.getOrCreateInstance(modalElement);
+		}
+
+		return this.estimateCategoryMappingModal;
+	}
+
+	async #loadQbAccountsForMapping() {
+		if (this.qbAccounts.length > 0) {
+			return this.qbAccounts;
+		}
+
+		const accounts = await this.service.loadQbAccounts();
+		this.qbAccounts = (accounts || [])
+			.filter(a => (a.accountType || '') === 'Expense')
+			.filter(a => (a.fullyQualifiedName || '').trim().length > 0)
+			.sort((a, b) => a.fullyQualifiedName.localeCompare(b.fullyQualifiedName));
+
+		return this.qbAccounts;
+	}
+
+	#destroyEstimateCategoryMappingSelect() {
+		const select = $('#estimate-category-mapping-qb-account');
+		if (select.hasClass('select2-hidden-accessible')) {
+			select.off('select2:select select2:open');
+			select.select2('destroy');
+		}
+	}
+
+	#initEstimateCategoryMappingSelect(accounts) {
+		const select = $('#estimate-category-mapping-qb-account');
+		const modalElement = $('#estimate-category-mapping-modal');
+
+		this.#destroyEstimateCategoryMappingSelect();
+
+		select.empty();
+		select.append('<option value=""></option>');
+		accounts.forEach(account => {
+			const label = account.fullyQualifiedName;
+			select.append($('<option></option>').val(account.id).text(label));
+		});
+
+		select.select2({
+			placeholder: select.attr('data-placeholder') || 'Search QuickBooks accounts...',
+			allowClear: true,
+			width: '100%',
+			dropdownParent: modalElement,
+			minimumResultsForSearch: 0
+		});
+
+		select.on('select2:open', () => {
+			setTimeout(() => {
+				const searchField = document.querySelector('#estimate-category-mapping-modal .select2-container--open .select2-search__field');
+				searchField?.focus();
+			}, 0);
+		});
+	}
+
+	async openEstimateCategoryMappingModal(targetElement) {
+		const estimateCategoryId = $(targetElement).attr('data-estimate-category-id');
+		const itemName = $(targetElement).attr('data-item-name') || '';
+
+		if (!estimateCategoryId) {
+			return;
+		}
+
+		this.currentEstimateCategoryMappingId = estimateCategoryId;
+		$('#estimate-category-mapping-item-name').text(itemName);
+
+		const accounts = await this.#loadQbAccountsForMapping();
+		this.#initEstimateCategoryMappingSelect(accounts);
+
+		const modal = this.#ensureEstimateCategoryMappingModal();
+		const modalDom = document.getElementById('estimate-category-mapping-modal');
+		if (modalDom && !modalDom.dataset.qbMappingSelect2Bound) {
+			modalDom.dataset.qbMappingSelect2Bound = 'true';
+			modalDom.addEventListener('hidden.bs.modal', () => {
+				this.#destroyEstimateCategoryMappingSelect();
+			});
+		}
+
+		modal?.show();
+	}
+
+	onSaveEstimateCategoryMapping(button) {
+		const accountId = $('#estimate-category-mapping-qb-account').val();
+		const estimateCategoryId = this.currentEstimateCategoryMappingId;
+
+		if (!accountId || !estimateCategoryId) {
+			this.swal.error('Please select a QuickBooks account.');
+			return;
+		}
+
+		button.setAttribute('data-kt-indicator', 'on');
+		button.disabled = true;
+
+		const payload = {
+			proposalId: this.proposalId,
+			mappings: [{
+				accountId: accountId,
+				estimateCategoryId: estimateCategoryId,
+				amount: 0
+			}]
+		};
+
+		this.service.saveRevisedEstimatesMapping(payload)
+			.then(() => {
+				this.#ensureEstimateCategoryMappingModal()?.hide();
+				this.swal.alert('Mapping has been saved successfully!', () => {
+					this.loadRevisedEstimate();
+				});
+			})
+			.finally(() => {
+				button.removeAttribute('data-kt-indicator');
+				button.disabled = false;
+			});
+	}
 
 	#showEmailCostRevision() {
 		const projectName = this.projectDetails.name;
@@ -664,7 +796,7 @@ class RevisedEstimateTableRowRenderer{
 				{ content: formatName(c.name), style: '', class: "ps-10" },
 				{ content: originalAmountCell(c), class: 'text-center' },
 				{ content: revisedAmount(c), class: 'text-center revised-amount' },
-				{ content: this.formatter.formatCostToDate(c.estimateCategoryId, null, c.costToDate), class: 'text-center' },
+				{ content: this.formatter.formatCostToDate(c.estimateCategoryId, null, c.costToDate, '', c.hasEstimateMapping, c.name), class: 'text-center' },
 				{ content: this.formatter.formatBalance(c.balance), class: 'text-center item-balance' },
 				{ content: this.formatter.formatPercent(c.percentage), class: 'text-center item-percentage' },
 				{ content: this.#reconcileButton(c), class: 'text-center' }
@@ -763,13 +895,17 @@ class Formatter {
 		return value < 0 ? `<span class="text-danger">(${formattedValue.replace('-','')})</span>` : `${formattedValue}`;
 	}
 
-	formatCostToDate(estimateCategoryId, parentEstimateCategoryId, value, name = '') {
+	formatCostToDate(estimateCategoryId, parentEstimateCategoryId, value, name = '', hasEstimateMapping = true, itemName = '') {
 		const formattedValue = StringUtils.formatMoney(value);
 		const fontColor = value < 0 ? 'text-danger' : '';
 
 		//Unmapped Transactions
 		if (estimateCategoryId && estimateCategoryId.toUpperCase() == "821DBDD6-A6FE-4ED3-8F98-2AA63DABFEBA") {
 			return `<a href="javascript:" evt-click="toggleMappingDrawer">${formattedValue}</a>`;
+		}
+		else if (estimateCategoryId && hasEstimateMapping === false) {
+			const safeItemName = (itemName || name || '').replace(/"/g, '&quot;');
+			return `<a href="javascript:" class="btn btn-sm btn-outline-danger py-1 px-2" evt-click="openEstimateCategoryMappingModal" data-estimate-category-id="${estimateCategoryId}" data-item-name="${safeItemName}">Map to QB Account</a>`;
 		}
 		else if (name == 'MINIMUM REQUESTED AMOUNT') {
 			const threshold = this.summary.minimumRequestedAmount * 20 / 100;

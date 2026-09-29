@@ -23,7 +23,7 @@ namespace ContractorsDesk.Services
 		public async Task<List<QBAccountDto>> GetQbAccountsAsync()
 		{
 			return await ClientDbContext.Qbaccounts
-				.Where(a => a.AccountType == "Expense" || a.AccountType == "OtherExpense")
+				.Where(a => a.AccountType == "Expense")
 				.Select(a => mapper.Map<QBAccountDto>(a))
 				.ToListAsync();
 		}

@@ -30,7 +30,8 @@ BEGIN
         Balance decimal(21,2) NULL,
         ParentSequence int NULL,
         Percentage decimal(21,2) NULL,
-        Sequence int NULL
+        Sequence int NULL,
+        HasEstimateMapping bit NULL
     );
 
     DECLARE @Transactions TABLE (
@@ -80,10 +81,11 @@ BEGIN
         OriginalAmount,
         RevisedAmount,
         CostToDate,
-        (RevisedAmount - CostToDate) AS Balance,
+        (RevisedAmount - ISNULL(CostToDate, 0)) AS Balance,
         ParentSequence,
         dbo.getCDPercentage(CostToDate,RevisedAmount) AS Percentage,
-        Sequence
+        Sequence,
+        HasEstimateMapping
     FROM (
         SELECT
             Name,
@@ -97,7 +99,8 @@ BEGIN
             0 AS Balance,
             ParentSequence,
             dbo.getCDPercentage(CostToDate,RevisedAmount) AS Percentage,
-            Sequence
+            Sequence,
+            HasEstimateMapping
         FROM (
             SELECT
                 ISNULL(pl.Name,ec.Name) AS Name,
@@ -109,9 +112,26 @@ BEGIN
                         WHERE ph.ProposalID = @ProposalId AND ph.EstimateCategoryID = pl.EstimateCategoryID
                         AND ph.ChangeType = 'Updated'
                         ORDER BY ChangeDate DESC),-1) AS RevisedAmount,
-                ISNULL((SELECT CONVERT(DECIMAL(18,2), SUM(Amount))
+                CASE
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM EstimateMappings em_map
+                        WHERE em_map.EstimateSubCategoryID = pl.EstimateCategoryID
+                    ) THEN ISNULL((
+                        SELECT CONVERT(DECIMAL(18,2), SUM(Amount))
                         FROM @Transactions t
-                        WHERE t.EstimateCategoryId = pl.EstimateCategoryID AND AccountType <> 'Income'),0) AS CostToDate,
+                        WHERE t.EstimateCategoryId = pl.EstimateCategoryID AND AccountType <> 'Income'
+                    ), 0)
+                    ELSE NULL
+                END AS CostToDate,
+                CASE
+                    WHEN EXISTS (
+                        SELECT 1
+                        FROM EstimateMappings em_map
+                        WHERE em_map.EstimateSubCategoryID = pl.EstimateCategoryID
+                    ) THEN CAST(1 AS bit)
+                    ELSE CAST(0 AS bit)
+                END AS HasEstimateMapping,
                 (SELECT TOP 1 Sequence FROM ProposalLines WHERE ProposalId = @ProposalId AND EstimateCategoryId = pl.ParentEstimateCategoryID) AS ParentSequence,
                 pl.Sequence AS Sequence
             FROM Proposals p
@@ -170,34 +190,35 @@ BEGIN
         OriginalAmount,
         RevisedAmount,
         CostToDate,
-        (RevisedAmount - CostToDate) AS Balance,
+        (RevisedAmount - ISNULL(CostToDate, 0)) AS Balance,
         ParentSequence,
         dbo.getCDPercentage(CostToDate,RevisedAmount) AS Percentage,
-        Sequence
+        Sequence,
+        HasEstimateMapping
     FROM @RevisedEstimates re
     
     UNION ALL
     
     SELECT
-        FullyQualifiedName, AccountId, NULL,NULL,NULL,NULL,NULL,SUM(Amount) AS CostToDate,NULL,1000,NULL,NULL
+        FullyQualifiedName, AccountId, NULL,NULL,NULL,NULL,NULL,SUM(Amount) AS CostToDate,NULL,1000,NULL,NULL, NULL
     FROM @Transactions
     WHERE EstimateCategoryID IS NULL AND AccountType <> 'Income'
     GROUP BY FullyQualifiedName, AccountId
     
     UNION ALL
     
-    SELECT 'MINIMUM REQUESTED AMOUNT', NULL, NEWID(),NULL,NULL,NULL,NULL,@RequestedAmount AS CostToDate,NULL,1000,NULL,3
+    SELECT 'MINIMUM REQUESTED AMOUNT', NULL, NEWID(),NULL,NULL,NULL,NULL,@RequestedAmount AS CostToDate,NULL,1000,NULL,3, NULL
     
     UNION ALL
     
-    SELECT 'TOTAL COST TO DATE', NULL, NEWID(),NULL,NULL,NULL,NULL,@TotalCostToDate AS CostToDate,NULL,1000,NULL,1
+    SELECT 'TOTAL COST TO DATE', NULL, NEWID(),NULL,NULL,NULL,NULL,@TotalCostToDate AS CostToDate,NULL,1000,NULL,1, NULL
     
     UNION ALL
     
-    SELECT 'OWNER DEPOSITS', NULL, NEWID(),NULL,NULL,NULL,NULL,@OwnerDeposits AS CostToDate,NULL,1000,NULL,1
+    SELECT 'OWNER DEPOSITS', NULL, NEWID(),NULL,NULL,NULL,NULL,@OwnerDeposits AS CostToDate,NULL,1000,NULL,1, NULL
     
     UNION ALL
     
-    SELECT 'JOB BALANCE', NULL, NEWID(),NULL,NULL,NULL,NULL,@JobBalance AS CostToDate,NULL,1000,NULL,2
+    SELECT 'JOB BALANCE', NULL, NEWID(),NULL,NULL,NULL,NULL,@JobBalance AS CostToDate,NULL,1000,NULL,2, NULL
     ORDER BY re.ParentSequence, re.Sequence;
 END

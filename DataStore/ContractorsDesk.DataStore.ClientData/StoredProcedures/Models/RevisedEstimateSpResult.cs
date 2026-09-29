@@ -20,5 +20,6 @@ namespace ContractorsDesk.DataStore.Client.StoredProcedures.Models
 		public int? ParentSequence { get; set; }
 		public decimal? Percentage { get; set; }
 		public int? Sequence { get; set; }
+		public bool? HasEstimateMapping { get; set; }
 	}
 }

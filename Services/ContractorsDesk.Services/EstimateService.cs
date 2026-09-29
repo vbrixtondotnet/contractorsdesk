@@ -228,16 +228,28 @@ namespace ContractorsDesk.Services
 						}
 					}
 
-					// add new mapping
-					var estimateMapping = new EstimateMapping();
-					estimateMapping.Id = Guid.NewGuid();
-					estimateMapping.EstimateSubCategoryId = targetCategoryId;
-					estimateMapping.AccountType = "Expenses";
-					estimateMapping.QbaccountId = mapping.AccountId;
-					estimateMapping.Created = DateTime.UtcNow;
-					estimateMapping.CreatedBy = this.UserId.ToString();
+					var existingMapping = await ClientDbContext.EstimateMappings
+						.FirstOrDefaultAsync(m => m.EstimateSubCategoryId == targetCategoryId);
 
-					await ClientDbContext.EstimateMappings.AddAsync(estimateMapping);
+					if (existingMapping != null)
+					{
+						existingMapping.QbaccountId = mapping.AccountId;
+						existingMapping.Updated = DateTime.UtcNow;
+						existingMapping.UpdatedBy = this.UserId.ToString();
+					}
+					else
+					{
+						var estimateMapping = new EstimateMapping();
+						estimateMapping.Id = Guid.NewGuid();
+						estimateMapping.EstimateSubCategoryId = targetCategoryId;
+						estimateMapping.AccountType = "Expenses";
+						estimateMapping.QbaccountId = mapping.AccountId;
+						estimateMapping.Created = DateTime.UtcNow;
+						estimateMapping.CreatedBy = this.UserId.ToString();
+
+						await ClientDbContext.EstimateMappings.AddAsync(estimateMapping);
+					}
+
 					await ClientDbContext.SaveChangesAsync();
 				}
 			}
@@ -469,6 +481,7 @@ namespace ContractorsDesk.Services
 					lineItem.Revised = estimateLineItem.RevisedAmount;
 					lineItem.Balance = estimateLineItem.Balance;
 					lineItem.CostToDate = estimateLineItem.CostToDate;
+					lineItem.HasEstimateMapping = estimateLineItem.HasEstimateMapping ?? true;
 					lineItem.Percentage = estimateLineItem.Percentage;
 					lineItem.Sequence = estimateLineItem.Sequence;
 					lineItem.Original = estimateLineItem.OriginalAmount;
@@ -500,14 +513,19 @@ namespace ContractorsDesk.Services
 						.ThenBy(item => item.Sequence ?? int.MaxValue)
 						.First();
 
-					var costToDate = group.Sum(item => item.CostToDate ?? 0);
+					var hasEstimateMapping = preferred.HasEstimateMapping ?? true;
+					var costToDate = hasEstimateMapping
+						? group.Sum(item => item.CostToDate ?? 0)
+						: (decimal?)null;
 					var revised = preferred.RevisedAmount ?? 0;
 
+					preferred.HasEstimateMapping = hasEstimateMapping;
 					preferred.CostToDate = costToDate;
-					preferred.Balance = revised - costToDate;
+					var costForBalance = costToDate ?? 0;
+					preferred.Balance = revised - costForBalance;
 					preferred.Percentage = revised == 0
 						? null
-						: Math.Round(costToDate == revised ? 100 : (costToDate / revised) * 100);
+						: Math.Round(costForBalance == revised ? 100 : (costForBalance / revised) * 100);
 
 					return preferred;
 				})

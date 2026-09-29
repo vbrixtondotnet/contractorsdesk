@@ -19,6 +19,10 @@
         return this.httpService.get(`/api/estimate-categories/all`);
     }
 
+    loadQbAccounts() {
+        return this.httpService.get('/api/qbaccounts');
+    }
+
     saveRevisedEstimatesMapping(payload) {
         return this.httpService.post(`/api/revised-estimates/mapping`, payload);
     }
